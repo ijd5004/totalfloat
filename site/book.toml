@@ -1,0 +1,25 @@
+# The docs site, built by `cargo xtask site` and published to GitHub Pages by
+# .github/workflows/pages.yml. The pages are the Markdown in docs/; the table
+# of contents is docs/SUMMARY.md.
+
+[book]
+title = "TotalFloat"
+description = "Open-source, agent-native CPM scheduling."
+language = "en"
+src = "../docs"
+
+[build]
+build-dir = "../target/site"
+create-missing = false
+
+[output.html]
+site-url = "/totalfloat/"
+git-repository-url = "https://github.com/ijd5004/totalfloat"
+no-section-label = true
+additional-css = ["site.css"]
+
+# No code block runs on a remote playground: the site loads nothing from
+# another host.
+[output.html.playground]
+runnable = false
+copyable = true
