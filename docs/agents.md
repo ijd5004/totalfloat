@@ -6,7 +6,7 @@ All dates and floats come from the deterministic engine. An agent asks for them;
 
 ## Connecting a client
 
-Install the `totalfloat` binary and put it on your `PATH`, or use its full path below.
+Install TotalFloat first ([Install](guide/install.md)). The one-command install puts `totalfloat` on your `PATH`; otherwise use its full path below.
 
 ### Claude Code
 
@@ -16,7 +16,7 @@ claude mcp add totalfloat -- totalfloat mcp
 
 ### Claude Desktop
 
-Add this to `claude_desktop_config.json`, then restart. On Windows the file is in `%APPDATA%\Claude\`.
+In Claude Desktop, open **Settings**, choose **Developer**, then **Edit Config**. That opens `claude_desktop_config.json`, which is `%APPDATA%\Claude\claude_desktop_config.json` on Windows and `~/Library/Application Support/Claude/claude_desktop_config.json` on macOS. Add this, then quit Claude Desktop completely and open it again.
 
 ```json
 {
@@ -29,10 +29,10 @@ Add this to `claude_desktop_config.json`, then restart. On Windows the file is i
 }
 ```
 
-On Windows, if `totalfloat` isn't on your `PATH`, give the full path to `totalfloat.exe`. JSON needs each backslash doubled:
+On Windows, if Claude Desktop can't start `totalfloat`, give the full path to `totalfloat.exe`. The one-command install puts it in `%LOCALAPPDATA%\Programs\totalfloat`, and `(Get-Command totalfloat).Source` in PowerShell prints the path. JSON needs each backslash doubled:
 
 ```json
-"command": "C:\\Tools\\totalfloat\\totalfloat.exe"
+"command": "C:\\Users\\YOUR-NAME\\AppData\\Local\\Programs\\totalfloat\\totalfloat.exe"
 ```
 
 ### Other clients

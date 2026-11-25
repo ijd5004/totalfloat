@@ -33,10 +33,7 @@ const GITHUB: &str = "https://github.com/ijd5004/totalfloat";
 /// merged. A link to one of them that doesn't exist yet is reported and left
 /// alone; once the page exists, it's checked like any other. Remove an entry
 /// when its page lands.
-const NOT_YET: [&str; 1] = [
-    // The Start here page (#8), linked from the landing page.
-    "guide/start-here.md",
-];
+const NOT_YET: &[&str] = &[];
 
 /// Builds the site with `mdbook` and checks it. Prints one line per page that
 /// isn't there yet, and one line, or every problem found, at the end.
@@ -58,7 +55,7 @@ pub fn run(mdbook: &Path) -> Result<(), Box<dyn Error>> {
         return Err(format!("{} build failed: {status}", mdbook.display()).into());
     }
     let out = root.join(OUT);
-    let report = check(&out, &root)?;
+    let report = check(&out, &root, NOT_YET)?;
     for page in &report.not_yet {
         println!("site: {page} doesn't exist yet; links to it are left as they are");
     }
@@ -96,8 +93,9 @@ struct Report {
 }
 
 /// Checks the site built in `out`, the files of the repository at `root`,
-/// and rewrites the links to repository files in its pages.
-fn check(out: &Path, root: &Path) -> Result<Report, Box<dyn Error>> {
+/// and rewrites the links to repository files in its pages. A link to one of
+/// the `not_yet` pages that doesn't exist is reported apart from the problems.
+fn check(out: &Path, root: &Path, not_yet: &[&str]) -> Result<Report, Box<dyn Error>> {
     let mut files = BTreeSet::new();
     list_files(out, out, &mut files)?;
     let mut ids = BTreeMap::new();
@@ -117,6 +115,7 @@ fn check(out: &Path, root: &Path) -> Result<Report, Box<dyn Error>> {
         files: &files,
         ids: &ids,
         root,
+        not_yet,
     };
     let mut report = Report::default();
     for (file, text) in &texts {
@@ -166,6 +165,8 @@ struct Site<'a> {
     ids: &'a BTreeMap<String, BTreeSet<String>>,
     /// The repository root.
     root: &'a Path,
+    /// Pages that may not exist yet ([`NOT_YET`]).
+    not_yet: &'a [&'a str],
 }
 
 /// Where a link on the site goes.
@@ -361,7 +362,7 @@ impl Site<'_> {
             page.strip_suffix(".html")
                 .map_or(page.to_owned(), |stem| format!("{stem}.md"))
         });
-        if let Some(page) = wanted.filter(|page| NOT_YET.contains(&page.as_str())) {
+        if let Some(page) = wanted.filter(|page| self.not_yet.contains(&page.as_str())) {
             return Target::NotYet(page);
         }
         Target::Broken(format!("{value} doesn't exist"))
@@ -758,7 +759,7 @@ mod tests {
             ),
             ("guide/index.html", "<h1 id=\"guide\">Guide</h1>"),
         ]);
-        let report = check(&out, &root).unwrap();
+        let report = check(&out, &root, NOT_YET).unwrap();
         assert_eq!(report.problems, Vec::<String>::new());
         assert_eq!(report.rewritten, 2);
         let page = fs::read_to_string(out.join("guide/install.html")).unwrap();
@@ -783,7 +784,7 @@ mod tests {
                 "body { background: url(https://cdn.example/b.png) }",
             ),
         ]);
-        let report = check(&out, &root).unwrap();
+        let report = check(&out, &root, NOT_YET).unwrap();
         assert_eq!(report.problems.len(), 8, "{:#?}", report.problems);
         assert!(
             report
@@ -844,7 +845,7 @@ mod tests {
             ),
             ("guide/install.html", ""),
         ]);
-        let report = check(&out, &root).unwrap();
+        let report = check(&out, &root, &["guide/start-here.md"]).unwrap();
         assert_eq!(report.problems, Vec::<String>::new());
         assert_eq!(
             report.not_yet.into_iter().collect::<Vec<_>>(),
