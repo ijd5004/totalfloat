@@ -8,7 +8,7 @@ Releases are built in `ijd5004/totalfloat` by `.github/workflows/release.yml` wh
 2. Tag `vX.Y.Z` on `main` and push the tag. Wait for the release workflow.
 3. Replace the generated release notes with the version's `CHANGELOG.md` section (`gh release edit vX.Y.Z --notes-file`).
 
-Pushing a tag such as `v0.1.0` runs `.github/workflows/release.yml`. It builds the web app and a Linux and a Windows binary with it compiled in, unpacks each archive and runs it (version, `inspect`, `schedule`, `new`, an MCP handshake, and `serve` showing the app), writes a CycloneDX SBOM and `SHA256SUMS`, and publishes a GitHub release. On Windows the test also fails if the exe needs the Visual C++ Redistributable. Releases are Linux (x86-64) and Windows (x86-64, a `.zip`); a macOS build passed the same test, and the workflow says how to add it back. A tag with a hyphen, such as `v0.1.0-rc.1`, publishes a pre-release.
+Pushing a tag such as `v0.1.0` runs `.github/workflows/release.yml`. It builds the web app and a Linux and a Windows binary with it compiled in, unpacks each archive and runs it (version, `inspect`, `schedule`, `new`, an MCP handshake, and `serve` showing the app), writes a CycloneDX SBOM and `SHA256SUMS`, and publishes a GitHub release. On Windows the test also fails if the exe needs the Visual C++ Redistributable. Releases are Linux (x86-64) and Windows (x86-64, a `.zip` with the files at its root, so Explorer's **Extract All** gives one folder); a macOS build passed the same test, and the workflow says how to add it back. A tag with a hyphen, such as `v0.1.0-rc.1`, publishes a pre-release.
 
 Before tagging, set `version` in the root `Cargo.toml`, because the binary reports that version, not the tag.
 
