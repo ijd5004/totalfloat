@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Added
+
+- One-command install. On Windows, `irm https://raw.githubusercontent.com/ijd5004/totalfloat/main/install/install.ps1 | iex` in PowerShell; on Linux, `curl -fsSL https://raw.githubusercontent.com/ijd5004/totalfloat/main/install/install.sh | sh`. Each downloads a release, checks it against `SHA256SUMS`, and installs it; on Windows it also adds the program's folder to the user `Path`. Running it again upgrades. `TOTALFLOAT_VERSION` picks a release. The install guide has an Uninstall section.
+
 ### Changed
 
 - The Windows zip holds `totalfloat.exe`, `LICENSE` and `README.md` at its root. Explorer's **Extract All** puts them in one folder named after the zip, where the v0.1.0 zip gave a folder inside a folder of the same name.
