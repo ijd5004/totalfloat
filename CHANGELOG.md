@@ -18,6 +18,8 @@ The first release. TotalFloat is a single program that reads, schedules, checks,
 - **Edits and builds schedules.** You can:
   - add, change and delete activities, links, constraints and assignments, and add resources;
   - give a resource a limit in units per hour, from the command line, JSON, MCP, spreadsheets or schedule text;
+  - give a role a limit the same way, which `portfolio capacity` measures against;
+  - spread an assignment's units evenly, by one of the file's resource curves, or by units typed per day, week or month;
   - book assignment and expense costs to cost accounts;
   - change many activities at once with expressions such as `remaining_duration=original_duration*0.5` or `constraint_date=early_start+5d`;
   - record progress and recalculate at a new data date, where a units percent splits the units of each labor and nonlabor assignment;
@@ -34,13 +36,17 @@ The first release. TotalFloat is a single program that reads, schedules, checks,
   - A Monte Carlo schedule risk analysis.
 - **Keeps history.** It records changes, branches, proposals and merges, and keeps schedules as text in git.
 - **Works with your agent.** `totalfloat mcp` serves the same reports to any MCP client. The core never calls a model and never phones home.
-- **A local browser app, as a preview.** `totalfloat serve` shows a schedule as a grid and Gantt chart, and the release binary has the app built in. It shows driving paths, explanations, a network view and risk, and it has:
-  - grouping by up to four levels, kept in layouts, and "any of" groups in the filter builder;
-  - a Usage panel showing a resource's units per week or month against its limit;
-  - a History panel that draws branches, merges, baselines and proposals as a graph, with a PROPOSAL tag that reads in the dark theme;
-  - editing of names, durations, calendars, constraints and actual dates in the grid, with a Changes panel listing every edit waiting and what they do together.
+- **A local browser app, as a preview.** `totalfloat serve` shows a schedule in your browser, and the release binary has the app built in. Its views are Schedule (a grid, a Gantt chart and an inspector), Network, Resources, Risk and History, each with its own key, and a Menu button holds every action. In the app you can:
+  - edit names, durations, calendars, constraints and actual dates by typing in the grid, with a Changes panel listing every edit waiting and what they do together;
+  - build a schedule: add and delete activities, add, rename and move to WBS nodes, and add, change and remove relationships in the inspector or by drawing them on the Gantt;
+  - see everything about the selected activity in the inspector, and why its dates are what they are, step by step;
+  - show driving paths, logic lines and the whole project's activity network;
+  - group by up to four levels, kept in layouts, and filter with "any of" groups;
+  - see a resource's units per week or month against its limit, and change the limit;
+  - see branches, merges, baselines and proposals as a graph in the History view;
+  - run a Monte Carlo schedule risk analysis.
 
-  The [serve guide](docs/guide/serve.md) says who can reach the app and which keys do what. Activities and links are added from the command line or an agent; the app can't add them yet.
+  The [serve guide](docs/guide/serve.md) says who can reach the app and which keys do what. Deleting a WBS node, and editing an activity's codes, notes and resources in the inspector, aren't in the app yet.
 
 ### How far to trust it
 
