@@ -4,6 +4,8 @@
 
 ## Install
 
+<div class="tf-install">
+
 On **Windows**, open PowerShell, paste this line and press Enter:
 
 ```powershell
@@ -15,6 +17,8 @@ On **Linux**, run this in a terminal:
 ```sh
 curl -fsSL https://raw.githubusercontent.com/ijd5004/totalfloat/main/install/install.sh | sh
 ```
+
+</div>
 
 Each command downloads the latest release, checks it against the release's checksums, and installs `totalfloat`. On Windows it also adds TotalFloat to your `Path`; on Linux it prints the line to add if `~/.local/bin` isn't on your `PATH`. Run it again to upgrade. The [install guide](guide/install.md#install-with-one-command) has the details.
 
