@@ -4,6 +4,7 @@
 
 ### Added
 
+- A [Start here](docs/guide/start-here.md) page for people who schedule projects and don't write code: what TotalFloat does, how to install it, and the first things to try with an AI agent, the local app or the command line.
 - One-command install. On Windows, `irm https://raw.githubusercontent.com/ijd5004/totalfloat/main/install/install.ps1 | iex` in PowerShell; on Linux, `curl -fsSL https://raw.githubusercontent.com/ijd5004/totalfloat/main/install/install.sh | sh`. Each downloads a release, checks it against `SHA256SUMS`, and installs it; on Windows it also adds the program's folder to the user `Path`. Running it again upgrades. `TOTALFLOAT_VERSION` picks a release. The install guide has an Uninstall section.
 
 ### Changed

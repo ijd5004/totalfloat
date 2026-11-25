@@ -3,6 +3,7 @@
 [TotalFloat](README.md)
 
 - [User guide](guide/README.md)
+    - [Start here](guide/start-here.md)
     - [Install](guide/install.md)
     - [See what's in a file](guide/inspect.md)
     - [Schedule a file](guide/schedule.md)

@@ -14,6 +14,8 @@ TotalFloat is a single program that can open a schedule file, calculate it, expl
 
 ## Install
 
+New here? [Start here](docs/guide/start-here.md): what TotalFloat does with your schedule, how to install it, and the first things to try, written for people who don't write code.
+
 On Windows, in PowerShell:
 
 ```powershell
