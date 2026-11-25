@@ -5,9 +5,12 @@
 <div class="tf-downloads">
 <a class="tf-button" href="https://github.com/ijd5004/totalfloat/releases/latest">Download for Windows</a>
 <a class="tf-button" href="https://github.com/ijd5004/totalfloat/releases/latest">Download for Linux</a>
+<span class="tf-button tf-button-soon" aria-disabled="true">macOS installer coming soon</span>
 </div>
 
-Both buttons open the latest release. Windows takes the `.zip` file and Linux the `.tar.gz` file, both for x86-64. The [install guide](guide/install.md) shows how to unpack it and put `totalfloat` on your `PATH`.
+The Windows and Linux buttons open the latest release. Windows takes the `.zip` file and Linux the `.tar.gz` file, both for x86-64. The [install guide](guide/install.md) shows how to unpack it and put `totalfloat` on your `PATH`.
+
+On a Mac, you can [build TotalFloat from source](guide/install.md#build-from-source) today: install [Rust](https://rustup.rs) and run `cargo install --path crates/cli` from a copy of the repository.
 
 TotalFloat v0.1 is an early release. It's usable on real schedules, but read the [limitations](guide/limitations.md) before you rely on its dates.
 
