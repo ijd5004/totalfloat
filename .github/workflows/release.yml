@@ -52,7 +52,9 @@ jobs:
           cp LICENSE README.md "dist/$stem/"
           if [ "$RUNNER_OS" = "Windows" ]; then
             cp target/release/totalfloat.exe "dist/$stem/"
-            (cd dist && 7z a "$stem.zip" "$stem" > /dev/null)
+            # The files sit at the zip's root: Explorer's Extract All already
+            # makes a folder named after the zip.
+            (cd "dist/$stem" && 7z a "../$stem.zip" * > /dev/null)
           else
             cp target/release/totalfloat "dist/$stem/"
             tar -C dist -czf "dist/$stem.tar.gz" "$stem"
@@ -67,7 +69,8 @@ jobs:
           fixture="$PWD/fixtures/xer/anonymize-clean.expected.xer"
           mkdir smoke && cd smoke
           if [ "$RUNNER_OS" = "Windows" ]; then
-            7z x "../dist/$stem.zip" > /dev/null
+            # Unpack into a folder named after the zip, as Extract All does.
+            7z x "../dist/$stem.zip" -o"$stem" > /dev/null
             tf="$PWD/$stem/totalfloat.exe"
           else
             tar -xzf "../dist/$stem.tar.gz"
