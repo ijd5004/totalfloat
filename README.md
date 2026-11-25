@@ -14,7 +14,19 @@ TotalFloat is a single program that can open a schedule file, calculate it, expl
 
 ## Install
 
-Download the Linux (x86-64) or Windows (x86-64) archive from [Releases](https://github.com/ijd5004/totalfloat/releases), check it against `SHA256SUMS`, and put `totalfloat` on your `PATH` ([install guide](docs/guide/install.md)). Nothing else is needed. A build for macOS is coming soon; until then, build from source.
+On Windows, in PowerShell:
+
+```powershell
+irm https://raw.githubusercontent.com/ijd5004/totalfloat/main/install/install.ps1 | iex
+```
+
+On Linux:
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/ijd5004/totalfloat/main/install/install.sh | sh
+```
+
+Each downloads the latest release for x86-64, checks it against `SHA256SUMS`, and installs it. The Windows script adds the program's folder to your `Path`; the Linux one installs to `~/.local/bin` and prints the line to add if that folder isn't on your `PATH`. Run it again to upgrade. The [install guide](docs/guide/install.md) covers installing by hand from [Releases](https://github.com/ijd5004/totalfloat/releases) and uninstalling. A build for macOS is coming soon; until then, build from source.
 
 To build from source on any of the three, install [Rust](https://rustup.rs) and run `cargo install --path crates/cli`. That build leaves out the local browser app unless you build it first ([ui/README.md](ui/README.md)).
 

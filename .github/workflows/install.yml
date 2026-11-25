@@ -1,0 +1,68 @@
+name: Install scripts
+
+# Checks install/install.sh and install/install.ps1 when they or the release
+# layout change, and installs the latest release with each one weekly, so a
+# release that breaks them shows up. See docs/guide/install.md.
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+    paths:
+      - "install/**"
+      - ".github/workflows/install.yml"
+      - ".github/workflows/release.yml"
+  schedule:
+    # Mondays 06:00 UTC, with CI's weekly jobs.
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  linux:
+    name: install (linux)
+    if: github.event_name != 'pull_request' || !github.event.pull_request.draft
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - run: shellcheck --shell=sh install/install.sh
+      # The runner image has PowerShell 7 and PSScriptAnalyzer.
+      - name: PSScriptAnalyzer
+        shell: pwsh
+        run: |
+          $findings = Invoke-ScriptAnalyzer -Path install/install.ps1
+          $findings | Format-Table -AutoSize | Out-String -Width 200
+          if ($findings) { exit 1 }
+      # /bin/sh is dash here, a strict POSIX shell. HOME starts empty and PATH
+      # leaves out the install folder, as on a new machine.
+      - name: Install the latest release, then again
+        run: |
+          home=$(mktemp -d)
+          env -i HOME="$home" PATH=/usr/bin:/bin sh install/install.sh
+          env -i HOME="$home" PATH=/usr/bin:/bin sh install/install.sh
+          ls -A "$home/.local/bin"
+          test "$(ls -A "$home/.local/bin")" = totalfloat
+          "$home/.local/bin/totalfloat" --version
+
+  windows:
+    name: install (windows)
+    if: github.event_name != 'pull_request' || !github.event.pull_request.draft
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v7
+      # Windows PowerShell 5.1, run the way `irm … | iex` runs it.
+      - name: Install the latest release, then again
+        shell: powershell
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $before = [Environment]::GetEnvironmentVariable('Path', 'User')
+          Get-Content -Raw install/install.ps1 | Invoke-Expression
+          Get-Content -Raw install/install.ps1 | Invoke-Expression
+          totalfloat --version
+          if ($LASTEXITCODE -ne 0) { throw 'totalfloat --version failed in the same session' }
+          $dir = Join-Path $env:LOCALAPPDATA 'Programs\totalfloat'
+          $after = @([Environment]::GetEnvironmentVariable('Path', 'User') -split ';' | Where-Object { $_ })
+          foreach ($entry in @($before -split ';' | Where-Object { $_ })) {
+            if ($after -notcontains $entry) { throw "the user Path lost $entry" }
+          }
+          if (@($after | Where-Object { $_ -eq $dir }).Count -ne 1) { throw "the user Path should list $dir once: $($after -join ';')" }
