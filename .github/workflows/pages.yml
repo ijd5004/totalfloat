@@ -1,0 +1,68 @@
+name: Pages
+
+# Builds the docs site from docs/ (site/book.toml, `cargo xtask site`) and
+# publishes it to GitHub Pages. The build checks every link and refuses
+# anything loaded from another host.
+on:
+  push:
+    branches: [main]
+    paths:
+      - "docs/**"
+      - "site/**"
+      - "xtask/src/site.rs"
+      - ".github/workflows/pages.yml"
+  workflow_dispatch:
+
+# Each job sets its own permissions; the workflow grants none.
+permissions: {}
+
+# One deployment at a time. A newer run waits instead of cancelling one that
+# is already publishing.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+env:
+  CARGO_TERM_COLOR: always
+  MDBOOK_VERSION: v0.5.4
+  # sha256 of mdbook-${MDBOOK_VERSION}-x86_64-unknown-linux-gnu.tar.gz.
+  MDBOOK_SHA256: 3f28de05dafca9d0f2eab99c662116b0e37b89b1d96a08f8f430b9eeae958cd7
+
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v7
+      - name: Install mdBook
+        run: |
+          set -euo pipefail
+          archive="mdbook-${MDBOOK_VERSION}-x86_64-unknown-linux-gnu.tar.gz"
+          curl -sSfL -o "$archive" "https://github.com/rust-lang/mdBook/releases/download/${MDBOOK_VERSION}/${archive}"
+          echo "${MDBOOK_SHA256}  ${archive}" | sha256sum --check
+          mkdir -p "$RUNNER_TEMP/mdbook"
+          tar -xzf "$archive" -C "$RUNNER_TEMP/mdbook"
+          rm "$archive"
+      # Installs the toolchain pinned in rust-toolchain.toml.
+      - run: rustup toolchain install
+      - uses: Swatinem/rust-cache@v2
+      - run: cargo xtask site --mdbook "$RUNNER_TEMP/mdbook/mdbook"
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: target/site
+
+  deploy:
+    name: deploy
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5

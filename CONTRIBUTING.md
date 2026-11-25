@@ -50,6 +50,12 @@ cargo +nightly fuzz run calendar_data corpus/calendar_data seeds/calendar_data -
 
 The first directory is the working corpus (gitignored); the others are seeds. You can copy small corpus files into `fuzz/corpus/<target>/` for better coverage. That directory is gitignored, so never move its files anywhere tracked. A crash leaves its input in `fuzz/artifacts/<target>/`: fix the bug and add a regression test built from that input in the crate's unit tests. Commit the input only if it contains no real schedule data. CI runs each target briefly every week.
 
+## Docs site
+
+The Markdown in `docs/` is also a website, built with [mdBook](https://rust-lang.github.io/mdBook/) and published to GitHub Pages when `docs/` changes on `main`. `docs/SUMMARY.md` is its table of contents, and `docs/README.md` its landing page. A new guide page goes in `docs/SUMMARY.md` in the same place as in `docs/guide/README.md`; `just check` fails until it does. Pages left out of the table of contents, such as `docs/ARCHITECTURE.md`, are linked on GitHub.
+
+To build the site into `target/site/` and check its links, install mdBook (the version `.github/workflows/pages.yml` names) and run `cargo xtask site`, or `cargo xtask site --mdbook <path>` when it isn't on your `PATH`.
+
 ## Workflow
 
 1. Find or open an issue. Issues labeled `agent-ready` are fully specified; `good first issue` ones are a gentle start.

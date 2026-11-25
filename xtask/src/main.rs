@@ -14,6 +14,7 @@ mod fresh_fixture;
 mod generated;
 mod history_cost;
 mod rules;
+mod site;
 #[cfg(test)]
 mod skills;
 mod ui;
@@ -116,6 +117,14 @@ enum Command {
     /// class on each, anchors that exist in docs/rules/sources.md, and the
     /// tests it lists (docs/rules/README.md). Run by `just check`.
     Rules,
+    /// Build the docs site into target/site with mdBook (site/book.toml),
+    /// point links to repository files at GitHub, and fail on a broken link
+    /// or anything loaded from another host.
+    Site {
+        /// The mdBook program to run.
+        #[arg(long, default_value = "mdbook")]
+        mdbook: PathBuf,
+    },
 }
 
 fn corpus_root(corpus: Option<PathBuf>) -> Result<PathBuf, &'static str> {
@@ -136,6 +145,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         Command::UiBench { activities } => ui_bench::run(activities)?,
         Command::Hello => println!("Hello from cargo xtask."),
         Command::Rules => rules::run()?,
+        Command::Site { mdbook } => site::run(&mdbook)?,
         Command::Ui { check, licenses } => ui::run(ui::Asked { check, licenses })?,
         Command::XerFields { corpus } => {
             xer_fields::run(&corpus_root(corpus)?)?;
