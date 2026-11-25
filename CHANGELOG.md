@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+### Changed
+
+- The Windows zip holds `totalfloat.exe`, `LICENSE` and `README.md` at its root. Explorer's **Extract All** puts them in one folder named after the zip, where the v0.1.0 zip gave a folder inside a folder of the same name.
+
 ## v0.1.0
 
 The first release. TotalFloat is a single program that reads, schedules, checks, edits and writes Primavera P6 `.xer` files, as well as Microsoft Project XML files, from the command line or through an MCP server for AI agents. P6 doesn't need to be installed. Its calculation rules are its own, written down with their public sources. This release is for Linux (x86-64) and Windows (x86-64); a macOS build is coming soon.
