@@ -3,12 +3,12 @@
 **Open-source, agent-native CPM scheduling.** TotalFloat is an open-source CPM scheduler that reads and writes Primavera P6 XER files and Microsoft Project XML files, calculates schedules with its own deterministic engine and documented rules, and exposes everything through a CLI and an MCP server so humans and AI agents can work on real project schedules together.
 
 <div class="tf-downloads">
-<a class="tf-button" href="https://github.com/ijd5004/totalfloat/releases/latest">Download for Windows</a>
-<a class="tf-button" href="https://github.com/ijd5004/totalfloat/releases/latest">Download for Linux</a>
+<a class="tf-button" href="https://github.com/ijd5004/totalfloat/releases/latest/download/totalfloat-x86_64-pc-windows-msvc.zip">Download for Windows</a>
+<a class="tf-button" href="https://github.com/ijd5004/totalfloat/releases/latest/download/totalfloat-x86_64-unknown-linux-gnu.tar.gz">Download for Linux</a>
 <span class="tf-button tf-button-soon" aria-disabled="true">macOS installer coming soon</span>
 </div>
 
-The Windows and Linux buttons open the latest release. Windows takes the `.zip` file and Linux the `.tar.gz` file, both for x86-64. The [install guide](guide/install.md) shows how to unpack it and put `totalfloat` on your `PATH`.
+The buttons download the latest release for x86-64: a `.zip` file for Windows and a `.tar.gz` file for Linux. The quickest way to install is [one command](guide/install.md#install-with-one-command), which downloads and checks the release and puts `totalfloat` on your `PATH`. To install from the download instead, follow [Install by hand](guide/install.md#install-by-hand).
 
 On a Mac, you can [build TotalFloat from source](guide/install.md#build-from-source) today: install [Rust](https://rustup.rs) and run `cargo install --path crates/cli` from a copy of the repository.
 
