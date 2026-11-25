@@ -1,0 +1,26 @@
+---
+source: crates/cli/tests/text.rs
+expression: "std::fs::read_to_string(&a).unwrap()"
+---
+totalfloat-schedule 1
+
+project SYN2 "Synthetic Project Two"
+  data-date 2026-01-05 08:00
+  calendar "Synthetic workweek"
+
+calendar "Synthetic workweek"
+  week mon-fri 08:00-12:00 13:00-17:00
+  week sat-sun off
+
+code-type "Synthetic local codes"
+  value B "Synthetic value B"
+
+field "Synthetic task number" number
+
+resource R2 "Synthetic material" material
+  calendar "Synthetic workweek"
+
+activity B1 "Synthetic resource task" 12.25h
+  type resource
+  code "Synthetic local codes" B
+  resource R2

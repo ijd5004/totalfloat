@@ -1,0 +1,47 @@
+---
+source: crates/cli/tests/cli.rs
+expression: clean(&first)
+---
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Variance: <dir>/now.xer against <dir>/base.xer</title>
+<style>body{font-family:system-ui,sans-serif;margin:2rem;color:#1d2433}table{border-collapse:collapse;margin:0.5rem 0 1.5rem}th,td{border:1px solid #c9ced8;padding:0.25rem 0.6rem;text-align:left}th{background:#eef1f5}p{color:#4b5465}.fail,.late{color:#a4161a;font-weight:600}tr.fail td{background:#fdf0f0}.pass{color:#1e6b34}.na{color:#6b7280}</style>
+</head>
+<body>
+<h1>Variance: <dir>/now.xer against <dir>/base.xer</h1>
+<p>Variances are the baseline less the current date, in working hours, so negative is late.</p>
+<h2>rel-fs-positive</h2>
+<p>Data date 2026-01-12 08:00 · baseline <dir>/base.xer, data date 2026-01-12 08:00</p>
+<table>
+<thead><tr><th>Date</th><th>Current</th><th>Baseline</th><th>Variance</th></tr></thead>
+<tbody>
+<tr><td>Project finish</td><td>2026-01-20 17:00</td><td>2026-01-13 17:00</td><td class="late">-36h</td></tr>
+</tbody>
+</table>
+<h3>Changes</h3>
+<table>
+<thead><tr><th>Change</th><th>Count</th></tr></thead>
+<tbody>
+<tr><td>Activities added</td><td>1</td></tr>
+<tr><td>Activities deleted</td><td>0</td></tr>
+<tr><td>Relationships changed</td><td>1</td></tr>
+<tr><td>Durations changed</td><td>1</td></tr>
+<tr><td>Constraints changed</td><td>0</td></tr>
+<tr><td>Became critical</td><td>0</td></tr>
+<tr><td>Left critical</td><td>0</td></tr>
+</tbody>
+</table>
+<h3>Largest slips (2)</h3>
+<table>
+<thead><tr><th>Activity ID</th><th>Activity name</th><th>Current</th><th>Baseline</th><th>Variance</th></tr></thead>
+<tbody>
+<tr><td>A2</td><td>Synthetic activity 2</td><td>2026-01-20 17:00</td><td>2026-01-13 17:00</td><td class="late">-112h</td></tr>
+<tr><td>A1</td><td>Synthetic activity 1</td><td>2026-01-19 17:00</td><td>2026-01-12 17:00</td><td class="late">-40h</td></tr>
+</tbody>
+</table>
+<h3>Largest float erosion</h3>
+<p>None listed.</p>
+</body>
+</html>

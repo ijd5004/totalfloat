@@ -1,0 +1,11 @@
+---
+source: crates/cli/tests/cli.rs
+expression: stdout
+---
+{
+  "schema": "totalfloat.roundtrip/1",
+  "file": "../../fixtures/xer/model-mapping.xer",
+  "bytes": 4523,
+  "identical": true,
+  "first_difference": null
+}

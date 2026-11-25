@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "totalfloat.error/1",
+  "title": "totalfloat error with --json, and MCP tool errors",
+  "description": "A command that fails prints this on stdout with --json, and MCP tools return it. A batch of edits with several refusals has the code edits-refused and lists each in problems; a batch with one refusal keeps that refusal's code, and lists it in problems too.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "error"],
+  "$defs": {
+    "problem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source", "code", "message", "hint"],
+      "properties": {
+        "edit": { "type": "integer", "minimum": 1, "description": "The edit's place in the batch, counting from 1. Absent for a flag that couldn't be read." },
+        "source": { "type": "string", "description": "Where the edit came from: a flag and its text, `edits.json item 3`, `line 4` of a status table, or `edit 2` over MCP." },
+        "code": { "type": "string" },
+        "message": { "type": "string" },
+        "hint": { "type": "string", "description": "What to do, starting with `did you mean …?` when a close name exists." },
+        "depends_on": { "type": "integer", "minimum": 1, "description": "The refused edit this one needed, by its place in the batch." },
+        "line": { "type": "integer", "minimum": 1, "description": "The line it came from, for a schedule text file (.tfs)." },
+        "column": { "type": "integer", "minimum": 1, "description": "The column it came from, for a schedule text file (.tfs)." }
+      }
+    }
+  },
+  "properties": {
+    "schema": { "const": "totalfloat.error/1" },
+    "error": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["code", "message", "hint"],
+      "properties": {
+        "code": { "type": "string", "description": "Stable and machine-readable, such as file-not-readable." },
+        "message": { "type": "string" },
+        "hint": { "type": "string" },
+        "problems": { "type": "array", "items": { "$ref": "#/$defs/problem" } }
+      }
+    }
+  }
+}

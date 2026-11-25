@@ -1,0 +1,157 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "totalfloat.changeset/1",
+  "title": "totalfloat history show --json, and history init --json",
+  "description": "One changeset in a history store (ARCHITECTURE.md, History and changesets): what it is, who made it and why, its commands, what was skipped, its schedule impact, and the file it produced.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "id",
+    "short_id",
+    "parent",
+    "second_parent",
+    "kind",
+    "state",
+    "author",
+    "author_kind",
+    "message",
+    "summary",
+    "created",
+    "tool_version",
+    "refs",
+    "commands",
+    "skipped",
+    "report",
+    "snapshot",
+    "reviews"
+  ],
+  "properties": {
+    "schema": {
+      "const": "totalfloat.changeset/1"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "description": "SHA-256 of the changeset's contents, except its state."
+    },
+    "short_id": {
+      "type": "string",
+      "description": "The first ten digits of the ID, as the log shows it."
+    },
+    "parent": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "The changeset it follows; null for the first import."
+    },
+    "second_parent": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "For a merge, the other branch's head."
+    },
+    "kind": {
+      "enum": [
+        "import",
+        "edit",
+        "revert",
+        "merge"
+      ]
+    },
+    "state": {
+      "enum": [
+        "accepted",
+        "proposed",
+        "rejected"
+      ]
+    },
+    "author": {
+      "type": "string"
+    },
+    "author_kind": {
+      "enum": [
+        "human",
+        "agent"
+      ]
+    },
+    "message": {
+      "type": "string",
+      "description": "Why, in the author's words. May be empty."
+    },
+    "summary": {
+      "type": "string",
+      "description": "One line for what it did, from its commands, in plain words: its title when it has no message."
+    },
+    "created": {
+      "type": "string",
+      "description": "When it was recorded, in UTC as RFC 3339."
+    },
+    "tool_version": {
+      "type": "string",
+      "description": "The TotalFloat version that recorded it."
+    },
+    "refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Branches, baselines and proposals naming it."
+    },
+    "commands": {
+      "description": "For an edit, a totalfloat.command/1 document; for an import, {\"import\": {\"file\": \u2026}}; for a revert, {\"reverts\": ID}."
+    },
+    "skipped": {
+      "type": "array",
+      "description": "Edits skipped with --skip-failed, as totalfloat.error/1 problems."
+    },
+    "report": {
+      "description": "The schedule impact: for an edit, its totalfloat.edit/1 report; for an import, its projects."
+    },
+    "snapshot": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "description": "SHA-256 of the file it produced."
+    },
+    "reviews": {
+      "type": "array",
+      "description": "Decisions on it, oldest first: who accepted or rejected it, when and why.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "state",
+          "author",
+          "author_kind",
+          "message",
+          "created"
+        ],
+        "properties": {
+          "state": {
+            "enum": [
+              "accepted",
+              "rejected"
+            ]
+          },
+          "author": {
+            "type": "string"
+          },
+          "author_kind": {
+            "enum": [
+              "human",
+              "agent"
+            ]
+          },
+          "message": {
+            "type": "string"
+          },
+          "created": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

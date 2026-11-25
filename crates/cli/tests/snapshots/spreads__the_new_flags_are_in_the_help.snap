@@ -1,0 +1,10 @@
+---
+source: crates/cli/tests/spreads.rs
+expression: shown
+---
+--curve <ACTIVITY=RESOURCE;CURVE>
+Spread a resource's units on an activity by a resource curve, as `ACTIVITY=RESOURCE;CURVE`
+--spread-evenly <ACTIVITY=RESOURCE>
+Spread a resource's units on an activity evenly, with no curve or typed units, as `ACTIVITY=RESOURCE`
+--spread <ACTIVITY=RESOURCE;PERIOD=DATE;UNITS,...>
+Type a resource's remaining units on an activity for each day, week or month from a first day, as `ACTIVITY=RESOURCE;day=2026-03-02;8,8,0,16`

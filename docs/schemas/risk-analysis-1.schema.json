@@ -1,0 +1,282 @@
+{
+  "$defs": {
+    "Day": {
+      "properties": {
+        "date": {
+          "type": "string"
+        },
+        "probability": {
+          "format": "double",
+          "type": "number"
+        }
+      },
+      "required": [
+        "date",
+        "probability"
+      ],
+      "type": "object"
+    },
+    "Milestone": {
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "deterministic": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "name": {
+          "type": "string"
+        },
+        "p50": {
+          "type": "string"
+        },
+        "p80": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "name",
+        "p50",
+        "p80"
+      ],
+      "type": "object"
+    },
+    "Percentile": {
+      "properties": {
+        "finish": {
+          "type": "string"
+        },
+        "p": {
+          "format": "uint8",
+          "maximum": 255,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "p",
+        "finish"
+      ],
+      "type": "object"
+    },
+    "Ranked": {
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "value": {
+          "format": "double",
+          "type": "number"
+        }
+      },
+      "required": [
+        "code",
+        "name",
+        "value"
+      ],
+      "type": "object"
+    },
+    "RiskReport": {
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "occurred": {
+          "description": "The share of iterations it happened in.",
+          "format": "double",
+          "type": "number"
+        },
+        "p50_effect_days": {
+          "description": "P50 of the finish less P50 without this risk, same seed, in calendar days.",
+          "format": "double",
+          "type": "number"
+        },
+        "p80_effect_days": {
+          "description": "P80 of the finish less P80 without this risk, same seed, in calendar days.",
+          "format": "double",
+          "type": "number"
+        },
+        "probability": {
+          "format": "double",
+          "type": "number"
+        }
+      },
+      "required": [
+        "code",
+        "probability",
+        "occurred",
+        "p50_effect_days",
+        "p80_effect_days"
+      ],
+      "type": "object"
+    },
+    "Target": {
+      "properties": {
+        "date": {
+          "type": "string"
+        },
+        "probability": {
+          "format": "double",
+          "type": "number"
+        }
+      },
+      "required": [
+        "date",
+        "probability"
+      ],
+      "type": "object"
+    }
+  },
+  "$id": "totalfloat.risk-analysis/1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "`totalfloat.risk-analysis/1`, documented in\ndocs/schemas/risk-analysis-1.schema.json.",
+  "properties": {
+    "criticality": {
+      "description": "The activities most often critical, most first.",
+      "items": {
+        "$ref": "#/$defs/Ranked"
+      },
+      "type": "array"
+    },
+    "criticality_total": {
+      "description": "Unfinished activities critical in at least one iteration.",
+      "format": "uint",
+      "minimum": 0,
+      "type": "integer"
+    },
+    "cumulative": {
+      "description": "For each day from the earliest finish to the latest, the share of\niterations finished by its end.",
+      "items": {
+        "$ref": "#/$defs/Day"
+      },
+      "type": "array"
+    },
+    "deterministic_finish": {
+      "type": "string"
+    },
+    "deterministic_probability": {
+      "description": "The share of iterations finishing at or before the deterministic finish.",
+      "format": "double",
+      "type": "number"
+    },
+    "earliest_finish": {
+      "type": "string"
+    },
+    "file": {
+      "type": "string"
+    },
+    "iterations": {
+      "format": "uint32",
+      "minimum": 0,
+      "type": "integer"
+    },
+    "latest_finish": {
+      "type": "string"
+    },
+    "mean_finish": {
+      "type": "string"
+    },
+    "milestones": {
+      "items": {
+        "$ref": "#/$defs/Milestone"
+      },
+      "type": "array"
+    },
+    "percentiles": {
+      "description": "P5 to P95 in steps of 5.",
+      "items": {
+        "$ref": "#/$defs/Percentile"
+      },
+      "type": "array"
+    },
+    "project": {
+      "type": "string"
+    },
+    "project_id": {
+      "format": "uint64",
+      "minimum": 0,
+      "type": "integer"
+    },
+    "risks": {
+      "description": "Risk events, largest effect on P80 first.",
+      "items": {
+        "$ref": "#/$defs/RiskReport"
+      },
+      "type": "array"
+    },
+    "sampled_activities": {
+      "format": "uint",
+      "minimum": 0,
+      "type": "integer"
+    },
+    "schema": {
+      "type": "string"
+    },
+    "seed": {
+      "format": "uint64",
+      "minimum": 0,
+      "type": "integer"
+    },
+    "sensitivity": {
+      "description": "The durations that move the finish most: Spearman rank correlation\nwith the finish, largest magnitude first.",
+      "items": {
+        "$ref": "#/$defs/Ranked"
+      },
+      "type": "array"
+    },
+    "set_by_expected_finish": {
+      "description": "Activities with an estimate, or under the default range, that weren't\ndrawn because their expected finish sets their duration.",
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "standard_deviation_days": {
+      "description": "In calendar days.",
+      "format": "double",
+      "type": "number"
+    },
+    "target": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Target"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "schema",
+    "file",
+    "project",
+    "project_id",
+    "iterations",
+    "seed",
+    "sampled_activities",
+    "deterministic_finish",
+    "deterministic_probability",
+    "percentiles",
+    "mean_finish",
+    "standard_deviation_days",
+    "earliest_finish",
+    "latest_finish",
+    "cumulative",
+    "milestones",
+    "criticality",
+    "criticality_total",
+    "sensitivity",
+    "set_by_expected_finish",
+    "risks"
+  ],
+  "title": "totalfloat.risk-analysis/1",
+  "type": "object"
+}

@@ -1,0 +1,242 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "totalfloat.event/1",
+  "title": "totalfloat serve events",
+  "description": "The data of each event on serve's /api/1/events stream. The SSE event name is the document's `event`. A page that falls behind gets `resync` instead, with {\"missed\": n}, and should fetch what it shows again.",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/changeset"
+    },
+    {
+      "$ref": "#/$defs/proposal"
+    },
+    {
+      "$ref": "#/$defs/branch"
+    },
+    {
+      "$ref": "#/$defs/view"
+    }
+  ],
+  "$defs": {
+    "entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "short_id",
+        "parent",
+        "kind",
+        "state",
+        "author",
+        "author_kind",
+        "message",
+        "created",
+        "summary"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "short_id": {
+          "type": "string"
+        },
+        "parent": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "second_parent": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "A merge's second parent: the head of the branch merged in. Null for every other changeset."
+        },
+        "kind": {
+          "enum": [
+            "import",
+            "edit",
+            "revert",
+            "merge"
+          ]
+        },
+        "state": {
+          "enum": [
+            "accepted",
+            "proposed",
+            "rejected"
+          ]
+        },
+        "author": {
+          "type": "string"
+        },
+        "author_kind": {
+          "enum": [
+            "human",
+            "agent"
+          ]
+        },
+        "message": {
+          "type": "string"
+        },
+        "created": {
+          "type": "string"
+        },
+        "summary": {
+          "type": "string",
+          "description": "One line for what it did, from its commands."
+        }
+      }
+    },
+    "changeset": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "A changeset was recorded, by anyone: the page, the command line or an agent.",
+      "required": [
+        "schema",
+        "event",
+        "branch",
+        "changeset"
+      ],
+      "properties": {
+        "schema": {
+          "const": "totalfloat.event/1"
+        },
+        "event": {
+          "const": "changeset"
+        },
+        "branch": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The branch it's the head of, or the branch it's proposed for; null if neither by the time it was seen."
+        },
+        "changeset": {
+          "$ref": "#/$defs/entry"
+        }
+      }
+    },
+    "proposal": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "A proposal was made, or decided: accepted or rejected.",
+      "required": [
+        "schema",
+        "event",
+        "change",
+        "branch",
+        "changeset"
+      ],
+      "properties": {
+        "schema": {
+          "const": "totalfloat.event/1"
+        },
+        "event": {
+          "const": "proposal"
+        },
+        "change": {
+          "enum": [
+            "new",
+            "decided"
+          ]
+        },
+        "branch": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The branch it's proposed for."
+        },
+        "changeset": {
+          "$ref": "#/$defs/entry",
+          "description": "The proposal; its state says how it was decided."
+        }
+      }
+    },
+    "branch": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "A branch was created, moved or deleted.",
+      "required": [
+        "schema",
+        "event",
+        "change",
+        "name",
+        "head",
+        "from"
+      ],
+      "properties": {
+        "schema": {
+          "const": "totalfloat.event/1"
+        },
+        "event": {
+          "const": "branch"
+        },
+        "change": {
+          "enum": [
+            "created",
+            "moved",
+            "deleted"
+          ]
+        },
+        "name": {
+          "type": "string"
+        },
+        "head": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Where it points now; null once deleted."
+        },
+        "from": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Where it pointed before; null when created."
+        }
+      }
+    },
+    "view": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "The page's view now shows another point, calculated: fetch what it shows again.",
+      "required": [
+        "schema",
+        "event",
+        "label",
+        "branch",
+        "head"
+      ],
+      "properties": {
+        "schema": {
+          "const": "totalfloat.event/1"
+        },
+        "event": {
+          "const": "view"
+        },
+        "label": {
+          "type": "string",
+          "description": "What's served, as given to serve."
+        },
+        "branch": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The branch shown, or null for a baseline or changeset."
+        },
+        "head": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The changeset shown."
+        }
+      }
+    }
+  }
+}

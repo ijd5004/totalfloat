@@ -1,0 +1,9 @@
+---
+source: crates/cli/tests/resource_limit.rs
+expression: report
+---
+ELEC Electricians by week, in hours
+start           actual   remaining       total       limit
+2026-12-28           0         120         120          80  over
+2027-01-04           0         120         120          80  over
+Total 0 actual, 240 remaining over 1 assignments

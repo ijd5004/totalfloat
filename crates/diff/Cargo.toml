@@ -1,0 +1,17 @@
+[package]
+name = "totalfloat-diff"
+description = "Semantic comparison of two schedules for TotalFloat"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+
+[dependencies]
+totalfloat-model.workspace = true
+serde.workspace = true
+schemars.workspace = true
+
+[lints]
+workspace = true

@@ -1,0 +1,24 @@
+{
+  "error": {
+    "code": "edits-refused",
+    "hint": "correct them and run again; each has its own hint",
+    "message": "2 of 2 edits were refused, so nothing was changed",
+    "problems": [
+      {
+        "code": "no-such-activity",
+        "edit": 1,
+        "hint": "use Activity IDs from `query`; a link to another project names it PROJECT:CODE",
+        "message": "no project holds NOPE1",
+        "source": "edit 1"
+      },
+      {
+        "code": "no-such-activity",
+        "edit": 2,
+        "hint": "use Activity IDs from `query`; a link to another project names it PROJECT:CODE",
+        "message": "no project holds NOPE2",
+        "source": "edit 2"
+      }
+    ]
+  },
+  "schema": "totalfloat.error/1"
+}

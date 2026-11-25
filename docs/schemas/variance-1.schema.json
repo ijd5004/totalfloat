@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "totalfloat.variance/1",
+  "title": "totalfloat variance --json",
+  "description": "A schedule measured against a baseline, project by project. Variances are baseline less current in working hours on the activity's calendar, or the project's calendar for its finish, so a negative variance is late. Every number comes from the files and their calendars.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "current", "baseline", "unmatched_current", "unmatched_baseline", "incomplete", "projects"],
+  "$defs": {
+    "moved": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["code", "name", "baseline", "current", "variance_hours"],
+      "properties": {
+        "code": { "type": "string" },
+        "name": { "type": "string" },
+        "baseline": { "type": ["string", "null"] },
+        "current": { "type": ["string", "null"] },
+        "variance_hours": { "type": ["number", "null"] }
+      }
+    },
+    "named": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["code", "name"],
+      "properties": { "code": { "type": "string" }, "name": { "type": "string" } }
+    }
+  },
+  "properties": {
+    "schema": { "const": "totalfloat.variance/1" },
+    "current": { "type": "string" },
+    "baseline": { "type": "string" },
+    "unmatched_current": { "type": "array", "items": { "type": "string" }, "description": "Projects with no baseline to compare." },
+    "unmatched_baseline": { "type": "array", "items": { "type": "string" } },
+    "incomplete": { "type": "array", "items": { "type": "string" }, "description": "Left out because a side lost rows when read." },
+    "projects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["code", "data_date", "baseline_data_date", "finish", "baseline_finish", "finish_variance_hours", "milestones", "milestones_total", "slips", "became_critical", "left_critical", "float_erosion", "counts"],
+        "properties": {
+          "code": { "type": "string" },
+          "data_date": { "type": ["string", "null"] },
+          "baseline_data_date": { "type": ["string", "null"] },
+          "finish": { "type": ["string", "null"] },
+          "baseline_finish": { "type": ["string", "null"] },
+          "finish_variance_hours": { "type": ["number", "null"] },
+          "milestones": { "type": "array", "items": { "$ref": "#/$defs/moved" }, "description": "Latest first, at most 100." },
+          "milestones_total": { "type": "integer", "minimum": 0 },
+          "slips": { "type": "array", "items": { "$ref": "#/$defs/moved" }, "description": "The largest finish slips, latest first, at most --top." },
+          "became_critical": { "type": "array", "items": { "$ref": "#/$defs/named" } },
+          "left_critical": { "type": "array", "items": { "$ref": "#/$defs/named" } },
+          "float_erosion": {
+            "type": "array",
+            "description": "The largest losses of total float, at most --top.",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["code", "name", "baseline_float_hours", "float_hours", "lost_hours"],
+              "properties": {
+                "code": { "type": "string" },
+                "name": { "type": "string" },
+                "baseline_float_hours": { "type": "number" },
+                "float_hours": { "type": "number" },
+                "lost_hours": { "type": "number" }
+              }
+            }
+          },
+          "counts": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["activities_added", "activities_deleted", "logic_changed", "durations_changed", "constraints_changed", "became_critical", "left_critical", "slipped"],
+            "properties": {
+              "activities_added": { "type": "integer", "minimum": 0 },
+              "activities_deleted": { "type": "integer", "minimum": 0 },
+              "logic_changed": { "type": "integer", "minimum": 0, "description": "Relationships added, deleted or changed." },
+              "durations_changed": { "type": "integer", "minimum": 0 },
+              "constraints_changed": { "type": "integer", "minimum": 0 },
+              "became_critical": { "type": "integer", "minimum": 0 },
+              "left_critical": { "type": "integer", "minimum": 0 },
+              "slipped": { "type": "integer", "minimum": 0, "description": "Activities whose finish slipped, all of them." }
+            }
+          }
+        }
+      }
+    }
+  }
+}

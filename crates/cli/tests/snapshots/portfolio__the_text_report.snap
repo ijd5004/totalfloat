@@ -1,0 +1,11 @@
+---
+source: crates/cli/tests/portfolio.rs
+expression: stdout
+---
+Enterprise (ENT): 3 projects, 5 activities (4 not started, 1 in progress, 0 finished), 2026-01-01 08:00 to 2026-01-10 17:00, critical 2, negative float 1, cost 0.00 budgeted, 0.00 actual, 0.00 remaining
+  Alpha (A): 1 project, 2 activities (1 not started, 1 in progress, 0 finished), 2026-01-01 08:00 to 2026-01-10 17:00, critical 1, negative float 1, cost 0.00 budgeted, 0.00 actual, 0.00 remaining
+    - SYN1 (1) in two.xer, data date 2026-01-05 08:00: 2 activities (1 not started, 1 in progress, 0 finished), 2026-01-01 08:00 to 2026-01-10 17:00, critical 1, negative float 1, cost 0.00 budgeted, 0.00 actual, 0.00 remaining, +22.0 days against must finish by
+  Bravo (B): 2 projects, 3 activities (3 not started, 0 in progress, 0 finished), 2026-01-05 08:00 to 2026-01-06 13:15, critical 1, negative float 0, cost 0.00 budgeted, 0.00 actual, 0.00 remaining
+    - SYN2 (2) in two.xer, data date 2026-01-05 08:00: 1 activity (1 not started, 0 in progress, 0 finished), 2026-01-05 08:00 to 2026-01-06 13:15, critical 1, negative float 0, cost 0.00 budgeted, 0.00 actual, 0.00 remaining
+    Bravo one (B1): 1 project, 2 activities (2 not started, 0 in progress, 0 finished), no dates, critical 0, negative float 0, cost 0.00 budgeted, 0.00 actual, 0.00 remaining
+      - rel-fs-positive (1) in one.xer, data date 2026-01-12 08:00: 2 activities (2 not started, 0 in progress, 0 finished), no dates, critical 0, negative float 0, cost 0.00 budgeted, 0.00 actual, 0.00 remaining

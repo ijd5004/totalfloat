@@ -1,0 +1,6 @@
+---
+source: crates/cli/tests/history.rs
+expression: "without_dir(&stdout, directory.path())"
+---
+* main  8b42e0c693  2026-11-02T09:00:00Z  As submitted
+  what-if/steel-late  216dbca2ca  2026-11-02T09:00:00Z  Steel late

@@ -1,0 +1,79 @@
+[
+  {
+    "branch": "what-if",
+    "changeset": {
+      "author": "Pat",
+      "author_kind": "human",
+      "created": "2026-11-02T09:00:00Z",
+      "id": "0101010101010101010101010101010101010101010101010101010101010101",
+      "kind": "edit",
+      "message": "Crane late",
+      "parent": "0202020202020202020202020202020202020202020202020202020202020202",
+      "second_parent": null,
+      "short_id": "0101010101",
+      "state": "accepted",
+      "summary": "A2 duration"
+    },
+    "event": "changeset",
+    "schema": "totalfloat.event/1"
+  },
+  {
+    "branch": null,
+    "changeset": {
+      "author": "Pat",
+      "author_kind": "human",
+      "created": "2026-11-02T09:00:00Z",
+      "id": "0404040404040404040404040404040404040404040404040404040404040404",
+      "kind": "edit",
+      "message": "Crane late",
+      "parent": "0101010101010101010101010101010101010101010101010101010101010101",
+      "second_parent": null,
+      "short_id": "0404040404",
+      "state": "accepted",
+      "summary": "A2 duration"
+    },
+    "event": "changeset",
+    "schema": "totalfloat.event/1"
+  },
+  {
+    "branch": "main",
+    "changeset": {
+      "author": "Pat",
+      "author_kind": "human",
+      "created": "2026-11-02T09:00:00Z",
+      "id": "0505050505050505050505050505050505050505050505050505050505050505",
+      "kind": "revert",
+      "message": "Not after all",
+      "parent": "0404040404040404040404040404040404040404040404040404040404040404",
+      "second_parent": null,
+      "short_id": "0505050505",
+      "state": "accepted",
+      "summary": "revert 0404040404"
+    },
+    "event": "changeset",
+    "schema": "totalfloat.event/1"
+  },
+  {
+    "change": "moved",
+    "event": "branch",
+    "from": "0202020202020202020202020202020202020202020202020202020202020202",
+    "head": "0505050505050505050505050505050505050505050505050505050505050505",
+    "name": "main",
+    "schema": "totalfloat.event/1"
+  },
+  {
+    "change": "created",
+    "event": "branch",
+    "from": null,
+    "head": "0101010101010101010101010101010101010101010101010101010101010101",
+    "name": "what-if",
+    "schema": "totalfloat.event/1"
+  },
+  {
+    "branch": "main",
+    "event": "view",
+    "head": "0505050505050505050505050505050505050505050505050505050505050505",
+    "label": "plant.tfdb",
+    "schema": "totalfloat.event/1"
+  }
+]

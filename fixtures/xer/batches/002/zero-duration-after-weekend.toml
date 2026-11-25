@@ -1,0 +1,83 @@
+schema = 1
+seed = 2002
+export_date = "2026-01-01"
+data_date = "2026-01-12 08:00"
+description = "Zero-duration tasks that follow a Friday finish and a midweek finish (TF-014); no stored results"
+
+[[calendars]]
+id = 210
+name = "Authored five-day week"
+weekdays = [1, 2, 3, 4, 5]
+intervals = ["08:00-12:00", "13:00-17:00"]
+
+[[activities]]
+id = 1
+name = "Authored work to Friday"
+calendar = 210
+kind = "task"
+duration = 2400
+
+[[activities]]
+id = 2
+name = "Authored zero-duration task after a weekend"
+calendar = 210
+kind = "task"
+duration = 0
+
+[[activities]]
+id = 3
+name = "Authored second zero-duration task after a weekend"
+calendar = 210
+kind = "task"
+duration = 0
+
+[[activities]]
+id = 4
+name = "Authored work to Tuesday"
+calendar = 210
+kind = "task"
+duration = 480
+
+[[activities]]
+id = 5
+name = "Authored zero-duration task midweek"
+calendar = 210
+kind = "task"
+duration = 0
+
+[[activities]]
+id = 6
+name = "Authored closing work"
+calendar = 210
+kind = "task"
+duration = 480
+
+[[relationships]]
+predecessor = 1
+successor = 2
+kind = "fs"
+lag = 0
+
+[[relationships]]
+predecessor = 2
+successor = 3
+kind = "fs"
+lag = 0
+
+[[relationships]]
+predecessor = 3
+successor = 4
+kind = "fs"
+lag = 0
+
+[[relationships]]
+predecessor = 4
+successor = 5
+kind = "fs"
+lag = 0
+
+[[relationships]]
+predecessor = 5
+successor = 6
+kind = "fs"
+lag = 0

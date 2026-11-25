@@ -1,0 +1,94 @@
+[workspace]
+resolver = "3"
+members = [
+    "crates/model",
+    "crates/calendar",
+    "crates/xer",
+    "crates/engine",
+    "crates/check",
+    "crates/diff",
+    "crates/edit",
+    "crates/evm",
+    "crates/risk",
+    "crates/interop",
+    "crates/store",
+    "crates/text",
+    "crates/server",
+    "crates/cli",
+    "xtask",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.99"
+license = "Apache-2.0"
+repository = "https://github.com/ijd5004/totalfloat"
+authors = ["TotalFloat contributors"]
+
+[workspace.dependencies]
+# Internal crates. Allowed edges are listed in docs/ARCHITECTURE.md#crates and
+# enforced by the `architecture` test in xtask.
+totalfloat-model = { path = "crates/model", version = "0.1.0" }
+totalfloat-calendar = { path = "crates/calendar", version = "0.1.0" }
+totalfloat-xer = { path = "crates/xer", version = "0.1.0" }
+totalfloat-engine = { path = "crates/engine", version = "0.1.0" }
+totalfloat-check = { path = "crates/check", version = "0.1.0" }
+totalfloat-diff = { path = "crates/diff", version = "0.1.0" }
+totalfloat-edit = { path = "crates/edit", version = "0.1.0" }
+totalfloat-evm = { path = "crates/evm", version = "0.1.0" }
+totalfloat-risk = { path = "crates/risk", version = "0.1.0" }
+totalfloat-interop = { path = "crates/interop", version = "0.1.0" }
+totalfloat-store = { path = "crates/store", version = "0.1.0" }
+totalfloat-text = { path = "crates/text", version = "0.1.0" }
+totalfloat-server = { path = "crates/server", version = "0.1.0" }
+
+# External crates. Permissive licenses only (ARCHITECTURE.md, License and dependencies).
+axum = { version = "0.8.9", default-features = false, features = ["http1", "tokio"] }
+clap = { version = "4.6.7", features = ["derive"] }
+criterion = { version = "0.7", default-features = false, features = ["cargo_bench_support"] }
+encoding_rs = "0.8.42"
+futures-util = { version = "0.3.34", default-features = false }
+flate2 = { version = "1.1", default-features = false, features = ["rust_backend"] }
+getrandom = "0.4.3"
+insta = "1.49.0"
+open = "5.4.5"
+proptest = "1"
+quick-xml = "0.42"
+calamine = { version = "0.38", default-features = false }
+rust_xlsxwriter = { version = "0.102", default-features = false }
+zip = { version = "9.5", default-features = false, features = ["deflate"] }
+rmcp = { version = "3.8.0", default-features = false, features = ["macros", "server", "transport-io"] }
+rusqlite = { version = "0.41", features = ["bundled"] }
+schemars = "1"
+serde = { version = "1.0.229", features = ["derive"] }
+serde_json = "1.0.154"
+serde_path_to_error = "0.1.20"
+sha2 = "0.10"
+tokio = { version = "1", features = ["rt", "macros", "io-std", "io-util", "sync"] }
+tempfile = "3.27.0"
+thiserror = "2.0.21"
+toml = "1.1.8"
+tower = { version = "0.5.3", default-features = false, features = ["util"] }
+
+[workspace.lints.rust]
+unsafe_code = "forbid"
+missing_docs = "warn"
+
+[workspace.lints.clippy]
+pedantic = { level = "warn", priority = -1 }
+# AGENTS.md: no unwrap/expect outside tests (clippy.toml allows them in tests).
+unwrap_used = "warn"
+expect_used = "warn"
+# Allow-list for pedantic. Keep it short and say why.
+# Crates are small and namespaced (`xer::XerReader` reads better than `xer::Reader` in docs and errors).
+module_name_repetitions = "allow"
+# Too noisy for a codebase where most functions return values; we add #[must_use] where ignoring is a real bug.
+must_use_candidate = "allow"
+
+# Dev and test builds keep only line tables: panic backtraces still show
+# function names and file:line, and the build folder is about half the size
+#. For a gdb or lldb session, build with CARGO_PROFILE_DEV_DEBUG=true.
+# The release and bench profiles are unchanged.
+[profile.dev]
+debug = "line-tables-only"

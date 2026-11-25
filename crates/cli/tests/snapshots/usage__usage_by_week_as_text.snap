@@ -1,0 +1,11 @@
+---
+source: crates/cli/tests/usage.rs
+expression: stdout
+---
+CREW Synthetic labor by week, in hours
+start           actual   remaining       total       limit
+2025-12-29          16           0          16          40
+2026-01-05           0          24          24          40
+2026-01-12           0          60          60          40  over
+2026-01-19           0          60          60          40  over
+Total 16 actual, 144 remaining over 2 assignments

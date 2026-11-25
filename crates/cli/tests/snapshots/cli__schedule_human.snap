@@ -1,0 +1,13 @@
+---
+source: crates/cli/tests/cli.rs
+expression: stdout
+---
+Project TF-FRESH (1)
+  data date: 2026-01-05 08:00
+  finish: 2026-01-05 17:00 (was none)
+  activities: 2, critical: 2, changed: 2, on dates or float: 2
+  changed fields: early_finish 2, early_start 2, free_float 2, late_finish 2, late_start 2, longest_path 2, planned_finish 2, planned_start 2, remaining_early_finish 2, remaining_early_start 2, remaining_late_finish 2, remaining_late_start 2, total_float 2
+  differences start at:
+    TF-001 early_start: none to 2026-01-05 08:00
+    TF-002 late_start: none to 2026-01-05 17:00
+Nothing written; pass -o to write a new file

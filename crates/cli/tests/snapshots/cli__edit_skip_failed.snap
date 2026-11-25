@@ -1,0 +1,17 @@
+---
+source: crates/cli/tests/cli.rs
+assertion_line: 867
+expression: "stdout.replace(output.to_str().unwrap(), \"<out>\")"
+---
+skipped 3, not applied:
+  --add B1;New;NOWBS;2d: no WBS node has the code NOWBS
+  --duration A9=1d: no project holds A9
+  --link A1>B1: needs --add B1;New;NOWBS;2d
+A1 duration: original 8h to 16h, remaining 8h to 16h
+A2 duration: original 8h to 48h, remaining 8h to 48h
+A1 renamed
+A2 renamed
+Project rel-fs-positive (1)
+  finish: 2026-01-17 09:00 (was 2026-01-13 17:00)
+  critical: 2 (was 2)
+Wrote <out>

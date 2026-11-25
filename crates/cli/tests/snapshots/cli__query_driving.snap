@@ -1,0 +1,7 @@
+---
+source: crates/cli/tests/cli.rs
+expression: stdout
+---
+id  link_type  link_lag_hours  depth
+1   FS         1               1
+Showing 1-1 of 1

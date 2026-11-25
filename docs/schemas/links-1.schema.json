@@ -1,0 +1,78 @@
+{
+  "$id": "totalfloat.links/1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "`totalfloat.links/1`, `GET /api/1/links`: every relationship, one array\nper field.",
+  "properties": {
+    "count": {
+      "description": "How many links: every array has this many entries.",
+      "format": "uint",
+      "minimum": 0,
+      "type": "integer"
+    },
+    "driving": {
+      "description": "Whether it drives the successor's dates.",
+      "items": {
+        "type": "boolean"
+      },
+      "type": "array"
+    },
+    "id": {
+      "description": "`TASKPRED.task_pred_id`.",
+      "items": {
+        "format": "uint64",
+        "minimum": 0,
+        "type": "integer"
+      },
+      "type": "array"
+    },
+    "lag_hours": {
+      "description": "Lag, in hours.",
+      "items": {
+        "format": "double",
+        "type": "number"
+      },
+      "type": "array"
+    },
+    "predecessor": {
+      "description": "The predecessor's `task_id`.",
+      "items": {
+        "format": "uint64",
+        "minimum": 0,
+        "type": "integer"
+      },
+      "type": "array"
+    },
+    "schema": {
+      "const": "totalfloat.links/1",
+      "type": "string"
+    },
+    "successor": {
+      "description": "The successor's `task_id`.",
+      "items": {
+        "format": "uint64",
+        "minimum": 0,
+        "type": "integer"
+      },
+      "type": "array"
+    },
+    "type": {
+      "description": "`FS`, `SS`, `FF` or `SF`.",
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "schema",
+    "count",
+    "id",
+    "predecessor",
+    "successor",
+    "type",
+    "lag_hours",
+    "driving"
+  ],
+  "title": "totalfloat.links/1",
+  "type": "object"
+}

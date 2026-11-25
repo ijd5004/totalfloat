@@ -1,0 +1,29 @@
+---
+source: crates/cli/tests/cli.rs
+expression: stdout
+---
+Project rel-fs-positive (1)
+  FAIL Logic: 100.0%, limit 5% (2 of 2)
+       A1, A2
+  pass Leads: 0.0%, limit 0% (0 of 1)
+  FAIL Lags: 100.0%, limit 5% (1 of 1)
+       A1 to A2
+  pass Relationship types: 0.0%, limit 10% (0 of 1)
+  pass Hard constraints: 0.0%, limit 5% (0 of 2)
+  pass High float: 0.0%, limit 5% (0 of 2)
+  pass Negative float: 0.0%, limit 0% (0 of 2)
+  pass High duration: 0.0%, limit 5% (0 of 2)
+  pass Invalid dates: 0.0%, limit 0% (0 of 2)
+  FAIL Resources: 100.0%, limit 0% (2 of 2)
+       A1, A2
+  n/a  Missed tasks: the file holds no baseline
+  pass Critical path test: A1 delayed 600 days: finish 2026-01-13 17:00 to 2028-05-02 17:00 (0 of 1)
+  n/a  Critical path length index: the project has no required finish date
+  n/a  Baseline execution index: the file holds no baseline
+  pass Open ends: 0.0%, limit 0% (0 of 2)
+  pass Out-of-sequence progress: 0.0%, limit 0% (0 of 1)
+  pass Constraints overriding logic: 0.0%, limit 0% (0 of 2)
+  pass Long lags: 0.0%, limit 0% (0 of 1)
+  pass Start-to-finish relationships: 0.0%, limit 0% (0 of 1)
+  pass Float lost to a calendar gap: 0.0%, limit 5% (0 of 2)
+3 checks failed

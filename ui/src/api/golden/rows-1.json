@@ -1,0 +1,101 @@
+{
+  "actual_finish": [
+    null,
+    null
+  ],
+  "actual_start": [
+    null,
+    null
+  ],
+  "calendar": [
+    "Synthetic weekdays",
+    "Synthetic seven-day sixteen-hour"
+  ],
+  "code": [
+    "A1",
+    "A2"
+  ],
+  "constraint": [
+    null,
+    null
+  ],
+  "constraint_date": [
+    null,
+    null
+  ],
+  "count": 2,
+  "critical": [
+    true,
+    true
+  ],
+  "early_finish": [
+    "2026-01-12 17:00",
+    "2026-01-15 09:00"
+  ],
+  "early_start": [
+    "2026-01-12 08:00",
+    "2026-01-13 09:00"
+  ],
+  "file": "plant.tfdb",
+  "free_float_hours": [
+    0.0,
+    0.0
+  ],
+  "hours_per_day": [
+    8.0,
+    16.0
+  ],
+  "id": [
+    1,
+    2
+  ],
+  "late_finish": [
+    "2026-01-12 17:00",
+    "2026-01-15 09:00"
+  ],
+  "late_start": [
+    "2026-01-12 08:00",
+    "2026-01-13 09:00"
+  ],
+  "name": [
+    "Synthetic activity 1",
+    "Synthetic activity 2"
+  ],
+  "original_duration_hours": [
+    8.0,
+    32.0
+  ],
+  "project": [
+    1,
+    1
+  ],
+  "remaining_duration_hours": [
+    8.0,
+    32.0
+  ],
+  "schema": "totalfloat.rows/1",
+  "secondary_constraint": [
+    null,
+    null
+  ],
+  "secondary_constraint_date": [
+    null,
+    null
+  ],
+  "status": [
+    "not-started",
+    "not-started"
+  ],
+  "total_float_hours": [
+    0.0,
+    0.0
+  ],
+  "type": [
+    "task",
+    "task"
+  ],
+  "wbs_path": [
+    "rel-fs-positive",
+    "rel-fs-positive"
+  ]
+}

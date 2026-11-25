@@ -1,0 +1,210 @@
+{
+  "$defs": {
+    "By": {
+      "description": "The length of a usage period.",
+      "oneOf": [
+        {
+          "const": "week",
+          "description": "Weeks, each starting on Monday.",
+          "type": "string"
+        },
+        {
+          "const": "month",
+          "description": "Calendar months.",
+          "type": "string"
+        }
+      ]
+    },
+    "LimitFrom": {
+      "description": "A limit and when it takes effect.",
+      "properties": {
+        "from": {
+          "description": "When it takes effect, `YYYY-MM-DD HH:MM`; `null` for the limit in\nforce before the first change, and before every rate starts.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "units_per_hour": {
+          "description": "The most units per hour; `null` for no limit.",
+          "format": "double",
+          "type": [
+            "number",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "from",
+        "units_per_hour"
+      ],
+      "type": "object"
+    },
+    "Named": {
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "short_name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "short_name",
+        "name"
+      ],
+      "type": "object"
+    },
+    "NotSpread": {
+      "properties": {
+        "activity": {
+          "description": "The Activity ID.",
+          "type": "string"
+        },
+        "reason": {
+          "description": "Why.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "activity",
+        "reason"
+      ],
+      "type": "object"
+    },
+    "Totals": {
+      "properties": {
+        "actual": {
+          "format": "double",
+          "type": "number"
+        },
+        "remaining": {
+          "format": "double",
+          "type": "number"
+        },
+        "total": {
+          "format": "double",
+          "type": "number"
+        }
+      },
+      "required": [
+        "actual",
+        "remaining",
+        "total"
+      ],
+      "type": "object"
+    },
+    "Usage": {
+      "description": "One period's units.",
+      "properties": {
+        "actual": {
+          "format": "double",
+          "type": "number"
+        },
+        "limit": {
+          "description": "The most the resource can do in the period: its maximum units per\nhour over its calendar's work hours. `null` without a maximum.",
+          "format": "double",
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "over": {
+          "description": "More than the limit.",
+          "type": "boolean"
+        },
+        "remaining": {
+          "format": "double",
+          "type": "number"
+        },
+        "start": {
+          "description": "The period's first day, `YYYY-MM-DD`.",
+          "type": "string"
+        },
+        "total": {
+          "description": "Actual and remaining together.",
+          "format": "double",
+          "type": "number"
+        }
+      },
+      "required": [
+        "start",
+        "actual",
+        "remaining",
+        "total",
+        "limit",
+        "over"
+      ],
+      "type": "object"
+    }
+  },
+  "$id": "totalfloat.usage/1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "`totalfloat.usage/1`.",
+  "properties": {
+    "assignments": {
+      "description": "Assignments of the resource spread into the periods.",
+      "format": "uint",
+      "minimum": 0,
+      "type": "integer"
+    },
+    "by": {
+      "$ref": "#/$defs/By",
+      "description": "`week` or `month`."
+    },
+    "file": {
+      "type": "string"
+    },
+    "limits": {
+      "description": "The resource's limit over time, in units per hour (TF-001): the one\nin force before any change, then each change, earliest first. Empty\nwhen it has no rate.",
+      "items": {
+        "$ref": "#/$defs/LimitFrom"
+      },
+      "type": "array"
+    },
+    "not_spread": {
+      "description": "Assignments with units that couldn't be spread, each with why.",
+      "items": {
+        "$ref": "#/$defs/NotSpread"
+      },
+      "type": "array"
+    },
+    "periods": {
+      "description": "Every period from the first with units to the last, earliest first.",
+      "items": {
+        "$ref": "#/$defs/Usage"
+      },
+      "type": "array"
+    },
+    "resource": {
+      "$ref": "#/$defs/Named",
+      "description": "The resource."
+    },
+    "schema": {
+      "const": "totalfloat.usage/1",
+      "type": "string"
+    },
+    "totals": {
+      "$ref": "#/$defs/Totals",
+      "description": "Units over every period."
+    },
+    "unit": {
+      "description": "What units are in: `hours` for labor and nonlabor, `units` for material.",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema",
+    "file",
+    "resource",
+    "by",
+    "unit",
+    "limits",
+    "periods",
+    "totals",
+    "assignments",
+    "not_spread"
+  ],
+  "title": "totalfloat.usage/1",
+  "type": "object"
+}

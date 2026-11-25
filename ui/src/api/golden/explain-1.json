@@ -1,0 +1,62 @@
+{
+  "activity": {
+    "code": "A2",
+    "id": 2
+  },
+  "chains": [
+    {
+      "date": "2026-01-13 09:00",
+      "field": "early_start",
+      "origin": "data-date",
+      "steps": [
+        {
+          "activity": 2,
+          "cause": {
+            "from": 1,
+            "from_field": "early_finish",
+            "from_role": "predecessor",
+            "kind": "relationship",
+            "lag_days": 0.125,
+            "lag_hours": 1.0,
+            "link": "FS"
+          },
+          "code": "A2",
+          "date": "2026-01-13 09:00",
+          "field": "early_start",
+          "hours_per_day": 16.0,
+          "relationship": 1,
+          "text": "A2 early start 2026-01-13 09:00: FS with 1h lag on the predecessor calendar from A1 early finish"
+        },
+        {
+          "activity": 1,
+          "cause": {
+            "from_field": "early_start",
+            "kind": "duration"
+          },
+          "code": "A1",
+          "date": "2026-01-12 17:00",
+          "field": "early_finish",
+          "hours_per_day": 8.0,
+          "text": "A1 early finish 2026-01-12 17:00: its early start and its duration"
+        },
+        {
+          "activity": 1,
+          "cause": {
+            "kind": "data-date"
+          },
+          "code": "A1",
+          "date": "2026-01-12 08:00",
+          "field": "early_start",
+          "hours_per_day": 8.0,
+          "text": "A1 early start 2026-01-12 08:00: data date"
+        }
+      ],
+      "total_steps": 3
+    }
+  ],
+  "field": "early_start",
+  "file": "plant.tfdb",
+  "project": 1,
+  "schema": "totalfloat.explain/1",
+  "total_float_hours": null
+}

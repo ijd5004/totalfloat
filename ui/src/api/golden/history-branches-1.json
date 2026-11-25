@@ -1,0 +1,25 @@
+{
+  "branches": [
+    {
+      "author": "Pat",
+      "created": "2026-11-02T09:00:00Z",
+      "current": true,
+      "head": "0101010101010101010101010101010101010101010101010101010101010101",
+      "last_change": "Crane late",
+      "name": "main",
+      "short_id": "0101010101"
+    },
+    {
+      "author": "Pat",
+      "created": "2026-11-02T09:00:00Z",
+      "current": false,
+      "head": "0101010101010101010101010101010101010101010101010101010101010101",
+      "last_change": "Crane late",
+      "name": "what-if",
+      "short_id": "0101010101"
+    }
+  ],
+  "current": "main",
+  "schema": "totalfloat.history-branches/1",
+  "store": "plant.tfdb"
+}

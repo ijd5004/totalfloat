@@ -1,0 +1,9 @@
+[alias]
+xtask = "run --quiet --package xtask --"
+
+# Link the C runtime statically on Windows, so the binary starts on a Windows
+# that has no Visual C++ Redistributable. Without it the binary needs
+# VCRUNTIME140.dll. A RUSTFLAGS environment variable replaces this setting, so
+# anything that sets RUSTFLAGS for a Windows build must repeat the flag.
+[target.x86_64-pc-windows-msvc]
+rustflags = ["-C", "target-feature=+crt-static"]

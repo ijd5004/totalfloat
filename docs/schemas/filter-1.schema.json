@@ -1,0 +1,106 @@
+{
+  "$defs": {
+    "FilterSchema": {
+      "description": "The schema name.",
+      "oneOf": [
+        {
+          "const": "totalfloat.filter/1",
+          "description": "The only version.",
+          "type": "string"
+        }
+      ]
+    }
+  },
+  "$id": "totalfloat.filter/1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "anyOf": [
+    {
+      "properties": {
+        "built": {
+          "minProperties": 1
+        }
+      },
+      "required": [
+        "built"
+      ]
+    },
+    {
+      "properties": {
+        "any": {
+          "minItems": 1
+        }
+      },
+      "required": [
+        "any"
+      ]
+    }
+  ],
+  "description": "A named filter (`totalfloat.filter/1`).",
+  "properties": {
+    "any": {
+      "description": "Groups of conditions in the same form, as `query`'s `any`: an activity\nhas to meet every condition of at least one group, besides `built`.\nLeft out when there are none.",
+      "items": {
+        "additionalProperties": {
+          "type": "string"
+        },
+        "minProperties": 1,
+        "propertyNames": {
+          "enum": [
+            "code",
+            "wbs",
+            "resource",
+            "status",
+            "type",
+            "float_min",
+            "float_max",
+            "critical",
+            "constrained",
+            "start_from",
+            "start_to",
+            "finish_from",
+            "finish_to",
+            "text"
+          ]
+        },
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "built": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "default": {},
+      "description": "The conditions, as `query`'s parameters, such as\n`{\"code\": \"Phase=DESIGN\", \"float_max\": \"40\"}`. An activity has to meet\nthem all.",
+      "propertyNames": {
+        "enum": [
+          "code",
+          "wbs",
+          "resource",
+          "status",
+          "type",
+          "float_min",
+          "float_max",
+          "critical",
+          "constrained",
+          "start_from",
+          "start_to",
+          "finish_from",
+          "finish_to",
+          "text"
+        ]
+      },
+      "type": "object"
+    },
+    "schema": {
+      "$ref": "#/$defs/FilterSchema",
+      "description": "Always `totalfloat.filter/1`."
+    }
+  },
+  "required": [
+    "schema"
+  ],
+  "title": "totalfloat.filter/1",
+  "type": "object"
+}

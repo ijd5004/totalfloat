@@ -1,0 +1,11 @@
+---
+source: crates/cli/tests/cli.rs
+expression: clean(&stdout)
+---
+Project rel-fs-positive: finish 2026-01-20 17:00 (baseline 2026-01-13 17:00), variance -36h
+  data date 2026-01-12 08:00 (baseline 2026-01-12 08:00)
+  0 became critical, 0 left critical
+  1 added, 0 deleted; logic changed 1, durations 1, constraints 0
+  largest slips (2):
+    A2 Synthetic activity 2: 2026-01-20 17:00 (baseline 2026-01-13 17:00), -112h
+    A1 Synthetic activity 1: 2026-01-19 17:00 (baseline 2026-01-12 17:00), -40h

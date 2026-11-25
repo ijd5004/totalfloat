@@ -1,0 +1,5 @@
+---
+source: crates/cli/tests/cli.rs
+expression: stdout
+---
+../../fixtures/xer/model-mapping.xer: byte-identical (4523 bytes)

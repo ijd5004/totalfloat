@@ -1,0 +1,28 @@
+---
+source: crates/cli/tests/report.rs
+expression: stdout
+---
+# Durations
+
+plan.xer · data date 2026-03-02 08:00 · 7 activities
+
+## WBS: CIV (4)
+
+| Activity ID | Activity name | Original duration hours | Remaining duration hours |
+| --- | --- | --- | --- |
+| A1010 | Excavate | 40.0 | 40.0 |
+| A1020 | Pour foundations | 80.0 | 80.0 |
+| A1030 | Cure, then strip \| forms | 56.0 | 56.0 |
+| A1040 | Survey | 16.0 | 16.0 |
+| **Total** |  | **192.0** | **192.0** |
+
+## WBS: MEC (3)
+
+| Activity ID | Activity name | Original duration hours | Remaining duration hours |
+| --- | --- | --- | --- |
+| A2010 | Order pumps | 24.0 | 24.0 |
+| A2020 | Install pumps | 48.0 | 48.0 |
+| M100 | Plant complete | 0.0 | 0.0 |
+| **Total** |  | **72.0** | **72.0** |
+
+**Total, 7 activities: Original duration hours 264.0 · Remaining duration hours 264.0**

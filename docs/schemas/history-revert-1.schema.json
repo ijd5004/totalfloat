@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "totalfloat.history-revert/1",
+  "title": "totalfloat history revert --json, and history undo --json",
+  "description": "A changeset taken back out of a branch: the later edits replayed without it, and the new changeset recording the result. Nothing is deleted.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "reverted", "replayed", "recorded", "impact"],
+  "properties": {
+    "schema": { "const": "totalfloat.history-revert/1" },
+    "reverted": { "type": "string", "description": "The changeset taken out." },
+    "replayed": { "type": "array", "items": { "type": "string" }, "description": "The later changesets replayed without it, oldest first." },
+    "recorded": {
+      "type": ["object", "null"],
+      "description": "The revert changeset; null when the result is the file as it was.",
+      "additionalProperties": false,
+      "required": ["id", "short_id", "branch"],
+      "properties": {
+        "id": { "type": "string" },
+        "short_id": { "type": "string" },
+        "branch": { "type": "string" }
+      }
+    },
+    "impact": { "type": ["object", "null"], "description": "What the revert changed, as a totalfloat.diff/1 report from the branch head to the result, or null if it couldn't be compared." }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "totalfloat.history-branches/1",
+  "title": "totalfloat history branches --json",
+  "description": "A store's branches, each with its head and latest change.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "store", "current", "branches"],
+  "$defs": {
+    "branch": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "current", "head", "short_id", "created", "author", "last_change"],
+      "properties": {
+        "name": { "type": "string" },
+        "current": { "type": "boolean", "description": "True for the checked-out branch." },
+        "head": { "type": "string" },
+        "short_id": { "type": "string" },
+        "created": { "type": "string", "description": "When the head was recorded." },
+        "author": { "type": "string" },
+        "last_change": { "type": "string", "description": "The head's reason, or a summary of its commands." }
+      }
+    }
+  },
+  "properties": {
+    "schema": { "const": "totalfloat.history-branches/1" },
+    "store": { "type": "string" },
+    "current": { "type": ["string", "null"] },
+    "branches": { "type": "array", "items": { "$ref": "#/$defs/branch" } }
+  }
+}

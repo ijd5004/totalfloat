@@ -1,0 +1,251 @@
+{
+  "$defs": {
+    "Figures": {
+      "description": "A node's or project's figures, as reported.",
+      "properties": {
+        "activities": {
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "actual_cost": {
+          "format": "double",
+          "type": "number"
+        },
+        "budgeted_cost": {
+          "description": "Assignments' and expenses' costs.",
+          "format": "double",
+          "type": "number"
+        },
+        "critical": {
+          "description": "Unfinished activities critical by their project's own definition.",
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "finish": {
+          "description": "The latest finish: actual for finished work, early for the rest.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "finished": {
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "first_data_date": {
+          "description": "The earliest data date among the projects.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "in_progress": {
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "last_data_date": {
+          "description": "The latest data date among the projects.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "negative_float": {
+          "description": "Unfinished activities with negative total float.",
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "not_started": {
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "projects": {
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "remaining_cost": {
+          "format": "double",
+          "type": "number"
+        },
+        "start": {
+          "description": "The earliest start: actual, or early for work not started.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "stored_results": {
+          "description": "Projects whose figures are the results their file stores, as it was\nlast calculated; the others' are calculated.",
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "projects",
+        "stored_results",
+        "activities",
+        "not_started",
+        "in_progress",
+        "finished",
+        "critical",
+        "negative_float",
+        "budgeted_cost",
+        "actual_cost",
+        "remaining_cost"
+      ],
+      "type": "object"
+    },
+    "NodeReport": {
+      "properties": {
+        "depth": {
+          "description": "0 at the top.",
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "parent": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "totals": {
+          "$ref": "#/$defs/Figures",
+          "description": "Every project at or under this node."
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "depth",
+        "totals"
+      ],
+      "type": "object"
+    },
+    "ProjectReport": {
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "data_date": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "eps": {
+          "description": "The EPS node it sits under.",
+          "type": "string"
+        },
+        "file": {
+          "description": "The schedule file, as the portfolio names it.",
+          "type": "string"
+        },
+        "finish_variance_days": {
+          "description": "Must-finish-by less the finish, in calendar days; negative is late.",
+          "format": "double",
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "id": {
+          "description": "`PROJECT.proj_id`.",
+          "format": "uint64",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "must_finish_by": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "results": {
+          "$ref": "#/$defs/Results",
+          "description": "Whether its figures are calculated or the results its file stores."
+        },
+        "totals": {
+          "$ref": "#/$defs/Figures"
+        }
+      },
+      "required": [
+        "file",
+        "id",
+        "code",
+        "eps",
+        "results",
+        "totals"
+      ],
+      "type": "object"
+    },
+    "Results": {
+      "description": "Where a project's figures come from.",
+      "oneOf": [
+        {
+          "const": "calculated",
+          "description": "Calculated by the engine, as `serve` shows the schedule.",
+          "type": "string"
+        },
+        {
+          "const": "stored",
+          "description": "The results the file stores, as it was last calculated: `portfolio\nshow` reads these, and the app falls back on them for a file the\nengine can't calculate.",
+          "type": "string"
+        }
+      ]
+    }
+  },
+  "$id": "totalfloat.portfolio-show/1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "`totalfloat.portfolio-show/1`, documented in\ndocs/schemas/portfolio-show-1.schema.json.",
+  "properties": {
+    "file": {
+      "type": "string"
+    },
+    "nodes": {
+      "description": "The EPS in tree order: each node after its parent.",
+      "items": {
+        "$ref": "#/$defs/NodeReport"
+      },
+      "type": "array"
+    },
+    "projects": {
+      "description": "Every project, in the order the file places them.",
+      "items": {
+        "$ref": "#/$defs/ProjectReport"
+      },
+      "type": "array"
+    },
+    "schema": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema",
+    "file",
+    "nodes",
+    "projects"
+  ],
+  "title": "totalfloat.portfolio-show/1",
+  "type": "object"
+}

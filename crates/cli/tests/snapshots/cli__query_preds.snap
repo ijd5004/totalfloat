@@ -1,0 +1,7 @@
+---
+source: crates/cli/tests/cli.rs
+expression: stdout
+---
+code  name                   status       early_start       early_finish      total_float_hours  critical  link_type  link_lag_hours
+A1    Synthetic active task  in-progress  2026-01-05 08:00  2026-01-10 17:00  -1.5               true      FS         0.5
+Showing 1-1 of 1

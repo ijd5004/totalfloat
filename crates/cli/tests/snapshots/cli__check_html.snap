@@ -1,0 +1,73 @@
+---
+source: crates/cli/tests/cli.rs
+expression: first
+---
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Schedule checks: ../../fixtures/xer/usage.xer</title>
+<style>body{font-family:system-ui,sans-serif;margin:2rem;color:#1d2433}table{border-collapse:collapse;margin:0.5rem 0 1.5rem}th,td{border:1px solid #c9ced8;padding:0.25rem 0.6rem;text-align:left}th{background:#eef1f5}p{color:#4b5465}.fail,.late{color:#a4161a;font-weight:600}tr.fail td{background:#fdf0f0}.pass{color:#1e6b34}.na{color:#6b7280}</style>
+</head>
+<body>
+<h1>Schedule checks: ../../fixtures/xer/usage.xer</h1>
+<p>4 checks failed</p>
+<h2>SYN1 · Synthetic Project One</h2>
+<p>Project ID 1 · data date 2026-01-05 08:00</p>
+<table>
+<thead><tr><th>Check</th><th>Result</th><th>Measure</th><th>Outside the rule</th></tr></thead>
+<tbody>
+<tr class="fail"><td>Logic</td><td class="fail">FAIL</td><td>100.0%, limit 5%</td><td>3 of 3</td></tr>
+<tr><td>Leads</td><td class="pass">pass</td><td>0.0%, limit 0%</td><td>0 of 1</td></tr>
+<tr><td>Lags</td><td class="pass">pass</td><td>0.0%, limit 5%</td><td>0 of 1</td></tr>
+<tr><td>Relationship types</td><td class="pass">pass</td><td>0.0%, limit 10%</td><td>0 of 1</td></tr>
+<tr class="fail"><td>Hard constraints</td><td class="fail">FAIL</td><td>33.3%, limit 5%</td><td>1 of 3</td></tr>
+<tr><td>High float</td><td class="pass">pass</td><td>0.0%, limit 5%</td><td>0 of 3</td></tr>
+<tr><td>Negative float</td><td class="pass">pass</td><td>0.0%, limit 0%</td><td>0 of 3</td></tr>
+<tr><td>High duration</td><td class="pass">pass</td><td>0.0%, limit 5%</td><td>0 of 3</td></tr>
+<tr><td>Invalid dates</td><td class="pass">pass</td><td>0.0%, limit 0%</td><td>0 of 3</td></tr>
+<tr><td>Resources</td><td class="pass">pass</td><td>0.0%, limit 0%</td><td>0 of 2</td></tr>
+<tr><td>Missed tasks</td><td class="na">n/a</td><td>the file holds no baseline</td><td>0 of 0</td></tr>
+<tr class="fail"><td>Critical path test</td><td class="fail">FAIL</td><td>A1 delayed 600 days: finish 2026-01-23 17:00 to 2026-01-23 17:00</td><td>1 of 1</td></tr>
+<tr><td>Critical path length index</td><td class="pass">pass</td><td>1.49, limit 0.95, in elapsed time</td><td>0 of 1</td></tr>
+<tr><td>Baseline execution index</td><td class="na">n/a</td><td>the file holds no baseline</td><td>0 of 0</td></tr>
+<tr class="fail"><td>Open ends</td><td class="fail">FAIL</td><td>33.3%, limit 0%</td><td>1 of 3</td></tr>
+<tr><td>Out-of-sequence progress</td><td class="pass">pass</td><td>0.0%, limit 0%</td><td>0 of 1</td></tr>
+<tr><td>Constraints overriding logic</td><td class="pass">pass</td><td>0.0%, limit 0%</td><td>0 of 3</td></tr>
+<tr><td>Long lags</td><td class="pass">pass</td><td>0.0%, limit 0%</td><td>0 of 1</td></tr>
+<tr><td>Start-to-finish relationships</td><td class="pass">pass</td><td>0.0%, limit 0%</td><td>0 of 1</td></tr>
+<tr><td>Float lost to a calendar gap</td><td class="pass">pass</td><td>0.0%, limit 5%</td><td>0 of 3</td></tr>
+</tbody>
+</table>
+<h3>Logic: 3 of 3</h3>
+<table>
+<thead><tr><th>Activity ID</th><th>Activity name</th></tr></thead>
+<tbody>
+<tr><td>A1</td><td>Synthetic active task</td></tr>
+<tr><td>M1</td><td>Synthetic finish milestone</td></tr>
+<tr><td>A2</td><td>Synthetic busy task</td></tr>
+</tbody>
+</table>
+<h3>Hard constraints: 1 of 3</h3>
+<table>
+<thead><tr><th>Activity ID</th><th>Activity name</th></tr></thead>
+<tbody>
+<tr><td>M1</td><td>Synthetic finish milestone</td></tr>
+</tbody>
+</table>
+<h3>Critical path test: 1 of 1</h3>
+<table>
+<thead><tr><th>Activity ID</th><th>Activity name</th></tr></thead>
+<tbody>
+<tr><td>A1</td><td>Synthetic active task</td></tr>
+</tbody>
+</table>
+<h3>Open ends: 1 of 3</h3>
+<table>
+<thead><tr><th>Activity ID</th><th>Activity name</th></tr></thead>
+<tbody>
+<tr><td>M1</td><td>Synthetic finish milestone</td></tr>
+</tbody>
+</table>
+</body>
+</html>

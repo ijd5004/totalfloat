@@ -1,0 +1,200 @@
+{
+  "$defs": {
+    "Assessment": {
+      "description": "All checks on one project, DCMA first.",
+      "properties": {
+        "checks": {
+          "description": "In a fixed order.",
+          "items": {
+            "$ref": "#/$defs/Check"
+          },
+          "type": "array"
+        },
+        "code": {
+          "description": "`PROJECT.proj_short_name`.",
+          "type": "string"
+        },
+        "project": {
+          "description": "Internal project ID.",
+          "format": "uint64",
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "project",
+        "code",
+        "checks"
+      ],
+      "type": "object"
+    },
+    "Check": {
+      "description": "One check on one project.",
+      "properties": {
+        "id": {
+          "description": "Stable identifier, such as `dcma-01-logic`.",
+          "type": "string"
+        },
+        "listed": {
+          "description": "The first [`MAX_LISTED`] activity codes or relationships outside the rule.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "measure": {
+          "description": "What the measure is, in words.",
+          "type": "string"
+        },
+        "name": {
+          "description": "Short name.",
+          "type": "string"
+        },
+        "offenders": {
+          "description": "Items outside the rule, counting all of them.",
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "outcome": {
+          "$ref": "#/$defs/Outcome",
+          "description": "How it came out."
+        },
+        "population": {
+          "description": "Items the check looked at.",
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "outcome",
+        "measure",
+        "offenders",
+        "population",
+        "listed"
+      ],
+      "type": "object"
+    },
+    "Outcome": {
+      "description": "How a check came out.",
+      "oneOf": [
+        {
+          "const": "pass",
+          "description": "Within its threshold.",
+          "type": "string"
+        },
+        {
+          "const": "fail",
+          "description": "Outside its threshold.",
+          "type": "string"
+        },
+        {
+          "const": "not-applicable",
+          "description": "The file doesn't hold what the check needs.",
+          "type": "string"
+        }
+      ]
+    },
+    "ThresholdCheck": {
+      "description": "A threshold measured on one project, in a check's shape.",
+      "properties": {
+        "code": {
+          "description": "`PROJECT.proj_short_name`.",
+          "type": "string"
+        },
+        "id": {
+          "description": "`threshold-N`, the Nth in the config, or `p6-threshold-ID` for one\nstored in the file (`PROJTHRS.thresh_id`).",
+          "type": "string"
+        },
+        "listed": {
+          "description": "The first 50 raised, in Activity ID order.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "measure": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "offenders": {
+          "description": "Activities raised, counting all of them.",
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "outcome": {
+          "$ref": "#/$defs/Outcome"
+        },
+        "population": {
+          "description": "Activities in its scope.",
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "project": {
+          "description": "Internal project ID.",
+          "format": "uint64",
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "project",
+        "code",
+        "id",
+        "name",
+        "outcome",
+        "measure",
+        "offenders",
+        "population",
+        "listed"
+      ],
+      "type": "object"
+    }
+  },
+  "$id": "totalfloat.check/1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "`totalfloat.check/1`.",
+  "properties": {
+    "failed": {
+      "description": "Failed checks across every project, thresholds of the user's included.",
+      "format": "uint",
+      "minimum": 0,
+      "type": "integer"
+    },
+    "file": {
+      "type": "string"
+    },
+    "projects": {
+      "items": {
+        "$ref": "#/$defs/Assessment"
+      },
+      "type": "array"
+    },
+    "schema": {
+      "const": "totalfloat.check/1",
+      "type": "string"
+    },
+    "thresholds": {
+      "description": "The user's thresholds (`[[threshold]]` in the config), per project\n, then those P6 stores in the file (`PROJTHRS`). Left out\nwhen there are none.",
+      "items": {
+        "$ref": "#/$defs/ThresholdCheck"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "schema",
+    "file",
+    "failed",
+    "projects"
+  ],
+  "title": "totalfloat.check/1",
+  "type": "object"
+}

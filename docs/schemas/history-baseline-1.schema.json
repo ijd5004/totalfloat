@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "totalfloat.history-baseline/1",
+  "title": "totalfloat history baseline --json",
+  "description": "A baseline named, or its name deleted.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "baseline", "deleted", "at"],
+  "properties": {
+    "schema": { "const": "totalfloat.history-baseline/1" },
+    "baseline": { "type": "string" },
+    "deleted": { "type": "boolean" },
+    "at": { "type": ["string", "null"], "description": "The point it names, by short ID; null when deleted." }
+  }
+}

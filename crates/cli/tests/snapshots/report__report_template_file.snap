@@ -1,0 +1,19 @@
+---
+source: crates/cli/tests/report.rs
+expression: stdout
+---
+# Work with float
+
+plan.xer · data date 2026-03-02 08:00 · 2 activities
+
+## WBS: CIV (1)
+
+| Activity ID | Activity name | Total float hours |
+| --- | --- | --- |
+| A1040 | Survey | 208.0 |
+
+## WBS: MEC (1)
+
+| Activity ID | Activity name | Total float hours |
+| --- | --- | --- |
+| A2010 | Order pumps | 152.0 |

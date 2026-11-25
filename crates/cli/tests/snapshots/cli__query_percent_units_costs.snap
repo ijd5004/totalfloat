@@ -1,0 +1,8 @@
+---
+source: crates/cli/tests/cli.rs
+expression: stdout
+---
+code    status       percent_type  percent_complete  duration_percent  physical_percent  units_percent  budgeted_units  actual_units  remaining_units  budgeted_cost  actual_cost  remaining_cost  at_completion_cost
+TF-001  in-progress  duration      50                50                0                 0              16              0             16               0              0            0               0
+TF-002  not-started  duration      0                 0                 0                 -              -               -             -                -              -            -               -
+Showing 1-2 of 2

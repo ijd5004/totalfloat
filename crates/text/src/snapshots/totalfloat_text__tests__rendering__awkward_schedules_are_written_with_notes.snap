@@ -1,0 +1,30 @@
+---
+source: crates/text/src/tests.rs
+expression: text
+---
+totalfloat-schedule 1
+
+project P "P"
+  calendar Day
+
+calendar Day
+  week mon-wed 08:00-16:00
+  week thu-sun off
+
+calendar Night
+  week mon-wed 08:00-16:00
+  week thu-sun off
+
+activity A2 "Activity 2" 1d
+
+wbs P.AREA1 "Node AREA1"
+
+wbs P.AREA1.ENG "Node ENG"
+activity A1 "Activity 1" 1d
+  calendar Night
+
+wbs P.AREA2 "Node AREA2"
+
+wbs P.AREA2.ENG "Node ENG"
+activity A3 "Activity 3" 1d
+  calendar Night

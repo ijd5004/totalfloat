@@ -1,0 +1,40 @@
+# Fuzz targets for untrusted schedule input. Not a workspace member:
+# cargo-fuzz needs nightly and libFuzzer. See CONTRIBUTING.md "Fuzzing".
+[package]
+name = "totalfloat-fuzz"
+version = "0.0.0"
+edition = "2024"
+license = "Apache-2.0"
+publish = false
+
+[package.metadata]
+cargo-fuzz = true
+
+[dependencies]
+libfuzzer-sys = "0.4"
+totalfloat-xer = { path = "../crates/xer" }
+
+# Its own workspace, so the main workspace (and its lockfile) ignore it.
+[workspace]
+members = ["."]
+
+[[bin]]
+name = "raw_reader"
+path = "fuzz_targets/raw_reader.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "typed_and_model"
+path = "fuzz_targets/typed_and_model.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "calendar_data"
+path = "fuzz_targets/calendar_data.rs"
+test = false
+doc = false
+bench = false

@@ -1,0 +1,565 @@
+{
+  "$defs": {
+    "ActivityChange": {
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "fields": {
+          "items": {
+            "$ref": "#/$defs/FieldChange"
+          },
+          "type": "array"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "name",
+        "fields"
+      ],
+      "type": "object"
+    },
+    "Changes": {
+      "description": "What changed. Counts are complete and lists keep [`MAX_LISTED`] items.",
+      "properties": {
+        "activities": {
+          "description": "Unfinished activities changed on dates or float, with those fields,\n`starts_at` first.",
+          "items": {
+            "$ref": "#/$defs/ActivityChange"
+          },
+          "type": "array"
+        },
+        "by_field": {
+          "additionalProperties": {
+            "format": "uint",
+            "minimum": 0,
+            "type": "integer"
+          },
+          "description": "Activities changed on each stored result.",
+          "type": "object"
+        },
+        "starts_at": {
+          "description": "Where differences begin: changed early dates with no changed\npredecessor, or changed late dates or float with no changed successor.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "starts_at_total": {
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "by_field",
+        "starts_at",
+        "starts_at_total",
+        "activities"
+      ],
+      "type": "object"
+    },
+    "CheckChange": {
+      "properties": {
+        "added": {
+          "description": "Offenders the edits added, as far as `check` lists them.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "id": {
+          "type": "string"
+        },
+        "measure": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "measure",
+        "added"
+      ],
+      "type": "object"
+    },
+    "CheckChanges": {
+      "description": "What the edits did to the quality checks.",
+      "properties": {
+        "more_offenders": {
+          "description": "Checks already failing that gained offenders.",
+          "items": {
+            "$ref": "#/$defs/CheckChange"
+          },
+          "type": "array"
+        },
+        "newly_failing": {
+          "description": "Checks that passed before and fail now.",
+          "items": {
+            "$ref": "#/$defs/CheckChange"
+          },
+          "type": "array"
+        },
+        "newly_passing": {
+          "description": "Checks that failed before and pass now.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "newly_failing",
+        "more_offenders",
+        "newly_passing"
+      ],
+      "type": "object"
+    },
+    "DateMove": {
+      "description": "A milestone whose date moved.",
+      "properties": {
+        "code": {
+          "description": "`TASK.task_code`.",
+          "type": "string"
+        },
+        "from": {
+          "description": "Stored date in the earlier schedule.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "hours": {
+          "description": "Elapsed hours later, negative for earlier, if both have a date.",
+          "format": "double",
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "to": {
+          "description": "Stored date in the later schedule.",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "code",
+        "from",
+        "to",
+        "hours"
+      ],
+      "type": "object"
+    },
+    "FieldChange": {
+      "properties": {
+        "field": {
+          "type": "string"
+        },
+        "from": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "to": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "field",
+        "from",
+        "to"
+      ],
+      "type": "object"
+    },
+    "Finding": {
+      "description": "A change to look at. Not necessarily wrong.",
+      "properties": {
+        "detail": {
+          "description": "What happened.",
+          "type": "string"
+        },
+        "kind": {
+          "$ref": "#/$defs/Suspicion",
+          "description": "Why it was flagged."
+        },
+        "subject": {
+          "description": "The activity or relationship.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "subject",
+        "detail"
+      ],
+      "type": "object"
+    },
+    "Impact": {
+      "description": "What the edits did to a project, against the file calculated as it stands.",
+      "properties": {
+        "activities": {
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "activity_finish": {
+          "description": "The latest early finish saved on unfinished work. It can disagree with\n`previous_finish`, which is one project-level field.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "added": {
+          "description": "Activities the edits added.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "became_critical": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "became_critical_total": {
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "changed_activities": {
+          "description": "Activities with at least one stored result that changed.",
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "changed_dates_or_float": {
+          "description": "Unfinished activities whose early or late dates or total float changed.",
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "changes": {
+          "$ref": "#/$defs/Changes"
+        },
+        "checks": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CheckChanges"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "How quality checks moved, when asked for."
+        },
+        "code": {
+          "type": "string"
+        },
+        "critical": {
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "data_date": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "deleted": {
+          "description": "Activities the edits deleted.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "findings": {
+          "items": {
+            "$ref": "#/$defs/Finding"
+          },
+          "type": "array"
+        },
+        "findings_total": {
+          "description": "Changes `diff` would flag.",
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "id": {
+          "format": "uint64",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "left_critical": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "left_critical_total": {
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "milestones_moved": {
+          "items": {
+            "$ref": "#/$defs/DateMove"
+          },
+          "type": "array"
+        },
+        "milestones_moved_total": {
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "previous_critical": {
+          "description": "Critical activities before the edits.",
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "previous_finish": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "scheduled_finish": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "code",
+        "data_date",
+        "scheduled_finish",
+        "previous_finish",
+        "activity_finish",
+        "activities",
+        "critical",
+        "changed_activities",
+        "changed_dates_or_float",
+        "changes",
+        "previous_critical",
+        "added",
+        "deleted",
+        "milestones_moved_total",
+        "milestones_moved",
+        "became_critical_total",
+        "became_critical",
+        "left_critical_total",
+        "left_critical",
+        "findings_total",
+        "findings"
+      ],
+      "type": "object"
+    },
+    "Problem": {
+      "description": "One of several problems behind an error.",
+      "properties": {
+        "code": {
+          "description": "Stable code, such as `no-such-activity`.",
+          "type": "string"
+        },
+        "column": {
+          "description": "The column it came from, from 1, for a schedule text file.",
+          "format": "uint",
+          "minimum": 0,
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "depends_on": {
+          "description": "The refused edit this one needed, by its place in the batch.",
+          "format": "uint",
+          "minimum": 0,
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "edit": {
+          "description": "The edit's place in the batch, counting from 1, if it got that far.",
+          "format": "uint",
+          "minimum": 0,
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "hint": {
+          "description": "What to do about it.",
+          "type": "string"
+        },
+        "line": {
+          "description": "The line it came from, from 1, for a schedule text file.",
+          "format": "uint",
+          "minimum": 0,
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "message": {
+          "description": "What's wrong.",
+          "type": "string"
+        },
+        "source": {
+          "description": "Where it came from: a flag and its text, `edit 3` for an item of a\nlist, or `line 4` for a table row.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source",
+        "code",
+        "message",
+        "hint"
+      ],
+      "type": "object"
+    },
+    "Recorded": {
+      "description": "A changeset an edit recorded.",
+      "properties": {
+        "branch": {
+          "description": "The branch it's on, or for a proposal the branch it's for.",
+          "type": "string"
+        },
+        "id": {
+          "description": "Its ID.",
+          "type": "string"
+        },
+        "proposal": {
+          "description": "For a proposal, the ref naming it until it's reviewed.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "short_id": {
+          "description": "Its first ten digits.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "short_id",
+        "branch"
+      ],
+      "type": "object"
+    },
+    "Suspicion": {
+      "description": "Why a change deserves a look.",
+      "oneOf": [
+        {
+          "const": "critical-duration-cut",
+          "description": "A critical activity got shorter with no progress to explain it.",
+          "type": "string"
+        },
+        {
+          "const": "critical-logic-deleted",
+          "description": "Logic was removed from a critical activity.",
+          "type": "string"
+        },
+        {
+          "const": "new-constraint",
+          "description": "An activity gained a constraint.",
+          "type": "string"
+        },
+        {
+          "const": "critical-calendar-change",
+          "description": "Critical work moved to another calendar.",
+          "type": "string"
+        },
+        {
+          "const": "actual-changed",
+          "description": "An actual date recorded earlier now reads differently.",
+          "type": "string"
+        }
+      ]
+    }
+  },
+  "$id": "totalfloat.edit/1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "`totalfloat.edit/1`.",
+  "properties": {
+    "applied": {
+      "description": "What each edit did, in order.",
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "file": {
+      "type": "string"
+    },
+    "output": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "projects": {
+      "items": {
+        "$ref": "#/$defs/Impact"
+      },
+      "type": "array"
+    },
+    "recorded": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Recorded"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "On a history store, the changeset the edits recorded."
+    },
+    "schema": {
+      "const": "totalfloat.edit/1",
+      "type": "string"
+    },
+    "skipped": {
+      "description": "With `--skip-failed`, the edits not applied, each with why.",
+      "items": {
+        "$ref": "#/$defs/Problem"
+      },
+      "type": "array"
+    },
+    "warnings": {
+      "description": "What a scheduler should know the edits didn't do.",
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "schema",
+    "file",
+    "output",
+    "applied",
+    "warnings",
+    "projects"
+  ],
+  "title": "totalfloat.edit/1",
+  "type": "object"
+}

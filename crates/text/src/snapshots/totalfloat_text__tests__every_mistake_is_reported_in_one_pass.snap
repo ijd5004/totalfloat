@@ -1,0 +1,24 @@
+---
+source: crates/text/src/tests.rs
+expression: rendered(source)
+---
+error[unknown-keyword]: `activty` isn't a statement
+ --> plan.tfs:5:1
+  |
+5 | activty A1010 "Excavate" 5d
+  | ^^^^^^^
+  = hint: did you mean `activity`?
+
+error[bad-span]: `10x` isn't a span
+ --> plan.tfs:6:23
+  |
+6 | activity A1020 "Pour" 10x after A1010
+  |                       ^^^
+  = hint: write a span as 5d or 40h, with - for a lead
+
+error[calculated-value]: `early-start` is calculated by the engine, so it can't be written here
+ --> plan.tfs:8:3
+  |
+8 |   early-start 2026-03-02 08:00
+  |   ^^^^^^^^^^^
+  = hint: pin a date with a constraint such as start-on-or-after instead

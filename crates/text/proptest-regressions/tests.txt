@@ -1,0 +1,7 @@
+# Seeds for failure cases proptest has generated in the past. It is
+# automatically read and these particular cases re-run before any
+# novel cases are generated.
+#
+# It is recommended to check this file in to source control so that
+# everyone who runs the test benefits from these saved cases.
+cc 4b1821ecb6f4755683195d1686070058f3d3f662ea20f1b947432248f7d2ca2c # shrinks to items = [Activity(Statement { head: Activity { kind: Activity, code: Value { value: "A", at: At { line: 0, column: 0, length: 0 } }, name: Value { value: "", at: At { line: 0, column: 0, length: 0 } }, duration: Some(Value { value: Span { thousandths: -1, unit: Hours }, at: At { line: 0, column: 0, length: 0 } }), after: [] }, at: At { line: 0, column: 0, length: 0 }, comment: None, details: [] })]

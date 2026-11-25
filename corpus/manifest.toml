@@ -1,0 +1,926 @@
+# The corpus: public schedule files TotalFloat is tested on, with where each
+# is posted. The files aren't in this repository; `cargo xtask corpus fetch`
+# downloads them and checks each against its SHA-256. See corpus/README.md.
+
+[[file]]
+id = "C-0001"
+filename = "sample.xer"
+source = "public sample (ashspace-primeveraxereditor)"
+url = "https://github.com/ASHspace/PrimeveraXEREditor/blob/main/src/test/java/resources/sample.xer"
+license = "none stated"
+obtained = "2026-10-29"
+p6_version = "20.12"
+sha256 = "68ce5f0bb2b534d5ba192e3ad8241025d74ae45e94209f11731d42d32f18f82b"
+stale = false
+tags = ["p6-export"]
+
+[[file]]
+id = "C-0002"
+filename = "example_xer_file.xer"
+source = "public sample (badr1600-p6-analyzer)"
+url = "https://github.com/Badr1600/p6-analyzer/blob/main/tests/fixtures/example_xer_file.xer"
+license = "MIT"
+obtained = "2026-10-29"
+p6_version = "24.12"
+sha256 = "4b96a3c3a18a8e878e9c77b31dc305dc5d9f17a50dfb095b77d2018f67763348"
+stale = false
+tags = ["p6-export"]
+
+[[file]]
+id = "C-0003"
+filename = "Hotel Project.xer"
+source = "public sample (codevision3000-p6-viewer)"
+url = "https://github.com/CodeVision3000/P6-Viewer/blob/main/XER%20Files/Hotel%20Project.xer"
+license = "MIT"
+obtained = "2026-10-29"
+p6_version = "6.0"
+sha256 = "d2c413088afed805b30b7628c91be8aca870f7d4daf00eb12a547d69913d8352"
+stale = false
+tags = ["p6-export"]
+
+[[file]]
+id = "C-0004"
+filename = "TERMINAL BUILDING-AIRPORT.xer"
+source = "public sample (codevision3000-p6-viewer)"
+url = "https://github.com/CodeVision3000/P6-Viewer/blob/main/XER%20Files/TERMINAL%20BUILDING-AIRPORT.xer"
+license = "MIT"
+obtained = "2026-10-29"
+p6_version = "5.0"
+sha256 = "a2f3b2469e26f19985ac801786c90edfb965a7bc194a6e57704aa845c5f8611f"
+stale = false
+tags = ["p6-export"]
+
+[[file]]
+id = "C-0005"
+filename = "test.xer"
+source = "public sample (jaggelas-xer-parser)"
+url = "https://github.com/Jaggelas/xer-parser/blob/main/tests/test.xer"
+license = "MIT"
+obtained = "2026-10-29"
+p6_version = "23.12"
+sha256 = "90576907404036f552d78c5c3fd7bce9e4840e3a9ad98ea2101e134b980d30d4"
+stale = false
+tags = ["p6-export", "fresh-reference"]
+
+[[file]]
+id = "C-0006"
+filename = "rehab-2.xer"
+source = "public sample (jailaff-xer-splitter)"
+url = "https://github.com/JaiLaff/XER-Splitter/blob/master/tests/Example-XERs/rehab-2.xer"
+license = "GPL-3.0"
+obtained = "2026-10-29"
+p6_version = "6.0.0"
+sha256 = "2c1dce175b9f078111a48dc13fd1777f5fbd4cd7ab6623e647e7437330c60b7f"
+stale = false
+tags = ["p6-export"]
+
+[[file]]
+id = "C-0007"
+filename = "AMC9-213.xer"
+source = "public sample (murlekrishnan-xer_analyzer)"
+url = "https://github.com/MurleKrishnan/xer_analyzer/blob/main/input/AMC9-213.xer"
+license = "none stated"
+obtained = "2026-10-29"
+p6_version = "24.12"
+sha256 = "19febbcfe10cfdef6d925764e5a5ddccd762582fdefae5a323d29eff44f30225"
+stale = false
+tags = ["p6-export"]
+
+[[file]]
+id = "C-0008"
+filename = "HBTF-2.xer"
+source = "public sample (murlekrishnan-xer_analyzer)"
+url = "https://github.com/MurleKrishnan/xer_analyzer/blob/main/input/HBTF-2.xer"
+license = "none stated"
+obtained = "2026-10-29"
+p6_version = "24.12"
+sha256 = "75be7da90e84efa0a0196b4019d501d5605b159585b3f59775f08d7a166e288d"
+stale = false
+tags = ["p6-export"]
+
+[[file]]
+id = "C-0009"
+filename = "OZB-Start-09Dec24.xer"
+source = "public sample (packtpublishing-baselines-and-updating-a-project-with-oracle-primavera-p6-ppm)"
+url = "https://github.com/PacktPublishing/Baselines-and-Updating-a-Project-with-Oracle-Primavera-P6-PPM/blob/main/P6WorkshopsStartDate09Dec24/P6WorkshopsStartDate09Dec24/XER/OZB-Start-09Dec24.xer"
+license = "MIT"
+obtained = "2026-10-29"
+p6_version = "20.12"
+sha256 = "2bc12241c3f8ee5b7472dd0e77f2cbffafcf3b5438b17022fd9db4f4c642d4b0"
+stale = false
+tags = ["p6-export"]
+
+[[file]]
+id = "C-0010"
+filename = "cal-clndr-data.xer"
+source = "public sample (rakart-xer-hero)"
+url = "https://github.com/Rakart/xer-hero/blob/main/fixtures/synthetic/corpus/cal-clndr-data.xer"
+license = "none stated"
+obtained = "2026-10-29"
+p6_version = "8.3"
+sha256 = "a39c8b79fb47d24a2d25a9cb06afeebdb65acea2289778040e44426ad8a10374"
+stale = false
+tags = ["synthetic"]
+
+[[file]]
+id = "C-0011"
+filename = "cal-default-unused.xer"
+source = "public sample (rakart-xer-hero)"
+url = "https://github.com/Rakart/xer-hero/blob/main/fixtures/synthetic/corpus/cal-default-unused.xer"
+license = "none stated"
+obtained = "2026-10-29"
+p6_version = "8.3"
+sha256 = "0b0e81af66f14b573b6f302ce8be299475ee831a2446de8bf481ebab38726ec7"
+stale = false
+tags = ["synthetic"]
+
+[[file]]
+id = "C-0012"
+filename = "cal-flat-no-0x7f.xer"
+source = "public sample (rakart-xer-hero)"
+url = "https://github.com/Rakart/xer-hero/blob/main/fixtures/synthetic/corpus/cal-flat-no-0x7f.xer"
+license = "none stated"
+obtained = "2026-10-29"
+p6_version = "8.3"
+sha256 = "4a92298ded33518d925a0187e06ee78a4ad616e63d86df8facf1ae1f1e418ea5"
+stale = false
+tags = ["synthetic"]
+
+[[file]]
+id = "C-0013"
+filename = "cal-project-clndr-absent.xer"
+source = "public sample (rakart-xer-hero)"
+url = "https://github.com/Rakart/xer-hero/blob/main/fixtures/synthetic/corpus/cal-project-clndr-absent.xer"
+license = "none stated"
+obtained = "2026-10-29"
+p6_version = "8.3"
+sha256 = "56412922d993cb06642903ef88f9caef8d68bb854e6fc91120b5d29abcb1160c"
+stale = false
+tags = ["synthetic"]
+
+[[file]]
+id = "C-0014"
+filename = "enc-cp1252-currency.xer"
+source = "public sample (rakart-xer-hero)"
+url = "https://github.com/Rakart/xer-hero/blob/main/fixtures/synthetic/corpus/enc-cp1252-currency.xer"
+license = "none stated"
+obtained = "2026-10-29"
+p6_version = "8.3"
+sha256 = "1b6909da6d491b613389b13e8591e3177456f1e5059c96cbfb3e259c85b0735a"
+stale = false
+tags = ["synthetic"]
+
+[[file]]
+id = "C-0015"
+filename = "enc-mojibake-0x81.xer"
+source = "public sample (rakart-xer-hero)"
+url = "https://github.com/Rakart/xer-hero/blob/main/fixtures/synthetic/corpus/enc-mojibake-0x81.xer"
+license = "none stated"
+obtained = "2026-10-29"
+p6_version = "8.3"
+sha256 = "7ece05005c5e1585093036dfb4d2040b08c3c84e8c1bffd03584344ef0fe7fa1"
+stale = false
+tags = ["synthetic"]
+
+[[file]]
+id = "C-0016"
+filename = "enc-truncated-export.xer"
+source = "public sample (rakart-xer-hero)"
+url = "https://github.com/Rakart/xer-hero/blob/main/fixtures/synthetic/corpus/enc-truncated-export.xer"
+license = "none stated"
+obtained = "2026-10-29"
+p6_version = "8.3"
+sha256 = "4b7ed7a8674230f749e0c01e9569713ee975c0b7eb7a37c1abcfa616bd986ebe"
+stale = false
+tags = ["synthetic"]
+
+[[file]]
+id = "C-0017"
+filename = "enc-zeroed-file.xer"
+source = "public sample (rakart-xer-hero)"
+url = "https://github.com/Rakart/xer-hero/blob/main/fixtures/synthetic/corpus/enc-zeroed-file.xer"
+license = "none stated"
+obtained = "2026-10-29"
+sha256 = "f7bb10ecb7bb1d92f169bb92557458d82d23a365b4f811c196774ff3db7be97d"
+stale = false
+tags = ["synthetic"]
+
+[[file]]
+id = "C-0018"
+filename = "external-relationship.xer"
+source = "public sample (rakart-xer-hero)"
+url = "https://github.com/Rakart/xer-hero/blob/main/fixtures/synthetic/corpus/external-relationship.xer"
+license = "none stated"
+obtained = "2026-10-29"
+p6_version = "8.3"
+sha256 = "45f12eb41a9744246162dfa47c8c4cc16494eaaef6b6761be421a088d0708511"
+stale = false
+tags = ["synthetic"]
+
+[[file]]
+id = "C-0019"
+filename = "float-negative.xer"
+source = "public sample (rakart-xer-hero)"
+url = "https://github.com/Rakart/xer-hero/blob/main/fixtures/synthetic/corpus/float-negative.xer"
+license = "none stated"
+obtained = "2026-10-29"
+p6_version = "8.3"
+sha256 = "c2af1b421e62405553b913d57e5106782d1b47a0e7cbcf7bb931336a28bbaff4"
+stale = false
+tags = ["synthetic"]
+
+[[file]]
+id = "C-0020"
+filename = "logic-complete-no-remaining.xer"
+source = "public sample (rakart-xer-hero)"
+url = "https://github.com/Rakart/xer-hero/blob/main/fixtures/synthetic/corpus/logic-complete-no-remaining.xer"
+license = "none stated"
+obtained = "2026-10-29"
+p6_version = "8.3"
+sha256 = "dd52b87adbefef57ac2eb44da609c8c472644a373eaa745a72ec9931e63665b1"
+stale = false
+tags = ["synthetic"]
+
+[[file]]
+id = "C-0021"
+filename = "logic-cycle.xer"
+source = "public sample (rakart-xer-hero)"
+url = "https://github.com/Rakart/xer-hero/blob/main/fixtures/synthetic/corpus/logic-cycle.xer"
+license = "none stated"
+obtained = "2026-10-29"
+p6_version = "8.3"
+sha256 = "7315a05b87852a7dbf0816a096f238f444fc28e70a1bf2a0b88db28b45872a12"
+stale = false
+tags = ["synthetic"]
+
+[[file]]
+id = "C-0022"
+filename = "logic-driving-branch.xer"
+source = "public sample (rakart-xer-hero)"
+url = "https://github.com/Rakart/xer-hero/blob/main/fixtures/synthetic/corpus/logic-driving-branch.xer"
+license = "none stated"
+obtained = "2026-10-29"
+p6_version = "8.3"
+sha256 = "6c2ca4e596028503abb8864a4086bd6f4f4642a1f8fd085c2eec77d4155538e0"
+stale = false
+tags = ["synthetic"]
+
+[[file]]
+id = "C-0023"
+filename = "logic-external-driver.xer"
+source = "public sample (rakart-xer-hero)"
+url = "https://github.com/Rakart/xer-hero/blob/main/fixtures/synthetic/corpus/logic-external-driver.xer"
+license = "none stated"
+obtained = "2026-10-29"
+p6_version = "8.3"
+sha256 = "3a7e882f17140b666bfe501348d1e697c7ef84759a949bf7b0d150bd657dc3c3"
+stale = false
+tags = ["synthetic"]
+
+[[file]]
+id = "C-0024"
+filename = "logic-float-path.xer"
+source = "public sample (rakart-xer-hero)"
+url = "https://github.com/Rakart/xer-hero/blob/main/fixtures/synthetic/corpus/logic-float-path.xer"
+license = "none stated"
+obtained = "2026-10-29"
+p6_version = "8.3"
+sha256 = "68b82aa20443a861aa6fb34cd0c1a68d6589279649ec6432bd515277efb8ed8d"
+stale = false
+tags = ["synthetic"]
+
+[[file]]
+id = "C-0025"
+filename = "logic-lag-nonworking.xer"
+source = "public sample (rakart-xer-hero)"
+url = "https://github.com/Rakart/xer-hero/blob/main/fixtures/synthetic/corpus/logic-lag-nonworking.xer"
+license = "none stated"
+obtained = "2026-10-29"
+p6_version = "8.3"
+sha256 = "751fd81acb35378af490a4455752eeb921126273433693f356baa3502427bb71"
+stale = false
+tags = ["synthetic"]
+
+[[file]]
+id = "C-0026"
+filename = "logic-no-longest-path.xer"
+source = "public sample (rakart-xer-hero)"
+url = "https://github.com/Rakart/xer-hero/blob/main/fixtures/synthetic/corpus/logic-no-longest-path.xer"
+license = "none stated"
+obtained = "2026-10-29"
+p6_version = "8.3"
+sha256 = "558f4c1036cf9bc26dffe8e574a146015e23dc092183e19a7b1104f7ed0cdf39"
+stale = false
+tags = ["synthetic"]
+
+[[file]]
+id = "C-0027"
+filename = "logic-nonfs-drivers.xer"
+source = "public sample (rakart-xer-hero)"
+url = "https://github.com/Rakart/xer-hero/blob/main/fixtures/synthetic/corpus/logic-nonfs-drivers.xer"
+license = "none stated"
+obtained = "2026-10-29"
+p6_version = "8.3"
+sha256 = "76db8b61ef3fdede3fcb3e782b2b8e56af0a77ae7fd9b25e60ed1ba52e10e1cd"
+stale = false
+tags = ["synthetic"]
+
+[[file]]
+id = "C-0028"
+filename = "missing-calendar.xer"
+source = "public sample (rakart-xer-hero)"
+url = "https://github.com/Rakart/xer-hero/blob/main/fixtures/synthetic/corpus/missing-calendar.xer"
+license = "none stated"
+obtained = "2026-10-29"
+p6_version = "8.3"
+sha256 = "f5bc8d8ce97de04547863d94e74ec83a460bbcd84e681b0e2df3b954dedc43be"
+stale = false
+tags = ["synthetic"]
+
+[[file]]
+id = "C-0029"
+filename = "missing-taskpred.xer"
+source = "public sample (rakart-xer-hero)"
+url = "https://github.com/Rakart/xer-hero/blob/main/fixtures/synthetic/corpus/missing-taskpred.xer"
+license = "none stated"
+obtained = "2026-10-29"
+p6_version = "8.3"
+sha256 = "eec98f368539a4620e0a8069c58aca44653927073f3c2bccf8b0e69e01b5a4de"
+stale = false
+tags = ["synthetic"]
+
+[[file]]
+id = "C-0030"
+filename = "multiproj-baseline-rows.xer"
+source = "public sample (rakart-xer-hero)"
+url = "https://github.com/Rakart/xer-hero/blob/main/fixtures/synthetic/corpus/multiproj-baseline-rows.xer"
+license = "none stated"
+obtained = "2026-10-29"
+p6_version = "8.3"
+sha256 = "6bbb57f50a093c1e99e1ccbf97ba2bb9ad0ddbb2716b69403c2e5f17baf7b056"
+stale = false
+tags = ["synthetic"]
+
+[[file]]
+id = "C-0031"
+filename = "multiproj-two-proj-id.xer"
+source = "public sample (rakart-xer-hero)"
+url = "https://github.com/Rakart/xer-hero/blob/main/fixtures/synthetic/corpus/multiproj-two-proj-id.xer"
+license = "none stated"
+obtained = "2026-10-29"
+p6_version = "8.3"
+sha256 = "9c0d503257277c25119e4682ec5fe156788d6a473688e39f25869c0f38ea803f"
+stale = false
+tags = ["synthetic"]
+
+[[file]]
+id = "C-0032"
+filename = "progress-full.xer"
+source = "public sample (rakart-xer-hero)"
+url = "https://github.com/Rakart/xer-hero/blob/main/fixtures/synthetic/corpus/progress-full.xer"
+license = "none stated"
+obtained = "2026-10-29"
+p6_version = "8.3"
+sha256 = "77e09e22b9132b9c0e27460099dad75dee788e4bc216adc108f5b7b8f8487c1e"
+stale = false
+tags = ["synthetic"]
+
+[[file]]
+id = "C-0033"
+filename = "progress-none.xer"
+source = "public sample (rakart-xer-hero)"
+url = "https://github.com/Rakart/xer-hero/blob/main/fixtures/synthetic/corpus/progress-none.xer"
+license = "none stated"
+obtained = "2026-10-29"
+p6_version = "8.3"
+sha256 = "8a096e75f5af92efd02492ca6be6060f80f283b56baf5f4fd23fb0ecb8255970"
+stale = false
+tags = ["synthetic"]
+
+[[file]]
+id = "C-0034"
+filename = "text-multiline.xer"
+source = "public sample (rakart-xer-hero)"
+url = "https://github.com/Rakart/xer-hero/blob/main/fixtures/synthetic/corpus/text-multiline.xer"
+license = "none stated"
+obtained = "2026-10-29"
+p6_version = "8.3"
+sha256 = "6bc2cf04fea16eb2479490198643fcdda0186b0cf833586cf1389a81091d92fe"
+stale = false
+tags = ["synthetic"]
+
+[[file]]
+id = "C-0035"
+filename = "unknown-table-and-enum.xer"
+source = "public sample (rakart-xer-hero)"
+url = "https://github.com/Rakart/xer-hero/blob/main/fixtures/synthetic/corpus/unknown-table-and-enum.xer"
+license = "none stated"
+obtained = "2026-10-29"
+p6_version = "8.3"
+sha256 = "ad7c935a1d8a39d893eec4999c780410bcd78ac1cbd31f77d50e3243174e6bf7"
+stale = false
+tags = ["synthetic"]
+
+[[file]]
+id = "C-0036"
+filename = "ver-60-fieldset.xer"
+source = "public sample (rakart-xer-hero)"
+url = "https://github.com/Rakart/xer-hero/blob/main/fixtures/synthetic/corpus/ver-60-fieldset.xer"
+license = "none stated"
+obtained = "2026-10-29"
+p6_version = "6.0"
+sha256 = "d823c60c394c066a622c4c9e805652dcea10f74d3e1830eca96a77f6a05c9385"
+stale = false
+tags = ["synthetic"]
+
+[[file]]
+id = "C-0037"
+filename = "ver-83-fieldset.xer"
+source = "public sample (rakart-xer-hero)"
+url = "https://github.com/Rakart/xer-hero/blob/main/fixtures/synthetic/corpus/ver-83-fieldset.xer"
+license = "none stated"
+obtained = "2026-10-29"
+p6_version = "8.3"
+sha256 = "230d4209d981a190fc4f20bc1296718cb2c95d2b300338436d7ab982d4ad0fab"
+stale = false
+tags = ["synthetic"]
+
+[[file]]
+id = "C-0038"
+filename = "wbs-flat.xer"
+source = "public sample (rakart-xer-hero)"
+url = "https://github.com/Rakart/xer-hero/blob/main/fixtures/synthetic/corpus/wbs-flat.xer"
+license = "none stated"
+obtained = "2026-10-29"
+p6_version = "8.3"
+sha256 = "a5b6c04e9142903aab6ee1050f6b052e5126154742c3e6f4a670d4fbd2ba62c7"
+stale = false
+tags = ["synthetic"]
+
+[[file]]
+id = "C-0039"
+filename = "sparse-150.xer"
+source = "public sample (rakart-xer-hero)"
+url = "https://github.com/Rakart/xer-hero/blob/main/fixtures/synthetic/sparse-150.xer"
+license = "none stated"
+obtained = "2026-10-29"
+p6_version = "8.3"
+sha256 = "9ea7382e2cdd6c0424f913a4a3ac032e4f363cbe23d528a122b98df332b02bda"
+stale = false
+tags = ["synthetic"]
+
+[[file]]
+id = "C-0040"
+filename = "UTHP.xer"
+source = "public sample (sanjeevbashyal-pyp6)"
+url = "https://github.com/SanjeevBashyal/PyP6/blob/main/Database/UTHP.xer"
+license = "custom or unclear"
+obtained = "2026-10-29"
+p6_version = "22.12"
+sha256 = "8f67e832aa7b1e504ebbcdd415ace0941f041e0a7e46ce3b155572a50ef71c1d"
+stale = false
+tags = ["p6-export"]
+
+[[file]]
+id = "C-0041"
+filename = "PotdarS.xer"
+source = "public sample (suyash119-primavera-p6-project-)"
+url = "https://github.com/Suyash119/Primavera-P6-Project-/blob/main/PotdarS.xer"
+license = "none stated"
+obtained = "2026-10-29"
+p6_version = "18.8"
+sha256 = "7485c31ce0a5ca5d521be4ea3d022971e29909451d9840f3ef876a3a24eb153f"
+stale = false
+tags = ["p6-export"]
+
+[[file]]
+id = "C-0042"
+filename = "sample.xer"
+source = "public sample (taraxtix-xerparser)"
+url = "https://github.com/Taraxtix/xerParser/blob/master/sample.xer"
+license = "none stated"
+obtained = "2026-10-29"
+p6_version = "8.2"
+sha256 = "4d8bce790a93b9bc747abec5d99840e3e0d1ce5523e0afae3ba881762cfe2c13"
+stale = false
+tags = ["p6-export"]
+
+[[file]]
+id = "C-0043"
+filename = "wk2.xer"
+source = "public sample (taraxtix-xerparser)"
+url = "https://github.com/Taraxtix/xerParser/blob/master/wk2.xer"
+license = "none stated"
+obtained = "2026-10-29"
+p6_version = "8.2"
+sha256 = "ead9bb86613e55fc4992ad458852240ea06160191b342eeab4fd453e7affb1de"
+stale = false
+tags = ["p6-export"]
+
+[[file]]
+id = "C-0044"
+filename = "testXer.xer"
+source = "public sample (aspose-tasks-cloud-aspose.tasks-cloud-sdk-for-python)"
+url = "https://github.com/aspose-tasks-cloud/Aspose.Tasks-Cloud-SDK-for-Python/blob/master/testData/testXer.xer"
+license = "MIT"
+obtained = "2026-10-29"
+p6_version = "8.3"
+sha256 = "b8bc3cb30463c99c2255c5bd243888ac2706b7f6a1bfe31e242407a24f002dcf"
+stale = false
+tags = ["p6-export", "codec-only"]
+
+[[file]]
+id = "C-0045"
+filename = "Convention & Exhibition Center Project Roads & Utilities.xer"
+source = "public sample (bhatticoder-xer-parser)"
+url = "https://github.com/bhatticoder/XER-Parser/blob/main/Files/Convention%20%26%20Exhibition%20Center%20Project%20Roads%20%26%20Utilities.xer"
+license = "none stated"
+obtained = "2026-10-29"
+p6_version = "7.0"
+sha256 = "22fc2345413f96a91795053844061a644ed20090ecee44c6e59d2edaab75dc59"
+stale = false
+tags = ["p6-export"]
+
+[[file]]
+id = "C-0046"
+filename = "C1511 Basline Schedule.xer"
+source = "public sample (chris-vaz-primavera-prodigy)"
+url = "https://github.com/chris-vaz/Primavera-Prodigy/blob/main/XER%20File%20Test/C1511%20Basline%20Schedule.xer"
+license = "none stated"
+obtained = "2026-10-29"
+p6_version = "6.0"
+sha256 = "4700ccd6eb1255106b1e497ec4b0bb91543dfff79331b540b6ea8073b43bc600"
+stale = false
+tags = ["p6-export"]
+
+[[file]]
+id = "C-0047"
+filename = "SSAC1511.UD-Sep.25.OK.xer"
+source = "public sample (chris-vaz-primavera-prodigy)"
+url = "https://github.com/chris-vaz/Primavera-Prodigy/blob/main/XER%20File%20Test/SSAC1511.UD-Sep.25.OK.xer"
+license = "none stated"
+obtained = "2026-10-29"
+p6_version = "19.12"
+sha256 = "29709308eb28232c8b82a108aaad6a477d1ed245b09a874909262d39ca618ab0"
+stale = false
+tags = ["p6-export"]
+
+[[file]]
+id = "C-0051"
+filename = "Harmony Residency.xer"
+source = "public sample (dwivedikhushi-primavera-p6-construction-planning)"
+url = "https://github.com/dwivedikhushi/primavera-p6-construction-planning/blob/main/Harmony%20Residency.xer"
+license = "none stated"
+obtained = "2026-10-29"
+p6_version = "24.12"
+sha256 = "8eaa03d537e0461a25ce969e4db4704a92496b2cf4eb794184dba9574e75c3c4"
+stale = false
+tags = ["p6-export"]
+
+[[file]]
+id = "C-0052"
+filename = "myschedule.xer"
+source = "public sample (ibuilder-phpschedule)"
+url = "https://github.com/ibuilder/PHPSchedule/blob/master/xer-parser/myschedule.xer"
+license = "none stated"
+obtained = "2026-10-29"
+p6_version = "6.1"
+sha256 = "fc38e2ace6fc6985cc4f93fdab8660277e45c3ac17c1f1e86129ec6c291d3821"
+stale = false
+tags = ["p6-export"]
+
+[[file]]
+id = "C-0053"
+filename = "02-multi-calendar-lags.xer"
+source = "public sample (joaompfp-opencpm)"
+url = "https://github.com/joaompfp/opencpm/blob/main/samples/02-multi-calendar-lags.xer"
+license = "none stated"
+obtained = "2026-10-29"
+p6_version = "5.0"
+sha256 = "2f1382e4e33920faf79927af4a84fc9a516c769f16da6625b9d303f315498991"
+stale = false
+tags = ["p6-export", "codec-only"]
+
+[[file]]
+id = "C-0054"
+filename = "PredecessorCalendar.xer"
+source = "public sample (joniles-mpxj)"
+url = "https://github.com/joniles/mpxj/blob/master/junit/data/PredecessorCalendar.xer"
+license = "LGPL-2.1"
+obtained = "2026-10-29"
+p6_version = "8.2.0"
+sha256 = "46f3c1c68552429cf32191ebc8f48d12f52e517481b6fb588ad1955937c5cd1d"
+stale = false
+tags = ["p6-export", "codec-only"]
+
+[[file]]
+id = "C-0055"
+filename = "ProjectDefaultCalendar.xer"
+source = "public sample (joniles-mpxj)"
+url = "https://github.com/joniles/mpxj/blob/master/junit/data/ProjectDefaultCalendar.xer"
+license = "LGPL-2.1"
+obtained = "2026-10-29"
+p6_version = "8.2.0"
+sha256 = "e48eb3a53b7e8f40a5a87af8e983e9932c298baeb572e3a901b3961f997674ef"
+stale = false
+tags = ["p6-export", "codec-only"]
+
+[[file]]
+id = "C-0056"
+filename = "SuccessorCalendar.xer"
+source = "public sample (joniles-mpxj)"
+url = "https://github.com/joniles/mpxj/blob/master/junit/data/SuccessorCalendar.xer"
+license = "LGPL-2.1"
+obtained = "2026-10-29"
+p6_version = "8.2.0"
+sha256 = "ab420cc573be248ef7ef344f77b204176c3263fceb45c27866276929bf1e59e2"
+stale = false
+tags = ["p6-export", "codec-only"]
+
+[[file]]
+id = "C-0057"
+filename = "TwentyFourHourCalendar.xer"
+source = "public sample (joniles-mpxj)"
+url = "https://github.com/joniles/mpxj/blob/master/junit/data/TwentyFourHourCalendar.xer"
+license = "LGPL-2.1"
+obtained = "2026-10-29"
+p6_version = "8.2.0"
+sha256 = "9b91bf5bfcc0df4f6a2fec8867a923af7758058c224a9772a728e8d2ba0f0fc5"
+stale = false
+tags = ["p6-export", "codec-only"]
+
+[[file]]
+id = "C-0058"
+filename = "resource-rates-test.xer"
+source = "public sample (joniles-mpxj)"
+url = "https://github.com/joniles/mpxj/blob/master/junit/data/assignment/resource-rates-test.xer"
+license = "LGPL-2.1"
+obtained = "2026-10-29"
+p6_version = "20.12"
+sha256 = "7298574bb32ac3068b07b427a35cd2834308d2fcb0e2ac74fea4e013e738c62e"
+stale = false
+tags = ["p6-export", "codec-only"]
+
+[[file]]
+id = "C-0059"
+filename = "invalid-8.4.xer"
+source = "public sample (joniles-mpxj)"
+url = "https://github.com/joniles/mpxj/blob/master/junit/data/calendar/invalid/invalid-8.4.xer"
+license = "LGPL-2.1"
+obtained = "2026-10-29"
+p6_version = "8.4"
+sha256 = "85f8c7d681b15daf755ba1d568eb09ebcdd529a16c20045e6db6c2937899f54b"
+stale = false
+tags = ["p6-export", "codec-only"]
+
+[[file]]
+id = "C-0060"
+filename = "PQ_Example.xer"
+source = "public sample (mannixcom-xer)"
+url = "https://github.com/mannixcom/xer/blob/main/xer/PQ_Example.xer"
+license = "none stated"
+obtained = "2026-10-29"
+p6_version = "7.0"
+sha256 = "f83c6e8f9cd7c2d85cacc5c4d6933ddbd162d7ae3d43a7eb25016e8a39471e38"
+stale = false
+tags = ["p6-export"]
+
+[[file]]
+id = "C-0061"
+filename = "Sample_Xer_02.xer"
+source = "public sample (mannixcom-xer)"
+url = "https://github.com/mannixcom/xer/blob/main/xer/Sample_Xer_02.xer"
+license = "none stated"
+obtained = "2026-10-29"
+p6_version = "6.2"
+sha256 = "b36e61f6799137220247a1932a61f6ccb804433f009db6627717ef280e5d790e"
+stale = false
+tags = ["p6-export"]
+
+[[file]]
+id = "C-0062"
+filename = "plant.xer"
+source = "public sample (mannixcom-xer)"
+url = "https://github.com/mannixcom/xer/blob/main/xer/plant.xer"
+license = "none stated"
+obtained = "2026-10-29"
+p6_version = "15.1"
+sha256 = "41f217e5d799914ebd4aef449cb07ffde0556299cf2544e50b7bfa4f7c734a8f"
+stale = false
+tags = ["p6-export"]
+
+[[file]]
+id = "C-0063"
+filename = "BL-54069-B2-20250902.xer"
+source = "public sample (nmoghimi-code-schedule-analytics)"
+url = "https://github.com/nmoghimi-code/schedule-analytics/blob/main/test/archive%20%281%29/BL-54069-B2-20250902.xer"
+license = "none stated"
+obtained = "2026-10-29"
+p6_version = "23.12"
+sha256 = "c4f398cb804d9c7a25e5387b80ae97b8ca14ffda236ee4f298682a16354b29e8"
+stale = false
+tags = ["p6-export"]
+
+[[file]]
+id = "C-0064"
+filename = "UP-54069-20251121.xer"
+source = "public sample (nmoghimi-code-schedule-analytics)"
+url = "https://github.com/nmoghimi-code/schedule-analytics/blob/main/test/archive%20%281%29/UP-54069-20251121.xer"
+license = "none stated"
+obtained = "2026-10-29"
+p6_version = "23.12"
+sha256 = "5bb3b144969e7b40a9fec2416e4b7df46272eaf64977b6be1385ade38b11bbcf"
+stale = false
+tags = ["p6-export"]
+
+[[file]]
+id = "C-0065"
+filename = "UP-54069-20251204.xer"
+source = "public sample (nmoghimi-code-schedule-analytics)"
+url = "https://github.com/nmoghimi-code/schedule-analytics/blob/main/test/archive%20%281%29/UP-54069-20251204.xer"
+license = "none stated"
+obtained = "2026-10-29"
+p6_version = "23.12"
+sha256 = "7f7b7fd873b4b79ab38ae2b7a1d7f666f1eebae5d5d30c3410e361a76bd493be"
+stale = false
+tags = ["p6-export"]
+
+[[file]]
+id = "C-0066"
+filename = "UP-54069-20251218.xer"
+source = "public sample (nmoghimi-code-schedule-analytics)"
+url = "https://github.com/nmoghimi-code/schedule-analytics/blob/main/test/archive%20%282%29/UP-54069-20251218.xer"
+license = "none stated"
+obtained = "2026-10-29"
+p6_version = "23.12"
+sha256 = "fb6d49dbce0de83fc34c8102c03189e7bc2eed086e499268c26114e4c0f48990"
+stale = false
+tags = ["p6-export"]
+
+[[file]]
+id = "C-0067"
+filename = "UP-54069-20260122.xer"
+source = "public sample (nmoghimi-code-schedule-analytics)"
+url = "https://github.com/nmoghimi-code/schedule-analytics/blob/main/test/archive%20%282%29/UP-54069-20260122.xer"
+license = "none stated"
+obtained = "2026-10-29"
+p6_version = "23.12"
+sha256 = "b70b3e4340ea279566f42d9f913efa81be67283dcd0448025ad10063c8013c6b"
+stale = false
+tags = ["p6-export"]
+
+[[file]]
+id = "C-0068"
+filename = "sample_p6.xer"
+source = "public sample (wjwhitmire-drawworks)"
+url = "https://github.com/wjwhitmire/drawworks/blob/main/tests/files/sample_p6.xer"
+license = "MIT"
+obtained = "2026-10-29"
+p6_version = "19.12"
+sha256 = "97271aa4a5bd6547389aa33348bd9d9bae6665eea74b68cd52b750c6679e2fa0"
+stale = false
+tags = ["p6-export"]
+
+[[file]]
+id = "C-0069"
+filename = "Project_Schedule.xer"
+source = "public sample (rmf112018-hb-intel)"
+url = "https://github.com/RMF112018/hb-intel/blob/574f95e5fd1e5b8ae635a88e9635f981bfb0aa0e/docs/reference/example/Project_Schedule.xer"
+license = "MIT"
+obtained = "2026-10-30"
+p6_version = "7.0"
+sha256 = "ad92ce52ba95b27539a4c0ba0c44e2a6b755ec2c15c3066009694c7430846684"
+stale = false
+tags = ["p6-export"]
+
+[[file]]
+id = "C-0075"
+filename = "mpxj-sample.xml"
+source = "GitHub joniles/mpxj, junit/data/legacy/sample.xml"
+url = "https://github.com/joniles/mpxj/blob/master/junit/data/legacy/sample.xml"
+license = "LGPL-2.1"
+obtained = "2026-11-18"
+sha256 = "31618c59d825e88ce496ce9da9965356ea759048822eef901226a90fb34a2837"
+stale = false
+tags = ["msproject-xml", "codec-only"]
+
+[[file]]
+id = "C-0076"
+filename = "mpxj-caltest.xml"
+source = "GitHub joniles/mpxj, junit/data/legacy/caltest.xml"
+url = "https://github.com/joniles/mpxj/blob/master/junit/data/legacy/caltest.xml"
+license = "LGPL-2.1"
+obtained = "2026-11-18"
+sha256 = "700f5063e36bb54771f42254782a596af5ae207f3378c57aa7c232e65511a697"
+stale = false
+tags = ["msproject-xml", "codec-only"]
+
+[[file]]
+id = "C-0077"
+filename = "mpxj-baselines.xml"
+source = "GitHub joniles/mpxj, junit/data/baselines.xml"
+url = "https://github.com/joniles/mpxj/blob/master/junit/data/baselines.xml"
+license = "LGPL-2.1"
+obtained = "2026-11-18"
+sha256 = "9c632454fcd628d3adac2706b6424202ebbc06b1eba220a2ef0a709c26c3bcbe"
+stale = false
+tags = ["msproject-xml", "codec-only"]
+
+[[file]]
+id = "C-0078"
+filename = "mpxj-mspdirelations.xml"
+source = "GitHub joniles/mpxj, junit/data/mspdirelations.xml"
+url = "https://github.com/joniles/mpxj/blob/master/junit/data/mspdirelations.xml"
+license = "LGPL-2.1"
+obtained = "2026-11-18"
+sha256 = "15a739f6423c7d308e08c1abbef30d3408f13e90ec43a35adb7d29652d8561dc"
+stale = false
+tags = ["msproject-xml", "codec-only"]
+
+[[file]]
+id = "C-0079"
+filename = "mpxj-mspdiresource.xml"
+source = "GitHub joniles/mpxj, junit/data/mspdiresource.xml"
+url = "https://github.com/joniles/mpxj/blob/master/junit/data/mspdiresource.xml"
+license = "LGPL-2.1"
+obtained = "2026-11-18"
+sha256 = "0573d9d77899240aee7356483541decca6c6c8e46995193b839ec323d56df99b"
+stale = false
+tags = ["msproject-xml", "codec-only"]
+
+[[file]]
+id = "C-0080"
+filename = "mpxj-task-dates-2019.xml"
+source = "GitHub joniles/mpxj, junit/data/generated/task-dates/task-dates-project2019-mspdi.xml"
+url = "https://github.com/joniles/mpxj/blob/master/junit/data/generated/task-dates/task-dates-project2019-mspdi.xml"
+license = "LGPL-2.1"
+obtained = "2026-11-18"
+sha256 = "e00dac7c2ef676414974f37d640291b0b1100e7c171b0952e0ce7f79fbc1a12b"
+stale = false
+tags = ["msproject-xml", "codec-only"]
+
+[[file]]
+id = "C-0081"
+filename = "ganttproject-issue1520.xml"
+source = "GitHub bardsoftware/ganttproject, ganttproject-tester/resources/issue1520.xml"
+url = "https://github.com/bardsoftware/ganttproject/blob/master/ganttproject-tester/resources/issue1520.xml"
+license = "GPL-3.0"
+obtained = "2026-11-18"
+sha256 = "fee5e5b30b790c56b159d965f80959cf6e2e965710124dfc0127f2896bdd1cae"
+stale = false
+tags = ["msproject-xml", "codec-only"]
+
+[[file]]
+id = "C-0082"
+filename = "ganttproject-issue2659.xml"
+source = "GitHub bardsoftware/ganttproject, ganttproject-tester/resources/issue2659.xml"
+url = "https://github.com/bardsoftware/ganttproject/blob/master/ganttproject-tester/resources/issue2659.xml"
+license = "GPL-3.0"
+obtained = "2026-11-18"
+sha256 = "7476582c101a066152d426c0dfbba8f656af88fe9e465c7b32427e6280710cbe"
+stale = false
+tags = ["msproject-xml", "codec-only"]
+
+[[file]]
+id = "C-0083"
+filename = "telerik-nursing.xml"
+source = "GitHub telerik/xaml-sdk, GanttView/ImportExportFromAndToMSProject/XMLFilesToLoad/NursingSchedule.xml"
+url = "https://github.com/telerik/xaml-sdk/blob/master/GanttView/ImportExportFromAndToMSProject/XMLFilesToLoad/NursingSchedule.xml"
+license = "none stated"
+obtained = "2026-11-18"
+sha256 = "9f1cedde5323cb1619c3da72965a3d843a1a82f8ab2b061ccf5111b6b6f3444f"
+stale = false
+tags = ["msproject-xml", "codec-only"]
+
+[[file]]
+id = "C-0084"
+filename = "telerik-exported.xml"
+source = "GitHub telerik/ui-for-aspnet-mvc-examples, Telerik.Examples.Mvc/Telerik.Examples.Mvc/App_Data/exported_file.xml"
+url = "https://github.com/telerik/ui-for-aspnet-mvc-examples/blob/master/Telerik.Examples.Mvc/Telerik.Examples.Mvc/App_Data/exported_file.xml"
+license = "none stated"
+obtained = "2026-11-18"
+sha256 = "b32c3e40e6bace9bba8b3360c2a360d5abb76f02dac86b8cdd40a7df3f16858b"
+stale = false
+tags = ["msproject-xml", "codec-only"]
+
+[[file]]
+id = "C-0085"
+filename = "syncfusion-projectdata.xml"
+source = "GitHub syncfusion/wpf-demos, gantt/Assets/gantt/ProjectData.xml"
+url = "https://github.com/syncfusion/wpf-demos/blob/master/gantt/Assets/gantt/ProjectData.xml"
+license = "none stated"
+obtained = "2026-11-18"
+sha256 = "44b32d25c4518b40587c4f5dfd4bae82637eee79d4051fe98b2735448cb4e0df"
+stale = false
+tags = ["msproject-xml", "codec-only"]
+
+[[file]]
+id = "C-0086"
+filename = "carbon-mspdi-golden.xml"
+source = "GitHub crbnos/carbon, apps/erp/app/modules/projects/__fixtures__/mspdi-golden.xml"
+url = "https://github.com/crbnos/carbon/blob/main/apps/erp/app/modules/projects/__fixtures__/mspdi-golden.xml"
+license = "none stated"
+obtained = "2026-11-18"
+sha256 = "12651c04adb3fb79f38e3fc680d4da29e86e0af5d51eaf5e1d32dfaa3c0723e9"
+stale = false
+tags = ["msproject-xml", "codec-only"]

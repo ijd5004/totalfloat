@@ -1,0 +1,7 @@
+{
+  "built": {
+    "code": "Phase=DESIGN",
+    "critical": "true"
+  },
+  "schema": "totalfloat.filter/1"
+}

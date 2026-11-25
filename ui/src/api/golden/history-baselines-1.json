@@ -1,0 +1,14 @@
+{
+  "baselines": [
+    {
+      "at": "0101010101010101010101010101010101010101010101010101010101010101",
+      "author": "Pat",
+      "created": "2026-11-02T09:00:00Z",
+      "name": "submitted",
+      "point": "Crane late",
+      "short_id": "0101010101"
+    }
+  ],
+  "schema": "totalfloat.history-baselines/1",
+  "store": "plant.tfdb"
+}

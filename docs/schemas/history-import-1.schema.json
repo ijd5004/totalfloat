@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "totalfloat.history-import/1",
+  "title": "totalfloat history import --json",
+  "description": "A new export brought into a history as the next point on the checked-out branch.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "file", "recorded", "warnings", "diff"],
+  "properties": {
+    "schema": { "const": "totalfloat.history-import/1" },
+    "file": { "type": "string" },
+    "recorded": {
+      "type": ["object", "null"],
+      "description": "The import changeset; null when the file is the branch's file byte for byte.",
+      "additionalProperties": false,
+      "required": ["id", "short_id", "branch"],
+      "properties": {
+        "id": { "type": "string" },
+        "short_id": { "type": "string" },
+        "branch": { "type": "string" }
+      }
+    },
+    "warnings": { "type": "array", "items": { "type": "string" } },
+    "diff": { "$ref": "diff-1.schema.json", "description": "What changed since the branch's head, each list kept to 25 items." }
+  }
+}

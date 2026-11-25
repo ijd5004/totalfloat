@@ -1,0 +1,8 @@
+{
+  "filters": [
+    {
+      "name": "Critical design"
+    }
+  ],
+  "schema": "totalfloat.filters/1"
+}

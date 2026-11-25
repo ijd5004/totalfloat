@@ -1,0 +1,5 @@
+---
+source: crates/cli/tests/cli.rs
+expression: stdout
+---
+A3 early start 2026-01-12 08:00: WBS summary span

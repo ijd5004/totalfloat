@@ -1,0 +1,31 @@
+---
+source: crates/cli/tests/cli.rs
+expression: stdout
+---
+# Schedule changes: /earlier.xer to /later.xer
+
+## TF-FRESH
+
+finish 2026-01-05 17:00
+
+| Change | Count |
+|---|---:|
+| Activities added | 0 |
+| Activities deleted | 0 |
+| Activities changed | 1 |
+| Relationships added | 0 |
+| Relationships deleted | 0 |
+| Relationship lags changed | 0 |
+| Milestones moved | 0 |
+| Became critical | 0 |
+| Left critical | 0 |
+
+### To look at
+
+- **TF-001**: remaining duration went from 8h to 1h with no progress
+
+### Changed activities
+
+| Activity | Field | From | To |
+|---|---|---|---|
+| TF-001 | remaining_duration | 8h | 1h |

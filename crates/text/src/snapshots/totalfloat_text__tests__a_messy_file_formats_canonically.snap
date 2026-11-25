@@ -1,0 +1,13 @@
+---
+source: crates/text/src/tests.rs
+expression: once
+---
+totalfloat-schedule 1
+
+wbs P.A "A" # area
+activity A1 "One" 5d
+  # about one
+  remaining 3d
+
+activity A2 "Two" after A1, A1 ss+2d
+activity A3 "Three" after A2 fs+1d, A1 fs-1d

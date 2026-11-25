@@ -1,0 +1,7 @@
+---
+source: crates/cli/tests/cli.rs
+expression: stdout
+---
+id   code
+102  M1
+Showing 2-2 of 3

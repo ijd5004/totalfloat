@@ -1,0 +1,8 @@
+---
+source: crates/cli/tests/cli.rs
+expression: stdout
+---
+A2 early finish 2026-01-13 17:00: its early start and its duration
+A2 early start 2026-01-13 09:00: FS with 1h lag on the predecessor calendar from A1 early finish
+A1 early finish 2026-01-12 17:00: its early start and its duration
+A1 early start 2026-01-12 08:00: data date

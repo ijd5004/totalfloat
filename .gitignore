@@ -1,0 +1,33 @@
+# Rust
+/target/
+**/*.rs.bk
+
+# Editors / OS
+.idea/
+.vscode/
+*.swp
+.DS_Store
+
+# Real schedules must never be committed (CONTRIBUTING.md, Clean room).
+# Only synthetic or permissioned fixtures, listed in a MANIFEST.md, are allowed.
+*.xer
+*.XER
+*.mpp
+*.MPP
+!fixtures/**/*.xer
+!crates/**/tests/fixtures/**/*.xer
+
+# Corpus files downloaded into the repository by mistake (corpus/README.md)
+/corpus/files/
+
+# Local agent state
+.claude/settings.local.json
+
+# Web app (ui/): dependencies and the build, which `cargo xtask ui` makes
+/ui/node_modules/
+/ui/dist/
+# Types generated from docs/schemas/ by `pnpm gen`
+/ui/src/api/schemas/
+
+# playwright-cli snapshots and logs from browser checks
+.playwright-cli/

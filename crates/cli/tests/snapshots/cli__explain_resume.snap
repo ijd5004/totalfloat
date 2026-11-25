@@ -1,0 +1,5 @@
+---
+source: crates/cli/tests/cli.rs
+expression: stdout
+---
+A1 early start 2026-01-20 08:00: resume date

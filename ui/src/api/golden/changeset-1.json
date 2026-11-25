@@ -1,0 +1,104 @@
+{
+  "author": "Pat",
+  "author_kind": "human",
+  "commands": {
+    "edits": [
+      {
+        "activity": "A2",
+        "op": "set_duration",
+        "original": "32h"
+      }
+    ],
+    "resolved": [
+      {
+        "id": 2,
+        "kind": "activity",
+        "name": "A2",
+        "project": 1
+      }
+    ],
+    "schema": "totalfloat.command/1"
+  },
+  "created": "2026-11-02T09:00:00Z",
+  "id": "0101010101010101010101010101010101010101010101010101010101010101",
+  "kind": "edit",
+  "message": "Crane late",
+  "parent": "0202020202020202020202020202020202020202020202020202020202020202",
+  "refs": [
+    "main"
+  ],
+  "report": {
+    "applied": [
+      "A2 duration: original 8h to 32h, remaining 8h to 32h"
+    ],
+    "file": "plant.tfdb@main",
+    "output": null,
+    "projects": [
+      {
+        "activities": 2,
+        "activity_finish": "2026-01-13 17:00",
+        "added": [],
+        "became_critical": [],
+        "became_critical_total": 0,
+        "changed_activities": 1,
+        "changed_dates_or_float": 1,
+        "changes": {
+          "activities": [
+            {
+              "code": "A2",
+              "fields": [
+                {
+                  "field": "early_finish",
+                  "from": "2026-01-13 17:00",
+                  "to": "2026-01-15 09:00"
+                },
+                {
+                  "field": "late_finish",
+                  "from": "2026-01-13 17:00",
+                  "to": "2026-01-15 09:00"
+                }
+              ],
+              "name": "Synthetic activity 2"
+            }
+          ],
+          "by_field": {
+            "early_finish": 1,
+            "late_finish": 1,
+            "planned_finish": 1,
+            "remaining_early_finish": 1,
+            "remaining_late_finish": 1
+          },
+          "starts_at": [
+            "A2"
+          ],
+          "starts_at_total": 1
+        },
+        "code": "rel-fs-positive",
+        "critical": 2,
+        "data_date": "2026-01-12 08:00",
+        "deleted": [],
+        "findings": [],
+        "findings_total": 0,
+        "id": 1,
+        "left_critical": [],
+        "left_critical_total": 0,
+        "milestones_moved": [],
+        "milestones_moved_total": 0,
+        "previous_critical": 2,
+        "previous_finish": "2026-01-13 17:00",
+        "scheduled_finish": "2026-01-15 09:00"
+      }
+    ],
+    "schema": "totalfloat.edit/1",
+    "warnings": []
+  },
+  "reviews": [],
+  "schema": "totalfloat.changeset/1",
+  "second_parent": null,
+  "short_id": "0101010101",
+  "skipped": [],
+  "snapshot": "0303030303030303030303030303030303030303030303030303030303030303",
+  "state": "accepted",
+  "summary": "A2 duration",
+  "tool_version": "0.1.0"
+}

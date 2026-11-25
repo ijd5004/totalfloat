@@ -1,0 +1,28 @@
+---
+source: crates/cli/tests/text.rs
+assertion_line: 251
+expression: "stderr.replace(&plan, \"plan.tfs\")"
+---
+error[unknown-activity]: A1025 isn't an activity in this file
+ --> plan.tfs:8:32
+  |
+8 | activity A1030 "Cure" 7d after A1025 ss+2d
+  |                                ^^^^^
+  = hint: did you mean A1020?
+
+error[constraint-needs-date]: that constraint on A1030 needs a date
+ --> plan.tfs:9:3
+  |
+9 |   start-on-or-after
+  |   ^^^^^^^^^^^^^^^^^
+  = hint: give a date as YYYY-MM-DD HH:MM
+
+error[circular-logic]: A1040 to A1050 would close a loop: A1050 to A1040 back to A1050
+  --> plan.tfs:11:37
+   |
+11 | activity A1050 "Loop back" 7d after A1040
+   |                                     ^^^^^
+   = hint: remove a link in that loop, or link the other way
+
+error[text-refused]: plan.tfs has 3 problems, so nothing was built
+  hint: fix each problem at its line, then run again

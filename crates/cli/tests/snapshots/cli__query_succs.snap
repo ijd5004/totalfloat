@@ -1,0 +1,8 @@
+---
+source: crates/cli/tests/cli.rs
+expression: stdout
+---
+code  link_type
+M1    FS
+B1    SS
+Showing 1-2 of 2

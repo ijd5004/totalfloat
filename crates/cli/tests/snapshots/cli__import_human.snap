@@ -1,0 +1,17 @@
+---
+source: crates/cli/tests/cli.rs
+expression: stdout
+---
+Project Plant & Yard Upgrade: 5 activities, 4 relationships, 3 WBS nodes, 2 calendars, 1 resources
+finish: 2026-03-18 17:00
+didn't translate exactly:
+  1 x an effort-driven task keeps its duration, so its work won't drive it: Pour slab
+  1 x Start No Earlier Than constraints kept; check each one is meant: Pour slab
+  1 x a manually scheduled task is now calculated by its logic: Install fence
+  1 x an inactive task was left out: Cancelled survey
+  1 x a link on a summary task was left out, because summary tasks become WBS nodes, which hold no logic: Yard
+  1 x an elapsed lag is now the same number of working days: Install fence
+  1 x a lag given as a percent of its predecessor was left as no lag: Lighting
+  1 x an assignment came across without its units: Excavate
+Dates follow TotalFloat's own rules, so they can differ from MS Project's
+Wrote plan.xer

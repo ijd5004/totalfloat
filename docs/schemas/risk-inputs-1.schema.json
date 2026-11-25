@@ -1,0 +1,277 @@
+{
+  "$defs": {
+    "CorrelationIn": {
+      "additionalProperties": false,
+      "description": "Activities whose durations move together.",
+      "properties": {
+        "activities": {
+          "description": "Activity IDs.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "coefficient": {
+          "description": "From 0 (independent) to 1 (in step).",
+          "format": "double",
+          "type": "number"
+        }
+      },
+      "required": [
+        "activities",
+        "coefficient"
+      ],
+      "type": "object"
+    },
+    "DelayIn": {
+      "additionalProperties": false,
+      "description": "A delay in spans. Without `likely`, it's uniform between `min` and `max`.",
+      "properties": {
+        "distribution": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Shape"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "`triangle` (the default), `pert` or `uniform`; uniform without `likely`."
+        },
+        "likely": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Span"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Most likely."
+        },
+        "max": {
+          "$ref": "#/$defs/Span",
+          "description": "Most."
+        },
+        "min": {
+          "$ref": "#/$defs/Span",
+          "description": "Least."
+        }
+      },
+      "required": [
+        "min",
+        "max"
+      ],
+      "type": "object"
+    },
+    "EstimateIn": {
+      "additionalProperties": false,
+      "description": "A three-point estimate of remaining duration, in spans such as `8d` or `60h`.",
+      "properties": {
+        "distribution": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Shape"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "`triangle` (the default), `pert` or `uniform`."
+        },
+        "likely": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Span"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Most likely. Default: the remaining duration."
+        },
+        "max": {
+          "$ref": "#/$defs/Span",
+          "description": "Pessimistic."
+        },
+        "min": {
+          "$ref": "#/$defs/Span",
+          "description": "Optimistic."
+        }
+      },
+      "required": [
+        "min",
+        "max"
+      ],
+      "type": "object"
+    },
+    "RangeIn": {
+      "additionalProperties": false,
+      "description": "A range in percent of remaining duration, such as `{\"min\": -10, \"max\": 25}`.",
+      "properties": {
+        "distribution": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Shape"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "`triangle` (the default), `pert` or `uniform`."
+        },
+        "max": {
+          "description": "Pessimistic, 0 or above, such as 25.",
+          "format": "double",
+          "type": "number"
+        },
+        "min": {
+          "description": "Optimistic, 0 or below, such as -10.",
+          "format": "double",
+          "type": "number"
+        }
+      },
+      "required": [
+        "min",
+        "max"
+      ],
+      "type": "object"
+    },
+    "RiskIn": {
+      "additionalProperties": false,
+      "description": "A risk that may happen, such as `{\"code\": \"R1\", \"probability\": 0.3,\n\"impacts\": {\"A1\": {\"min\": \"2d\", \"likely\": \"5d\", \"max\": \"10d\"}}}`.",
+      "properties": {
+        "code": {
+          "description": "Its code: any name.",
+          "type": "string"
+        },
+        "impacts": {
+          "additionalProperties": {
+            "$ref": "#/$defs/DelayIn"
+          },
+          "description": "The delay it adds to each activity it affects, by Activity ID.",
+          "type": "object"
+        },
+        "probability": {
+          "description": "The chance it happens, from 0 to 1.",
+          "format": "double",
+          "type": "number"
+        }
+      },
+      "required": [
+        "code",
+        "probability",
+        "impacts"
+      ],
+      "type": "object"
+    },
+    "Shape": {
+      "enum": [
+        "triangle",
+        "pert",
+        "uniform"
+      ],
+      "type": "string"
+    },
+    "Span": {
+      "description": "A span such as 15d, 120h, 2w, 1m or 1y. Days, weeks, months (m) and years use the calendar's hours in each.",
+      "pattern": "^-?[0-9]*\\.?[0-9]{0,3}[hHdDwWmMyY]$",
+      "type": "string"
+    },
+    "UdfsIn": {
+      "additionalProperties": false,
+      "description": "Activity number fields holding estimates in days of the activity's calendar.",
+      "properties": {
+        "distribution": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Shape"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "`triangle` (the default), `pert` or `uniform`."
+        },
+        "likely": {
+          "description": "The field with the most likely duration. Default: the remaining duration.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "max": {
+          "description": "The field with the pessimistic duration.",
+          "type": "string"
+        },
+        "min": {
+          "description": "The field with the optimistic duration.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "min",
+        "max"
+      ],
+      "type": "object"
+    }
+  },
+  "$id": "totalfloat.risk-inputs/1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "What to sample: `totalfloat.risk-inputs/1`, from a file or the MCP tool.",
+  "properties": {
+    "correlations": {
+      "description": "Groups of activities whose durations move together.",
+      "items": {
+        "$ref": "#/$defs/CorrelationIn"
+      },
+      "type": "array"
+    },
+    "default": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/RangeIn"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "A range for unfinished activities with no estimate of their own."
+    },
+    "estimates": {
+      "additionalProperties": {
+        "$ref": "#/$defs/EstimateIn"
+      },
+      "description": "Three-point estimates by Activity ID.",
+      "type": "object"
+    },
+    "risks": {
+      "description": "Risks that may happen and delay activities if they do.",
+      "items": {
+        "$ref": "#/$defs/RiskIn"
+      },
+      "type": "array"
+    },
+    "schema": {
+      "description": "`totalfloat.risk-inputs/1`, optional.",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "udfs": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/UdfsIn"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Activity user-defined fields holding estimates, in days."
+    }
+  },
+  "title": "totalfloat.risk-inputs/1",
+  "type": "object"
+}

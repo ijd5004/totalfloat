@@ -1,0 +1,8 @@
+---
+source: crates/cli/tests/cli.rs
+expression: stdout
+---
+code  name                        status       early_start       early_finish      total_float_hours  critical
+A1    Synthetic active task       in-progress  2026-01-05 08:00  2026-01-10 17:00  -1.5               true
+M1    Synthetic finish milestone  not-started  -                 -                 -                  false
+Showing 1-2 of 2

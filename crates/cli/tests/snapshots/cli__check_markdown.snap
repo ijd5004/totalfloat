@@ -1,0 +1,42 @@
+---
+source: crates/cli/tests/cli.rs
+expression: stdout
+---
+# Schedule checks: ../../fixtures/xer/batches/001/rel-fs-positive.xer
+
+## rel-fs-positive (1)
+
+| Check | Result | Measure | Outside the rule |
+|---|---|---|---:|
+| Logic | FAIL | 100.0%, limit 5% | 2 of 2 |
+| Leads | pass | 0.0%, limit 0% | 0 of 1 |
+| Lags | FAIL | 100.0%, limit 5% | 1 of 1 |
+| Relationship types | pass | 0.0%, limit 10% | 0 of 1 |
+| Hard constraints | pass | 0.0%, limit 5% | 0 of 2 |
+| High float | pass | 0.0%, limit 5% | 0 of 2 |
+| Negative float | pass | 0.0%, limit 0% | 0 of 2 |
+| High duration | pass | 0.0%, limit 5% | 0 of 2 |
+| Invalid dates | pass | 0.0%, limit 0% | 0 of 2 |
+| Resources | FAIL | 100.0%, limit 0% | 2 of 2 |
+| Missed tasks | n/a | the file holds no baseline | 0 of 0 |
+| Critical path test | pass | A1 delayed 600 days: finish 2026-01-13 17:00 to 2028-05-02 17:00 | 0 of 1 |
+| Critical path length index | n/a | the project has no required finish date | 0 of 0 |
+| Baseline execution index | n/a | the file holds no baseline | 0 of 0 |
+| Open ends | pass | 0.0%, limit 0% | 0 of 2 |
+| Out-of-sequence progress | pass | 0.0%, limit 0% | 0 of 1 |
+| Constraints overriding logic | pass | 0.0%, limit 0% | 0 of 2 |
+| Long lags | pass | 0.0%, limit 0% | 0 of 1 |
+| Start-to-finish relationships | pass | 0.0%, limit 0% | 0 of 1 |
+| Float lost to a calendar gap | pass | 0.0%, limit 5% | 0 of 2 |
+
+### Logic
+
+A1, A2
+
+### Lags
+
+A1 to A2
+
+### Resources
+
+A1, A2

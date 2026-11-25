@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "totalfloat.history-diff/1",
+  "title": "totalfloat history diff --json",
+  "description": "What changed between two points in a history, and the changesets between them.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "from", "to", "ancestor", "changesets", "diff"],
+  "properties": {
+    "schema": { "const": "totalfloat.history-diff/1" },
+    "from": { "type": "string" },
+    "to": { "type": "string" },
+    "ancestor": { "type": "boolean", "description": "True if from is before to on one line of first parents; otherwise changesets is empty and only the files are compared." },
+    "changesets": { "type": "array", "items": { "$ref": "history-log-1.schema.json#/$defs/entry" }, "description": "Newest first, from to back to just after from." },
+    "diff": { "$ref": "diff-1.schema.json", "description": "The semantic comparison of the two files, each list kept to 25 items." }
+  }
+}

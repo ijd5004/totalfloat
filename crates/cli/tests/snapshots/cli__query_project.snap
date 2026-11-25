@@ -1,0 +1,7 @@
+---
+source: crates/cli/tests/cli.rs
+expression: stdout
+---
+code  name                     status       early_start  early_finish  total_float_hours  critical
+B1    Synthetic resource task  not-started  -            -             -                  false
+Showing 1-1 of 1

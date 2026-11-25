@@ -1,0 +1,110 @@
+{
+  "file": "portfolio/plan.portfolio.toml",
+  "nodes": [
+    {
+      "depth": 0,
+      "id": "ENT",
+      "name": "Enterprise",
+      "parent": null,
+      "totals": {
+        "activities": 5,
+        "actual_cost": 0.0,
+        "budgeted_cost": 0.0,
+        "critical": 2,
+        "finish": "2026-01-23 17:00",
+        "finished": 0,
+        "first_data_date": "2026-01-05 08:00",
+        "in_progress": 1,
+        "last_data_date": "2026-01-12 08:00",
+        "negative_float": 0,
+        "not_started": 4,
+        "projects": 2,
+        "remaining_cost": 0.0,
+        "start": "2026-01-01 08:00",
+        "stored_results": 0
+      }
+    },
+    {
+      "depth": 1,
+      "id": "NA",
+      "name": "North America",
+      "parent": "ENT",
+      "totals": {
+        "activities": 2,
+        "actual_cost": 0.0,
+        "budgeted_cost": 0.0,
+        "critical": 2,
+        "finish": "2026-01-13 17:00",
+        "finished": 0,
+        "first_data_date": "2026-01-12 08:00",
+        "in_progress": 0,
+        "last_data_date": "2026-01-12 08:00",
+        "negative_float": 0,
+        "not_started": 2,
+        "projects": 1,
+        "remaining_cost": 0.0,
+        "start": "2026-01-12 08:00",
+        "stored_results": 0
+      }
+    }
+  ],
+  "projects": [
+    {
+      "code": "rel-fs-positive",
+      "data_date": "2026-01-12 08:00",
+      "eps": "NA",
+      "file": "plant.xer",
+      "finish_variance_days": null,
+      "id": 1,
+      "must_finish_by": null,
+      "name": "rel-fs-positive",
+      "results": "calculated",
+      "totals": {
+        "activities": 2,
+        "actual_cost": 0.0,
+        "budgeted_cost": 0.0,
+        "critical": 2,
+        "finish": "2026-01-13 17:00",
+        "finished": 0,
+        "first_data_date": "2026-01-12 08:00",
+        "in_progress": 0,
+        "last_data_date": "2026-01-12 08:00",
+        "negative_float": 0,
+        "not_started": 2,
+        "projects": 1,
+        "remaining_cost": 0.0,
+        "start": "2026-01-12 08:00",
+        "stored_results": 0
+      }
+    },
+    {
+      "code": "SYN1",
+      "data_date": "2026-01-05 08:00",
+      "eps": "ENT",
+      "file": "usage.xer",
+      "finish_variance_days": 9.0,
+      "id": 1,
+      "must_finish_by": "2026-02-01 17:00",
+      "name": "Synthetic Project One",
+      "results": "calculated",
+      "totals": {
+        "activities": 3,
+        "actual_cost": 0.0,
+        "budgeted_cost": 0.0,
+        "critical": 0,
+        "finish": "2026-01-23 17:00",
+        "finished": 0,
+        "first_data_date": "2026-01-05 08:00",
+        "in_progress": 1,
+        "last_data_date": "2026-01-05 08:00",
+        "negative_float": 0,
+        "not_started": 2,
+        "projects": 1,
+        "remaining_cost": 0.0,
+        "start": "2026-01-01 08:00",
+        "stored_results": 0
+      }
+    }
+  ],
+  "schema": "totalfloat.portfolio-show/1"
+}

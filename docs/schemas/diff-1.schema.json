@@ -1,0 +1,357 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "totalfloat.diff/1",
+  "title": "totalfloat diff --json",
+  "description": "What changed between two versions of a schedule. Both sides are read as stored, and nothing is calculated. Counts are complete. Over MCP, each list keeps 100 items.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "from",
+    "to",
+    "unmatched_from",
+    "unmatched_to",
+    "incomplete",
+    "projects"
+  ],
+  "properties": {
+    "schema": {
+      "const": "totalfloat.diff/1"
+    },
+    "from": {
+      "type": "string"
+    },
+    "to": {
+      "type": "string"
+    },
+    "unmatched_from": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Projects only in the earlier file."
+    },
+    "unmatched_to": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Projects only in the later file."
+    },
+    "incomplete": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Projects left out because a file lost their rows in mapping."
+    },
+    "projects": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/comparison"
+      }
+    }
+  },
+  "$defs": {
+    "comparison": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "project": {
+          "type": "object",
+          "properties": {
+            "code": {
+              "type": "string"
+            },
+            "from_data_date": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "to_data_date": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "from_finish": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "to_finish": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "finish_moved_hours": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "description": "Elapsed hours later, negative for earlier."
+            }
+          }
+        },
+        "counts": {
+          "type": "object",
+          "properties": {
+            "added": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "deleted": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "changed": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "links_added": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "links_deleted": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "links_changed": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "milestones_moved": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "became_critical": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "left_critical": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "findings": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        },
+        "added": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/activity"
+          }
+        },
+        "deleted": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/activity"
+          }
+        },
+        "changed": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/change"
+          }
+        },
+        "links_added": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/link"
+          }
+        },
+        "links_deleted": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/link"
+          }
+        },
+        "links_changed": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/link"
+          }
+        },
+        "milestones_moved": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/move"
+          }
+        },
+        "became_critical": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "left_critical": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "findings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/finding"
+          }
+        }
+      }
+    },
+    "activity": {
+      "type": "object",
+      "required": [
+        "code",
+        "name"
+      ],
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "change": {
+      "type": "object",
+      "required": [
+        "code",
+        "changes"
+      ],
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "changes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "category",
+              "field",
+              "from",
+              "to"
+            ],
+            "properties": {
+              "category": {
+                "enum": [
+                  "identity",
+                  "duration",
+                  "progress",
+                  "constraint",
+                  "calendar",
+                  "codes"
+                ]
+              },
+              "field": {
+                "type": "string"
+              },
+              "from": {
+                "type": "string"
+              },
+              "to": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "link": {
+      "type": "object",
+      "required": [
+        "predecessor",
+        "successor",
+        "kind"
+      ],
+      "properties": {
+        "predecessor": {
+          "type": "string"
+        },
+        "successor": {
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "FS",
+            "SS",
+            "FF",
+            "SF"
+          ]
+        },
+        "from_lag": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "to_lag": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "move": {
+      "type": "object",
+      "required": [
+        "code"
+      ],
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "from": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "to": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "hours": {
+          "type": [
+            "number",
+            "null"
+          ]
+        }
+      }
+    },
+    "finding": {
+      "type": "object",
+      "required": [
+        "kind",
+        "subject",
+        "detail"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "critical-duration-cut",
+            "critical-logic-deleted",
+            "new-constraint",
+            "critical-calendar-change",
+            "actual-changed"
+          ]
+        },
+        "subject": {
+          "type": "string"
+        },
+        "detail": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

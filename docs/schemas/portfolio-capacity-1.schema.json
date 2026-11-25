@@ -1,0 +1,235 @@
+{
+  "$defs": {
+    "By": {
+      "description": "The length of a usage period.",
+      "oneOf": [
+        {
+          "const": "week",
+          "description": "Weeks, each starting on Monday.",
+          "type": "string"
+        },
+        {
+          "const": "month",
+          "description": "Calendar months.",
+          "type": "string"
+        }
+      ]
+    },
+    "Line": {
+      "description": "One resource's or role's demand and supply.",
+      "properties": {
+        "assignments": {
+          "description": "Assignments spread into the periods.",
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "not_spread": {
+          "description": "Assignments with units that couldn't be spread, each with why.",
+          "items": {
+            "$ref": "#/$defs/NotSpread"
+          },
+          "type": "array"
+        },
+        "peak": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Peak"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "The period most over supply, with what each project asks of it then."
+        },
+        "periods": {
+          "description": "Every period from the first with demand to the last, earliest first.",
+          "items": {
+            "$ref": "#/$defs/Period"
+          },
+          "type": "array"
+        },
+        "periods_over": {
+          "description": "Periods with more demand than supply.",
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "short_name": {
+          "type": "string"
+        },
+        "total_demand": {
+          "format": "double",
+          "type": "number"
+        },
+        "unit": {
+          "description": "`hours` for labor and nonlabor, `units` for material.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "short_name",
+        "name",
+        "unit",
+        "periods",
+        "total_demand",
+        "periods_over",
+        "assignments",
+        "not_spread"
+      ],
+      "type": "object"
+    },
+    "NotSpread": {
+      "properties": {
+        "activity": {
+          "type": "string"
+        },
+        "project": {
+          "type": "string"
+        },
+        "reason": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "project",
+        "activity",
+        "reason"
+      ],
+      "type": "object"
+    },
+    "Peak": {
+      "properties": {
+        "demand": {
+          "format": "double",
+          "type": "number"
+        },
+        "over_by": {
+          "format": "double",
+          "type": "number"
+        },
+        "projects": {
+          "description": "Each project's demand in the period, most first.",
+          "items": {
+            "$ref": "#/$defs/Share"
+          },
+          "type": "array"
+        },
+        "start": {
+          "type": "string"
+        },
+        "supply": {
+          "format": "double",
+          "type": "number"
+        }
+      },
+      "required": [
+        "start",
+        "demand",
+        "supply",
+        "over_by",
+        "projects"
+      ],
+      "type": "object"
+    },
+    "Period": {
+      "properties": {
+        "demand": {
+          "description": "Actual and remaining units together, across every project.",
+          "format": "double",
+          "type": "number"
+        },
+        "over": {
+          "type": "boolean"
+        },
+        "start": {
+          "description": "The period's first day, `YYYY-MM-DD`.",
+          "type": "string"
+        },
+        "supply": {
+          "description": "The most it can do in the period; `null` without a maximum.",
+          "format": "double",
+          "type": [
+            "number",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "start",
+        "demand",
+        "over"
+      ],
+      "type": "object"
+    },
+    "Share": {
+      "properties": {
+        "demand": {
+          "format": "double",
+          "type": "number"
+        },
+        "file": {
+          "type": "string"
+        },
+        "project": {
+          "description": "The project's code.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "project",
+        "file",
+        "demand"
+      ],
+      "type": "object"
+    }
+  },
+  "$id": "totalfloat.portfolio-capacity/1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "`totalfloat.portfolio-capacity/1`, documented in\ndocs/schemas/portfolio-capacity-1.schema.json.",
+  "properties": {
+    "by": {
+      "$ref": "#/$defs/By"
+    },
+    "file": {
+      "type": "string"
+    },
+    "not_counted": {
+      "description": "Assignments counted against nothing, as the resource or role they\nname isn't in the file.",
+      "items": {
+        "$ref": "#/$defs/NotSpread"
+      },
+      "type": "array"
+    },
+    "resources": {
+      "description": "Resources with any demand, by short name.",
+      "items": {
+        "$ref": "#/$defs/Line"
+      },
+      "type": "array"
+    },
+    "roles": {
+      "description": "Roles with demand from assignments that name no resource, by short name.",
+      "items": {
+        "$ref": "#/$defs/Line"
+      },
+      "type": "array"
+    },
+    "schema": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema",
+    "file",
+    "by",
+    "resources",
+    "roles",
+    "not_counted"
+  ],
+  "title": "totalfloat.portfolio-capacity/1",
+  "type": "object"
+}

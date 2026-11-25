@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "totalfloat.history-switch/1",
+  "title": "totalfloat history switch --json",
+  "description": "The branch now checked out.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "branch", "head"],
+  "properties": {
+    "schema": { "const": "totalfloat.history-switch/1" },
+    "branch": { "type": "string" },
+    "head": { "type": "string" }
+  }
+}

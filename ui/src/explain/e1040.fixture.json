@@ -1,0 +1,211 @@
+{
+  "schema": "totalfloat.explain/1",
+  "file": "plant.tfdb",
+  "project": 1,
+  "activity": {
+    "id": 20,
+    "code": "E1040"
+  },
+  "field": "early_start",
+  "total_float_hours": null,
+  "chains": [
+    {
+      "field": "early_start",
+      "date": "2026-06-25 08:00",
+      "origin": "data-date",
+      "total_steps": 13,
+      "steps": [
+        {
+          "activity": 20,
+          "code": "E1040",
+          "field": "early_start",
+          "hours_per_day": 8.0,
+          "date": "2026-06-25 08:00",
+          "text": "E1040 early start 2026-06-25 08:00: its early finish and its duration",
+          "cause": {
+            "kind": "duration",
+            "from_field": "early_finish"
+          }
+        },
+        {
+          "activity": 20,
+          "code": "E1040",
+          "field": "early_finish",
+          "hours_per_day": 8.0,
+          "date": "2026-07-08 17:00",
+          "text": "E1040 early finish 2026-07-08 17:00: FF with 16h lag on the predecessor calendar from E1020 early finish",
+          "relationship": 22,
+          "cause": {
+            "kind": "relationship",
+            "from": 18,
+            "from_field": "early_finish",
+            "link": "FF",
+            "lag_hours": 16.0,
+            "lag_days": 2.0
+          }
+        },
+        {
+          "activity": 18,
+          "code": "E1020",
+          "field": "early_finish",
+          "hours_per_day": 8.0,
+          "date": "2026-07-06 17:00",
+          "text": "E1020 early finish 2026-07-06 17:00: its early start and its duration",
+          "cause": {
+            "kind": "duration",
+            "from_field": "early_start"
+          }
+        },
+        {
+          "activity": 18,
+          "code": "E1020",
+          "field": "early_start",
+          "hours_per_day": 8.0,
+          "date": "2026-06-02 08:00",
+          "text": "E1020 early start 2026-06-02 08:00: SS with 40h lag on the predecessor calendar from E1010 early start, moved from 2026-06-01 17:00 to working time on calendar 1",
+          "relationship": 19,
+          "cause": {
+            "kind": "relationship",
+            "moved_to_working_time": true,
+            "from": 17,
+            "from_field": "early_start",
+            "link": "SS",
+            "lag_hours": 40.0,
+            "lag_days": 5.0
+          }
+        },
+        {
+          "activity": 17,
+          "code": "E1010",
+          "field": "early_start",
+          "hours_per_day": 8.0,
+          "date": "2026-05-26 08:00",
+          "text": "E1010 early start 2026-05-26 08:00: FS from S1010 early finish, moved from 2026-05-25 17:00 to working time on calendar 1",
+          "relationship": 18,
+          "cause": {
+            "kind": "relationship",
+            "moved_to_working_time": true,
+            "from": 12,
+            "from_field": "early_finish",
+            "link": "FS",
+            "lag_hours": 0.0,
+            "lag_days": 0.0
+          }
+        },
+        {
+          "activity": 12,
+          "code": "S1010",
+          "field": "early_finish",
+          "hours_per_day": 8.0,
+          "date": "2026-05-25 17:00",
+          "text": "S1010 early finish 2026-05-25 17:00: its early start and its duration",
+          "cause": {
+            "kind": "duration",
+            "from_field": "early_start"
+          }
+        },
+        {
+          "activity": 12,
+          "code": "S1010",
+          "field": "early_start",
+          "hours_per_day": 8.0,
+          "date": "2026-04-28 08:00",
+          "text": "S1010 early start 2026-04-28 08:00: FS from C1050 early finish, moved from 2026-04-27 17:00 to working time on calendar 1",
+          "relationship": 12,
+          "cause": {
+            "kind": "relationship",
+            "moved_to_working_time": true,
+            "from": 9,
+            "from_field": "early_finish",
+            "link": "FS",
+            "lag_hours": 0.0,
+            "lag_days": 0.0
+          }
+        },
+        {
+          "activity": 9,
+          "code": "C1050",
+          "field": "early_finish",
+          "hours_per_day": 8.0,
+          "date": "2026-04-27 17:00",
+          "text": "C1050 early finish 2026-04-27 17:00: its early start and its duration",
+          "cause": {
+            "kind": "duration",
+            "from_field": "early_start"
+          }
+        },
+        {
+          "activity": 9,
+          "code": "C1050",
+          "field": "early_start",
+          "hours_per_day": 8.0,
+          "date": "2026-04-17 08:00",
+          "text": "C1050 early start 2026-04-17 08:00: FS from C1040 early finish, moved from 2026-04-16 17:00 to working time on calendar 1",
+          "relationship": 8,
+          "cause": {
+            "kind": "relationship",
+            "moved_to_working_time": true,
+            "from": 8,
+            "from_field": "early_finish",
+            "link": "FS",
+            "lag_hours": 0.0,
+            "lag_days": 0.0
+          }
+        },
+        {
+          "activity": 8,
+          "code": "C1040",
+          "field": "early_finish",
+          "hours_per_day": 8.0,
+          "date": "2026-04-16 17:00",
+          "text": "C1040 early finish 2026-04-16 17:00: its early start and its duration",
+          "cause": {
+            "kind": "duration",
+            "from_field": "early_start"
+          }
+        },
+        {
+          "activity": 8,
+          "code": "C1040",
+          "field": "early_start",
+          "hours_per_day": 8.0,
+          "date": "2026-03-27 08:00",
+          "text": "C1040 early start 2026-03-27 08:00: FS from C1020 early finish, moved from 2026-03-26 17:00 to working time on calendar 1",
+          "relationship": 7,
+          "cause": {
+            "kind": "relationship",
+            "moved_to_working_time": true,
+            "from": 6,
+            "from_field": "early_finish",
+            "link": "FS",
+            "lag_hours": 0.0,
+            "lag_days": 0.0
+          }
+        },
+        {
+          "activity": 6,
+          "code": "C1020",
+          "field": "early_finish",
+          "hours_per_day": 8.0,
+          "date": "2026-03-26 17:00",
+          "text": "C1020 early finish 2026-03-26 17:00: its early start and its duration",
+          "cause": {
+            "kind": "duration",
+            "from_field": "early_start"
+          }
+        },
+        {
+          "activity": 6,
+          "code": "C1020",
+          "field": "early_start",
+          "hours_per_day": 8.0,
+          "date": "2026-03-23 08:00",
+          "text": "C1020 early start 2026-03-23 08:00: data date",
+          "cause": {
+            "kind": "data-date"
+          }
+        }
+      ]
+    }
+  ]
+}

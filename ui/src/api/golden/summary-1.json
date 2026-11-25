@@ -1,0 +1,207 @@
+{
+  "branch": "main",
+  "calculated": true,
+  "head": "0101010101010101010101010101010101010101010101010101010101010101",
+  "inspect": {
+    "activity_code_types_total": 0,
+    "activity_codes": [],
+    "activity_udfs": [],
+    "activity_udfs_total": 0,
+    "bytes": 8612,
+    "calendars": [
+      {
+        "id": 100,
+        "kind": "global",
+        "name": "Synthetic weekdays",
+        "project": null
+      },
+      {
+        "id": 200,
+        "kind": "global",
+        "name": "Synthetic seven-day sixteen-hour",
+        "project": null
+      },
+      {
+        "id": 300,
+        "kind": "global",
+        "name": "Synthetic project six-day",
+        "project": null
+      }
+    ],
+    "cost_accounts": [],
+    "cost_accounts_total": 0,
+    "diagnostics": {
+      "mapping": {
+        "Typed": 4,
+        "UnconfirmedOption": 1
+      },
+      "mapping_details": [
+        {
+          "count": 4,
+          "field": "",
+          "kind": "Typed",
+          "message": "table remains in raw storage"
+        },
+        {
+          "count": 1,
+          "field": "sched_outer_depend_type",
+          "kind": "UnconfirmedOption",
+          "message": "external relationship option is not confirmed; model default retained (TF-008)"
+        }
+      ],
+      "mapping_unnamed": 0,
+      "omitted_rows": 0,
+      "reader": {}
+    },
+    "encoding": "windows-1252",
+    "export": {
+      "date": "2026-01-01",
+      "version": "23.12"
+    },
+    "file": "plant.tfdb",
+    "line_ending": "CRLF",
+    "project_code_types_total": 0,
+    "project_codes": [],
+    "projects": [
+      {
+        "activities": 2,
+        "codes": {},
+        "data_date": "2026-01-12 08:00",
+        "expenses": {
+          "actual_cost": 0.0,
+          "budgeted_cost": 0.0,
+          "count": 0,
+          "remaining_cost": 0.0
+        },
+        "finish": "2026-01-15 09:00",
+        "id": 1,
+        "must_finish_by": null,
+        "name": "rel-fs-positive",
+        "options": {
+          "critical": "total-float<=0h",
+          "float_type": "finish",
+          "lag_calendar": "predecessor",
+          "make_open_ended_critical": false,
+          "multiple_float_paths": false,
+          "out_of_sequence": "retained-logic",
+          "ss_lag_from_early_start": true,
+          "use_expected_finish": true
+        },
+        "relationships": 1,
+        "short_name": "rel-fs-positive",
+        "status": {
+          "completed": 0,
+          "in_progress": 0,
+          "not_started": 2
+        },
+        "wbs_nodes": 1
+      }
+    ],
+    "resources": [],
+    "resources_total": 0,
+    "roles": [],
+    "roles_total": 0,
+    "schema": "totalfloat.inspect/1",
+    "tables": [
+      {
+        "name": "CURRTYPE",
+        "rows": 1
+      },
+      {
+        "name": "FINTMPL",
+        "rows": 0
+      },
+      {
+        "name": "MEMOTYPE",
+        "rows": 0
+      },
+      {
+        "name": "OBS",
+        "rows": 1
+      },
+      {
+        "name": "PHASE",
+        "rows": 0
+      },
+      {
+        "name": "UDFTYPE",
+        "rows": 0
+      },
+      {
+        "name": "ROLES",
+        "rows": 0
+      },
+      {
+        "name": "PROJECT",
+        "rows": 1
+      },
+      {
+        "name": "ROLERATE",
+        "rows": 0
+      },
+      {
+        "name": "APPLYACTOPTIONS",
+        "rows": 0
+      },
+      {
+        "name": "CALENDAR",
+        "rows": 3
+      },
+      {
+        "name": "DOCUMENT",
+        "rows": 0
+      },
+      {
+        "name": "SCHEDOPTIONS",
+        "rows": 1
+      },
+      {
+        "name": "PROJWBS",
+        "rows": 1
+      },
+      {
+        "name": "RSRC",
+        "rows": 0
+      },
+      {
+        "name": "ACTVTYPE",
+        "rows": 0
+      },
+      {
+        "name": "RSRCRATE",
+        "rows": 0
+      },
+      {
+        "name": "TASK",
+        "rows": 2
+      },
+      {
+        "name": "ACTVCODE",
+        "rows": 0
+      },
+      {
+        "name": "TASKMEMO",
+        "rows": 0
+      },
+      {
+        "name": "TASKPRED",
+        "rows": 1
+      },
+      {
+        "name": "TASKRSRC",
+        "rows": 0
+      },
+      {
+        "name": "TASKACTV",
+        "rows": 0
+      },
+      {
+        "name": "UDFVALUE",
+        "rows": 0
+      }
+    ]
+  },
+  "location": "plant.tfdb",
+  "schema": "totalfloat.summary/1",
+  "writable": true
+}

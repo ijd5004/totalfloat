@@ -1,0 +1,39 @@
+---
+source: crates/cli/tests/history.rs
+expression: clean(stdout)
+---
+{
+  "author": "Pat",
+  "author_kind": "human",
+  "commands": {
+    "import": {
+      "file": "plant.xer"
+    }
+  },
+  "created": "2026-11-02T09:00:00Z",
+  "id": "8b42e0c693091650633c9c3170ec6b11e6e0b68729dbb56ca1f6bd9d617ff1ce",
+  "kind": "import",
+  "message": "As submitted",
+  "parent": null,
+  "refs": [
+    "main"
+  ],
+  "report": {
+    "projects": [
+      {
+        "activities": 2,
+        "code": "rel-fs-positive",
+        "id": 1
+      }
+    ]
+  },
+  "reviews": [],
+  "schema": "totalfloat.changeset/1",
+  "second_parent": null,
+  "short_id": "8b42e0c693",
+  "skipped": [],
+  "snapshot": "d6bbd0f3d08461ec9f26878c876f779672d639a4dcd301e10b6d834cb845dd03",
+  "state": "accepted",
+  "summary": "import plant.xer",
+  "tool_version": "0.1.0"
+}

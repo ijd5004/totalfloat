@@ -1,0 +1,5 @@
+---
+source: crates/cli/tests/cli.rs
+expression: stdout
+---
+A2 late finish 2026-02-02 17:00: project must-finish-by date

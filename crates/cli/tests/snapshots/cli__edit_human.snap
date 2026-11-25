@@ -1,0 +1,9 @@
+---
+source: crates/cli/tests/cli.rs
+expression: stdout
+---
+A1 duration: original 8h to 120h, remaining 8h to 120h
+Project rel-fs-positive (1)
+  finish: 2026-02-02 17:00 (was 2026-01-13 17:00)
+  critical: 2 (was 2)
+Nothing written; pass -o to write a new file

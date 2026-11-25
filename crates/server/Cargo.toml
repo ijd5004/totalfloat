@@ -1,0 +1,23 @@
+[package]
+name = "totalfloat-server"
+description = "HTTP shell for TotalFloat's local app: loopback only, session token, host and origin checks, static assets and server-sent events"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+
+[dependencies]
+axum.workspace = true
+futures-util.workspace = true
+getrandom.workspace = true
+serde_json.workspace = true
+thiserror.workspace = true
+tokio = { workspace = true, features = ["net", "time"] }
+
+[dev-dependencies]
+tower.workspace = true
+
+[lints]
+workspace = true

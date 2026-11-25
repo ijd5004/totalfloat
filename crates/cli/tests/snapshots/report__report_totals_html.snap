@@ -1,0 +1,38 @@
+---
+source: crates/cli/tests/report.rs
+expression: stdout
+---
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Durations</title>
+<style>body{font-family:system-ui,sans-serif;margin:2rem;color:#1d2433}table{border-collapse:collapse;margin:0.5rem 0 1.5rem}th,td{border:1px solid #c9ced8;padding:0.25rem 0.6rem;text-align:left}th{background:#eef1f5}p{color:#4b5465}</style>
+</head>
+<body>
+<h1>Durations</h1>
+<p>plan.xer · data date 2026-03-02 08:00 · 7 activities</p>
+<h2>WBS: CIV (4)</h2>
+<table>
+<thead><tr><th>Activity ID</th><th>Activity name</th><th>Original duration hours</th><th>Remaining duration hours</th></tr></thead>
+<tbody>
+<tr><td>A1010</td><td>Excavate</td><td>40.0</td><td>40.0</td></tr>
+<tr><td>A1020</td><td>Pour foundations</td><td>80.0</td><td>80.0</td></tr>
+<tr><td>A1030</td><td>Cure, then strip | forms</td><td>56.0</td><td>56.0</td></tr>
+<tr><td>A1040</td><td>Survey</td><td>16.0</td><td>16.0</td></tr>
+</tbody>
+<tfoot><tr><th>Total</th><th></th><th>192.0</th><th>192.0</th></tr></tfoot>
+</table>
+<h2>WBS: MEC (3)</h2>
+<table>
+<thead><tr><th>Activity ID</th><th>Activity name</th><th>Original duration hours</th><th>Remaining duration hours</th></tr></thead>
+<tbody>
+<tr><td>A2010</td><td>Order pumps</td><td>24.0</td><td>24.0</td></tr>
+<tr><td>A2020</td><td>Install pumps</td><td>48.0</td><td>48.0</td></tr>
+<tr><td>M100</td><td>Plant complete</td><td>0.0</td><td>0.0</td></tr>
+</tbody>
+<tfoot><tr><th>Total</th><th></th><th>72.0</th><th>72.0</th></tr></tfoot>
+</table>
+<p><strong>Total, 7 activities: Original duration hours 264.0 · Remaining duration hours 264.0</strong></p>
+</body>
+</html>

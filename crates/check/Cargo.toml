@@ -1,0 +1,25 @@
+[package]
+name = "totalfloat-check"
+description = "Schedule quality checks (DCMA 14-point and more) for TotalFloat"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+
+[dependencies]
+totalfloat-model.workspace = true
+totalfloat-engine.workspace = true
+serde.workspace = true
+schemars.workspace = true
+
+[dev-dependencies]
+criterion.workspace = true
+
+[[bench]]
+name = "assess"
+harness = false
+
+[lints]
+workspace = true

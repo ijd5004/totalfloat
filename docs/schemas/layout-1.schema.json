@@ -1,0 +1,316 @@
+{
+  "$defs": {
+    "Column": {
+      "additionalProperties": false,
+      "description": "A grid column shown.",
+      "properties": {
+        "field": {
+          "$ref": "#/$defs/Field",
+          "description": "Which column."
+        },
+        "width": {
+          "description": "Its width in CSS pixels, from 40 to 2000.",
+          "format": "uint32",
+          "maximum": 2000,
+          "minimum": 40,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "field",
+        "width"
+      ],
+      "type": "object"
+    },
+    "Field": {
+      "description": "The grid's columns, by the field each shows.",
+      "enum": [
+        "code",
+        "name",
+        "original",
+        "remaining",
+        "start",
+        "finish",
+        "float",
+        "calendar",
+        "wbs",
+        "actual_start",
+        "actual_finish",
+        "constraint",
+        "constraint_date"
+      ],
+      "type": "string"
+    },
+    "Filters": {
+      "additionalProperties": false,
+      "description": "What the grid shows.",
+      "properties": {
+        "any": {
+          "description": "Groups of conditions in the same form, as `query`'s `any`: an activity\nhas to meet every condition of at least one group, besides `built`.\nLeft out when there are none.",
+          "items": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "minProperties": 1,
+            "propertyNames": {
+              "enum": [
+                "code",
+                "wbs",
+                "resource",
+                "status",
+                "type",
+                "float_min",
+                "float_max",
+                "critical",
+                "constrained",
+                "start_from",
+                "start_to",
+                "finish_from",
+                "finish_to",
+                "text"
+              ]
+            },
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "built": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "The filter builder's conditions, as `query`'s parameters, such as\n`{\"code\": \"Phase=DESIGN\", \"float_max\": \"40\"}`. Left out when there are\nnone.",
+          "type": "object"
+        },
+        "quick": {
+          "default": [],
+          "description": "Quick filters: critical narrows; the statuses widen each other.",
+          "items": {
+            "$ref": "#/$defs/Quick"
+          },
+          "type": "array"
+        },
+        "text": {
+          "default": "",
+          "description": "Text the activity ID or name holds, in any case.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "Fit": {
+      "description": "Fit the dates shown into the chart's width.",
+      "oneOf": [
+        {
+          "const": "fit",
+          "description": "The only value.",
+          "type": "string"
+        }
+      ]
+    },
+    "Gantt": {
+      "additionalProperties": false,
+      "description": "The Gantt chart's settings.",
+      "properties": {
+        "lines": {
+          "$ref": "#/$defs/Lines",
+          "description": "Which logic lines show."
+        },
+        "today": {
+          "default": false,
+          "description": "Whether today's line shows.",
+          "type": "boolean"
+        },
+        "zoom": {
+          "$ref": "#/$defs/Zoom",
+          "description": "The time scale."
+        }
+      },
+      "required": [
+        "zoom",
+        "lines"
+      ],
+      "type": "object"
+    },
+    "Group": {
+      "description": "How rows are grouped: `wbs` for WBS bands, `none`, an activity field\n(`status`, `type`, `calendar`, `constraint`, or the month work starts or\nfinishes, `start_month` or `finish_month`), or a field as `query` names a\ncolumn, `code:TYPE` for an activity code type or `udf:LABEL` for an\nactivity user-defined field, for a band per value.",
+      "pattern": "^(wbs|none|status|type|calendar|constraint|start_month|finish_month|code:.+|udf:.+)$",
+      "type": "string"
+    },
+    "LayoutSchema": {
+      "description": "The schema name.",
+      "oneOf": [
+        {
+          "const": "totalfloat.layout/1",
+          "description": "The only version.",
+          "type": "string"
+        }
+      ]
+    },
+    "Lines": {
+      "description": "Which logic lines show.",
+      "oneOf": [
+        {
+          "const": "all",
+          "description": "Every one.",
+          "type": "string"
+        },
+        {
+          "const": "selected",
+          "description": "The selected activity's.",
+          "type": "string"
+        },
+        {
+          "const": "none",
+          "description": "None.",
+          "type": "string"
+        }
+      ]
+    },
+    "Quick": {
+      "description": "A quick filter.",
+      "enum": [
+        "critical",
+        "not-started",
+        "in-progress",
+        "completed"
+      ],
+      "type": "string"
+    },
+    "Scale": {
+      "additionalProperties": false,
+      "description": "A fixed time scale and its two tiers.",
+      "properties": {
+        "bottom": {
+          "$ref": "#/$defs/Tier",
+          "description": "The lower tier of the time axis."
+        },
+        "px_per_day": {
+          "description": "CSS pixels per day, from 0.01 to 10000.",
+          "format": "double",
+          "maximum": 10000,
+          "minimum": 0.01,
+          "type": "number"
+        },
+        "top": {
+          "$ref": "#/$defs/Tier",
+          "description": "The upper tier of the time axis."
+        }
+      },
+      "required": [
+        "px_per_day",
+        "top",
+        "bottom"
+      ],
+      "type": "object"
+    },
+    "SortKey": {
+      "additionalProperties": false,
+      "description": "A sort key.",
+      "properties": {
+        "descending": {
+          "default": false,
+          "description": "Largest or latest first.",
+          "type": "boolean"
+        },
+        "field": {
+          "$ref": "#/$defs/Field",
+          "description": "The column sorted on."
+        }
+      },
+      "required": [
+        "field"
+      ],
+      "type": "object"
+    },
+    "Tier": {
+      "description": "A tier of the time axis.",
+      "enum": [
+        "year",
+        "quarter",
+        "month",
+        "week",
+        "day"
+      ],
+      "type": "string"
+    },
+    "Zoom": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Fit",
+          "description": "`fit`."
+        },
+        {
+          "$ref": "#/$defs/Scale",
+          "description": "A fixed scale."
+        }
+      ],
+      "description": "The Gantt's time scale: `fit`, which fits the dates shown into the\nchart's width each time they change, or a fixed scale."
+    }
+  },
+  "$id": "totalfloat.layout/1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "How the grid and Gantt are set out (`totalfloat.layout/1`).",
+  "properties": {
+    "columns": {
+      "description": "The grid's columns, in order, each with its width, each once. Columns\nnot listed are hidden.",
+      "items": {
+        "$ref": "#/$defs/Column"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "filters": {
+      "$ref": "#/$defs/Filters",
+      "default": {
+        "quick": [],
+        "text": ""
+      },
+      "description": "What the grid shows."
+    },
+    "gantt": {
+      "$ref": "#/$defs/Gantt",
+      "description": "The Gantt chart's settings."
+    },
+    "group": {
+      "$ref": "#/$defs/Group",
+      "description": "How rows are grouped."
+    },
+    "schema": {
+      "$ref": "#/$defs/LayoutSchema",
+      "description": "Always `totalfloat.layout/1`."
+    },
+    "sort": {
+      "default": [],
+      "description": "Sort keys, first key first.",
+      "items": {
+        "$ref": "#/$defs/SortKey"
+      },
+      "type": "array"
+    },
+    "split": {
+      "description": "The grid's share of the width beside the Gantt, from 0.15 to 0.85.",
+      "format": "double",
+      "maximum": 0.85,
+      "minimum": 0.15,
+      "type": "number"
+    },
+    "then_by": {
+      "description": "Further levels of grouping, in order, each splitting every band of the\nlevel before it, such as `[\"code:Phase\"]` under `\"group\": \"wbs\"`. Any\ngrouping but `none`, each once, and none of them `group`; three at\nmost, four levels in all. Left out when there are none.",
+      "items": {
+        "$ref": "#/$defs/Group"
+      },
+      "maxItems": 3,
+      "type": "array"
+    }
+  },
+  "required": [
+    "schema",
+    "columns",
+    "group",
+    "gantt",
+    "split"
+  ],
+  "title": "totalfloat.layout/1",
+  "type": "object"
+}

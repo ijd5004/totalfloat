@@ -1,0 +1,37 @@
+---
+source: crates/cli/tests/text.rs
+assertion_line: 563
+expression: "std::fs::read_to_string(&commands).unwrap()"
+---
+{
+  "schema": "totalfloat.command/1",
+  "edits": [
+    {
+      "op": "add_activity",
+      "code": "A0",
+      "name": "Synthetic mobilise",
+      "wbs": "rel-fs-positive",
+      "activity_type": "task",
+      "calendar": "Synthetic weekdays",
+      "duration": "2d"
+    },
+    {
+      "op": "set_duration",
+      "activity": "A1",
+      "original": "3d"
+    },
+    {
+      "op": "add_link",
+      "predecessor": "A0",
+      "successor": "A2"
+    },
+    {
+      "op": "change_link",
+      "predecessor": "A1",
+      "successor": "A2",
+      "link_type": "FS",
+      "new_type": "SS",
+      "lag": "1h"
+    }
+  ]
+}

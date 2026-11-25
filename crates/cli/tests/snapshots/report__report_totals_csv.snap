@@ -1,0 +1,15 @@
+---
+source: crates/cli/tests/report.rs
+expression: stdout
+---
+wbs,code,name,original_duration_hours,remaining_duration_hours
+CIV,A1010,Excavate,40.0,40.0
+CIV,A1020,Pour foundations,80.0,80.0
+CIV,A1030,"Cure, then strip | forms",56.0,56.0
+CIV,A1040,Survey,16.0,16.0
+total: CIV,,,192.0,192.0
+MEC,A2010,Order pumps,24.0,24.0
+MEC,A2020,Install pumps,48.0,48.0
+MEC,M100,Plant complete,0.0,0.0
+total: MEC,,,72.0,72.0
+total,,,264.0,264.0

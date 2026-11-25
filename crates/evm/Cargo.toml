@@ -1,0 +1,15 @@
+[package]
+name = "totalfloat-evm"
+description = "Earned value from a schedule's progress, costs and plan for TotalFloat"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+
+[dependencies]
+totalfloat-model.workspace = true
+
+[lints]
+workspace = true

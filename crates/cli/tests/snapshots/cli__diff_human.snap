@@ -1,0 +1,9 @@
+---
+source: crates/cli/tests/cli.rs
+expression: stdout
+---
+Project TF-FRESH: finish 2026-01-05 17:00
+  activities: 0 added, 0 deleted, 1 changed
+  relationships: 0 added, 0 deleted, 0 changed lag
+  critical: 0 joined, 0 left; milestones moved: 0; flagged: 1
+  look at TF-001: remaining duration went from 8h to 1h with no progress

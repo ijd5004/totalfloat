@@ -1,0 +1,35 @@
+schema = 1
+seed = 2001
+export_date = "2026-01-01"
+data_date = "2026-01-12 08:00"
+description = "Seven-day calendar with Friday exceptions for the TF-029 question (docs/FIXTURE-SPECS.md#batch-002); no stored results"
+
+[[calendars]]
+id = 200
+name = "Authored seven-day week"
+weekdays = [0, 1, 2, 3, 4, 5, 6]
+intervals = ["08:00-12:00", "13:00-17:00"]
+[calendars.exceptions]
+"2026-01-16" = []
+"2026-01-23" = []
+"2026-01-30" = []
+
+[[activities]]
+id = 1
+name = "Authored span across a Friday exception"
+calendar = 200
+kind = "task"
+duration = 4800
+
+[[activities]]
+id = 2
+name = "Authored successor"
+calendar = 200
+kind = "task"
+duration = 2400
+
+[[relationships]]
+predecessor = 1
+successor = 2
+kind = "fs"
+lag = 0

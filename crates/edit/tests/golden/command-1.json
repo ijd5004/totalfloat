@@ -1,0 +1,418 @@
+{
+  "schema": "totalfloat.command/1",
+  "edits": [
+    {
+      "op": "set_duration",
+      "activity": "A100",
+      "original": "15d",
+      "remaining": "10d"
+    },
+    {
+      "op": "set_constraint",
+      "activity": "A100",
+      "constraint": "start-on-or-after",
+      "date": "2026-03-02 08:00",
+      "secondary": false
+    },
+    {
+      "op": "clear_constraint",
+      "activity": "A100",
+      "secondary": true
+    },
+    {
+      "op": "set_calendar",
+      "activity": "A100",
+      "calendar": "Night shift"
+    },
+    {
+      "op": "set_name",
+      "activity": "A100",
+      "name": "Pour level 2 slab"
+    },
+    {
+      "op": "set_type",
+      "activity": "M10",
+      "activity_type": "task",
+      "duration": "2d"
+    },
+    {
+      "op": "set_expected_finish",
+      "activity": "A100",
+      "date": "2026-04-10 17:00"
+    },
+    {
+      "op": "set_progress",
+      "activity": "A100",
+      "actual_start": "2026-03-02 08:00",
+      "remaining": "5d",
+      "percent": 40.0
+    },
+    {
+      "op": "clear_progress",
+      "activity": "A200"
+    },
+    {
+      "op": "set_suspend",
+      "activity": "A2",
+      "suspend": "2026-01-14 17:00",
+      "resume": "2026-01-19 08:00"
+    },
+    {
+      "op": "clear_suspend",
+      "activity": "A2"
+    },
+    {
+      "op": "add_wbs",
+      "code": "CIV",
+      "name": "Civil",
+      "parent": "ROOT"
+    },
+    {
+      "op": "rename_wbs",
+      "wbs": "CIV",
+      "code": "CIVIL",
+      "name": "Civil works"
+    },
+    {
+      "op": "move_wbs",
+      "wbs": "CIVIL",
+      "parent": "SITE"
+    },
+    {
+      "op": "set_wbs",
+      "activity": "A100",
+      "wbs": "CIVIL"
+    },
+    {
+      "op": "add_resource",
+      "resource": "CARP",
+      "name": "Carpenters",
+      "resource_type": "labor",
+      "units_per_hour": 1.0,
+      "calendar": "Standard 5-Day",
+      "max_units_per_hour": 4.0
+    },
+    {
+      "op": "set_resource_limit",
+      "resource": "CARP",
+      "max_units_per_hour": 6.0,
+      "from": "2026-03-02"
+    },
+    {
+      "op": "set_resource_limit",
+      "resource": "CARP",
+      "max_units_per_hour": null
+    },
+    {
+      "op": "assign_resource",
+      "activity": "A100",
+      "resource": "CARP",
+      "units": 40.0
+    },
+    {
+      "op": "unassign_resource",
+      "activity": "A100",
+      "resource": "LAB"
+    },
+    {
+      "op": "set_assignment_units",
+      "activity": "A100",
+      "resource": "LAB",
+      "actual_units": 16.0,
+      "remaining_units": 24.0
+    },
+    {
+      "op": "add_role",
+      "role": "FOREMAN",
+      "name": "Site foreman",
+      "parent": "SUPER",
+      "max_units_per_hour": 2.0
+    },
+    {
+      "op": "set_role_limit",
+      "role": "FOREMAN",
+      "max_units_per_hour": 3.0,
+      "from": "2026-03-02"
+    },
+    {
+      "op": "set_role_limit",
+      "role": "FOREMAN",
+      "max_units_per_hour": null
+    },
+    {
+      "op": "assign_role",
+      "activity": "A100",
+      "role": "FOREMAN",
+      "units": 16.0
+    },
+    {
+      "op": "unassign_role",
+      "activity": "A100",
+      "role": "FOREMAN"
+    },
+    {
+      "op": "set_curve",
+      "activity": "A100",
+      "resource": "ELEC",
+      "curve": "Bell Shaped"
+    },
+    {
+      "op": "set_curve",
+      "activity": "A100",
+      "resource": "ELEC"
+    },
+    {
+      "op": "set_spread",
+      "activity": "A100",
+      "resource": "ELEC",
+      "period": "day",
+      "start": "2026-03-02",
+      "units": [
+        12.0,
+        4.0,
+        0.0,
+        12.0,
+        12.0
+      ]
+    },
+    {
+      "op": "add_expense",
+      "activity": "A100",
+      "expense": "Building permit",
+      "cost": 1500.0,
+      "account": "PERMITS",
+      "category": "Fees",
+      "accrual": "start"
+    },
+    {
+      "op": "set_expense",
+      "activity": "A100",
+      "expense": "Building permit",
+      "actual_cost": 1500.0,
+      "remaining_cost": 0.0
+    },
+    {
+      "op": "set_cost_account",
+      "activity": "A100",
+      "expense": "Building permit",
+      "account": "SITE.PERMIT"
+    },
+    {
+      "op": "delete_expense",
+      "activity": "A100",
+      "expense": "Building permit"
+    },
+    {
+      "op": "set_code",
+      "activity": "A100",
+      "code_type": "Area",
+      "value": "North"
+    },
+    {
+      "op": "clear_code",
+      "activity": "A100",
+      "code_type": "Phase"
+    },
+    {
+      "op": "add_code_type",
+      "name": "Area",
+      "scope": "project",
+      "max_length": 12
+    },
+    {
+      "op": "add_code_value",
+      "code_type": "Area",
+      "value": "East",
+      "description": "East wing"
+    },
+    {
+      "op": "add_udf_type",
+      "field": "Crew size",
+      "for": "activity",
+      "data_type": "integer"
+    },
+    {
+      "op": "set_udf",
+      "field": "Crew size",
+      "value": "4",
+      "activity": "A1000"
+    },
+    {
+      "op": "clear_udf",
+      "field": "Shift",
+      "activity": "A1000",
+      "resource": "CREW"
+    },
+    {
+      "op": "add_step",
+      "activity": "A1000",
+      "step": "Excavate",
+      "weight": 2.0
+    },
+    {
+      "op": "set_step",
+      "activity": "A1000",
+      "step": "Excavate",
+      "percent": 50.0
+    },
+    {
+      "op": "complete_step",
+      "activity": "A1000",
+      "step": "Excavate"
+    },
+    {
+      "op": "delete_step",
+      "activity": "A1000",
+      "step": "Excavate"
+    },
+    {
+      "op": "add_note",
+      "activity": "A1000",
+      "topic": "Basis of schedule",
+      "text": "Two crews, one crane"
+    },
+    {
+      "op": "set_note",
+      "wbs": "CIV",
+      "topic": "Scope",
+      "text": "Civil works only"
+    },
+    {
+      "op": "delete_note",
+      "activity": "A1000",
+      "topic": "Risks"
+    },
+    {
+      "op": "add_obs",
+      "obs": "Contractor",
+      "parent": "Owner",
+      "description": "Main contractor"
+    },
+    {
+      "op": "set_wbs_obs",
+      "wbs": "CIV",
+      "obs": "Contractor"
+    },
+    {
+      "op": "add_project_code_type",
+      "name": "Region"
+    },
+    {
+      "op": "add_project_code_value",
+      "code_type": "Region",
+      "value": "WEST",
+      "description": "Western region"
+    },
+    {
+      "op": "set_project_code",
+      "code_type": "Region",
+      "value": "WEST"
+    },
+    {
+      "op": "clear_project_code",
+      "code_type": "Region"
+    },
+    {
+      "op": "add_calendar",
+      "name": "Night shift",
+      "copy_of": "Standard"
+    },
+    {
+      "op": "add_calendar_exception",
+      "calendar": "Standard",
+      "date": "2026-12-24",
+      "shifts": [
+        "08:00-12:00"
+      ]
+    },
+    {
+      "op": "remove_calendar_exception",
+      "calendar": "Standard",
+      "date": "2026-12-25"
+    },
+    {
+      "op": "set_work_week",
+      "calendar": "Standard",
+      "day": "saturday",
+      "shifts": [
+        "08:00-12:00"
+      ]
+    },
+    {
+      "op": "set_hours_per_day",
+      "calendar": "Standard",
+      "hours": 7.5
+    },
+    {
+      "op": "set_hours_per_period",
+      "calendar": "Standard",
+      "period": "week",
+      "hours": 37.5
+    },
+    {
+      "op": "add_activity",
+      "code": "A300",
+      "name": "Strip forms",
+      "wbs": "CIVIL",
+      "activity_type": "task",
+      "calendar": "Standard",
+      "duration": "3d"
+    },
+    {
+      "op": "delete_activity",
+      "activity": "A900"
+    },
+    {
+      "op": "add_link",
+      "predecessor": "A100",
+      "successor": "A300",
+      "link_type": "FS",
+      "lag": "-8h"
+    },
+    {
+      "op": "remove_link",
+      "predecessor": "A100",
+      "successor": "A200",
+      "link_type": "SS"
+    },
+    {
+      "op": "change_link",
+      "predecessor": "A200",
+      "successor": "A300",
+      "link_type": "FS",
+      "new_type": "FF",
+      "lag": "2.5d"
+    }
+  ],
+  "options": {
+    "project": 4711,
+    "data_date": "2026-03-09 08:00",
+    "as_planned": true
+  },
+  "resolved": [
+    {
+      "kind": "activity",
+      "name": "A100",
+      "project": 4711,
+      "id": 12001
+    },
+    {
+      "kind": "wbs",
+      "name": "CIVIL",
+      "project": 4711,
+      "id": 300
+    },
+    {
+      "kind": "calendar",
+      "name": "Standard",
+      "project": 4711,
+      "id": 1
+    },
+    {
+      "kind": "resource",
+      "name": "CARP",
+      "project": 4711,
+      "id": 77
+    }
+  ]
+}

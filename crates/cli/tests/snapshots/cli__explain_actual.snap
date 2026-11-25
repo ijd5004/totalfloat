@@ -1,0 +1,6 @@
+---
+source: crates/cli/tests/cli.rs
+expression: stdout
+---
+A2 early start 2026-01-17 16:00: SS with 200h lag on the successor calendar from A1 actual start
+A1 actual start 2026-01-05 08:00: actual date

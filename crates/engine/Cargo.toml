@@ -1,0 +1,25 @@
+[package]
+name = "totalfloat-engine"
+description = "Deterministic CPM scheduling engine for TotalFloat"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+
+[dependencies]
+totalfloat-model.workspace = true
+totalfloat-calendar.workspace = true
+thiserror.workspace = true
+
+[dev-dependencies]
+criterion.workspace = true
+proptest.workspace = true
+
+[[bench]]
+name = "schedule"
+harness = false
+
+[lints]
+workspace = true

@@ -1,0 +1,10 @@
+---
+source: crates/cli/tests/cli.rs
+expression: stdout
+---
+Total float 0 hours, between:
+A1 early finish 2026-01-12 17:00: its early start and its duration
+A1 early start 2026-01-12 08:00: data date
+A1 late finish 2026-01-12 17:00: FS with 1h lag on the predecessor calendar from A2 late start, moved from 2026-01-13 08:00 to working time on calendar 100
+A2 late start 2026-01-13 09:00: its late finish and its duration
+A2 late finish 2026-01-13 17:00: project finish

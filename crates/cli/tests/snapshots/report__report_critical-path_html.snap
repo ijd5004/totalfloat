@@ -1,0 +1,26 @@
+---
+source: crates/cli/tests/report.rs
+expression: stdout
+---
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Critical path</title>
+<style>body{font-family:system-ui,sans-serif;margin:2rem;color:#1d2433}table{border-collapse:collapse;margin:0.5rem 0 1.5rem}th,td{border:1px solid #c9ced8;padding:0.25rem 0.6rem;text-align:left}th{background:#eef1f5}p{color:#4b5465}</style>
+</head>
+<body>
+<h1>Critical path</h1>
+<p>plan.xer · data date 2026-03-02 08:00 · 5 activities</p>
+<table>
+<thead><tr><th>Activity ID</th><th>Activity name</th><th>Status</th><th>Early start</th><th>Early finish</th><th>Original duration hours</th><th>Total float hours</th></tr></thead>
+<tbody>
+<tr><td>A1010</td><td>Excavate</td><td>not-started</td><td>2026-03-02 08:00</td><td>2026-03-06 17:00</td><td>40.0</td><td>0.0</td></tr>
+<tr><td>A1020</td><td>Pour foundations</td><td>not-started</td><td>2026-03-09 08:00</td><td>2026-03-20 17:00</td><td>80.0</td><td>0.0</td></tr>
+<tr><td>A1030</td><td>Cure, then strip | forms</td><td>not-started</td><td>2026-03-23 08:00</td><td>2026-03-31 17:00</td><td>56.0</td><td>0.0</td></tr>
+<tr><td>A2020</td><td>Install pumps</td><td>not-started</td><td>2026-04-01 08:00</td><td>2026-04-08 17:00</td><td>48.0</td><td>0.0</td></tr>
+<tr><td>M100</td><td>Plant complete</td><td>not-started</td><td>2026-04-08 17:00</td><td>2026-04-08 17:00</td><td>0.0</td><td>0.0</td></tr>
+</tbody>
+</table>
+</body>
+</html>

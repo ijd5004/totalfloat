@@ -1,0 +1,20 @@
+[package]
+name = "totalfloat-text"
+description = "The TotalFloat schedule text format (.tfs): reader and formatter"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+
+[dependencies]
+totalfloat-model.workspace = true
+totalfloat-edit.workspace = true
+
+[dev-dependencies]
+insta.workspace = true
+proptest.workspace = true
+
+[lints]
+workspace = true

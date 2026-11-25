@@ -1,0 +1,6 @@
+---
+source: crates/cli/tests/cli.rs
+expression: stdout
+---
+A2 early start 2026-01-12 09:00: its early finish and its duration
+A2 early finish 2026-01-12 17:00: as late as possible, up to: project finish

@@ -1,0 +1,6 @@
+---
+source: crates/cli/tests/history.rs
+expression: clean(stdout)
+---
+History of main in <dir>/plant.tfdb
+8b42e0c693  2026-11-02T09:00:00Z  Pat  import  As submitted

@@ -1,0 +1,28 @@
+---
+source: crates/cli/tests/spreads.rs
+expression: all
+---
+error[no-such-curve]: no one resource curve is named Lineer
+  from: --curve A1=R1;Lineer
+  hint: did you mean Linear? the file's curves: Linear, Late; leave the curve out to spread evenly
+error[not-assigned]: M1 doesn't have R1
+  from: --curve M1=R1;Linear
+  hint: `query --columns code,resources` lists assignments
+error[no-such-resource]: no one resource matches NOBODY
+  from: --spread-evenly A1=NOBODY
+  hint: `inspect` lists resources
+error[spread-units]: the periods hold 41, 1 more than A1's 40 remaining for R1
+  from: --spread A1=R1;day=2026-01-05;8,8,8,8,9
+  hint: make the periods add up to the remaining units; changing units is a separate edit
+error[spread-outside-dates]: period 9 (from 2026-01-13) is outside A1's remaining dates, 2026-01-05 08:00 to 2026-01-12 08:00
+  from: --spread A1=R1;day=2026-01-05;8,8,8,8,8,0,0,0,0
+  hint: type periods from the one holding the remaining start to the one holding the finish
+error[spread-outside-dates]: the periods cover 32 of the 40 hours of A1's remaining work, 2026-01-05 08:00 to 2026-01-12 08:00
+  from: --spread A1=R1;day=2026-01-06;10,10,10,10
+  hint: type periods from the one holding the remaining start to the one holding the finish
+error[invalid-edit]: A1=R1;fortnight=2026-01-05;40 isn't a valid spread
+  from: --spread A1=R1;fortnight=2026-01-05;40
+  hint: use the form ACTIVITY=RESOURCE;PERIOD=DATE;UNITS,... with day, week or month
+error[invalid-edit]: A1=R1 isn't a valid curve
+  from: --curve A1=R1
+  hint: use the form ACTIVITY=RESOURCE;CURVE

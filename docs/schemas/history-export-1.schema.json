@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "totalfloat.history-export/1",
+  "title": "totalfloat history export --json",
+  "description": "A point in history written out as the file it was, byte for byte.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "store", "changeset", "short_id", "output"],
+  "properties": {
+    "schema": { "const": "totalfloat.history-export/1" },
+    "store": { "type": "string" },
+    "changeset": { "type": "string" },
+    "short_id": { "type": "string" },
+    "output": { "type": "string" }
+  }
+}

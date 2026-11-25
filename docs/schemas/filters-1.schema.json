@@ -1,0 +1,66 @@
+{
+  "$defs": {
+    "Deleted": {
+      "description": "`DELETE /api/1/filters/{name}`: the filter is gone.",
+      "properties": {
+        "deleted": {
+          "const": true,
+          "type": "boolean"
+        },
+        "schema": {
+          "const": "totalfloat.filters/1",
+          "type": "string"
+        }
+      },
+      "required": [
+        "schema",
+        "deleted"
+      ],
+      "type": "object"
+    },
+    "Listing": {
+      "description": "`GET /api/1/filters`: the filters saved, by name.",
+      "properties": {
+        "filters": {
+          "items": {
+            "$ref": "#/$defs/Named"
+          },
+          "type": "array"
+        },
+        "schema": {
+          "const": "totalfloat.filters/1",
+          "type": "string"
+        }
+      },
+      "required": [
+        "schema",
+        "filters"
+      ],
+      "type": "object"
+    },
+    "Named": {
+      "properties": {
+        "name": {
+          "description": "The file's name in the filters folder, without `.json`.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "type": "object"
+    }
+  },
+  "$id": "totalfloat.filters/1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "anyOf": [
+    {
+      "$ref": "#/$defs/Listing"
+    },
+    {
+      "$ref": "#/$defs/Deleted"
+    }
+  ],
+  "description": "`totalfloat.filters/1`: the named filters listed, or one deleted.",
+  "title": "totalfloat.filters/1"
+}

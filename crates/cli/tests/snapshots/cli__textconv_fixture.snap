@@ -1,0 +1,23 @@
+---
+source: crates/cli/tests/cli.rs
+assertion_line: 3612
+expression: textconv(FIXTURE)
+---
+project SYN1 (1) | data date 2026-01-05 08:00 | finish 2026-01-30 17:00
+activity A1 | Synthetic active task | task | wbs WP | calendar Synthetic workweek | original 8h | remaining 4h | constraint - | secondary - | actual 2026-01-01 08:00 to -
+activity M1 | Synthetic finish milestone | finish-milestone | wbs WP | calendar Synthetic workweek | original 0h | remaining 0h | constraint finish-on-or-before 2026-02-01 17:00 | secondary start-on-or-after 2026-01-20 08:00 | actual - to -
+link #999 FF M1 lag 0h
+link A1 FS M1 lag 0.5h
+link A1 SS SYN2:B1 lag -1h
+calendar Synthetic workweek (10)
+resource GROUP | Synthetic parent resource
+resource R1 | Synthetic labor
+dates A1 | early 2026-01-05 08:00 to 2026-01-10 17:00 | late 2026-01-06 08:00 to 2026-01-11 17:00 | total float -1.5h
+dates M1 | early - to - | late - to - | total float -
+
+project SYN2 (2) | data date 2026-01-05 08:00 | finish 2026-01-29 17:00
+activity B1 | Synthetic resource task | resource | wbs SYN2 | calendar Synthetic workweek | original 12.25h | remaining 12.25h | constraint - | secondary - | actual - to -
+link SYN1:A1 SS B1 lag -1h
+calendar Synthetic workweek (10)
+resource R2 | Synthetic material
+dates B1 | early - to - | late - to - | total float -

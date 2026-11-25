@@ -1,0 +1,2403 @@
+{
+  "$defs": {
+    "CommandOptions": {
+      "additionalProperties": false,
+      "description": "The settings of an edit request.",
+      "properties": {
+        "as_planned": {
+          "description": "With `data_date`, record the progress planned before it first.",
+          "type": "boolean"
+        },
+        "data_date": {
+          "description": "Move the data date too, as `YYYY-MM-DD HH:MM`.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "project": {
+          "description": "Only this project (`proj_id`).",
+          "format": "uint64",
+          "minimum": 0,
+          "type": [
+            "integer",
+            "null"
+          ]
+        }
+      },
+      "type": "object"
+    },
+    "ConstraintKind": {
+      "description": "The kinds of constraint, as XER files name them.",
+      "enum": [
+        "start-on",
+        "start-on-or-after",
+        "start-on-or-before",
+        "finish-on",
+        "finish-on-or-after",
+        "finish-on-or-before",
+        "as-late-as-possible",
+        "mandatory-start",
+        "mandatory-finish"
+      ],
+      "type": "string"
+    },
+    "Day": {
+      "description": "Days of the week.",
+      "enum": [
+        "monday",
+        "tuesday",
+        "wednesday",
+        "thursday",
+        "friday",
+        "saturday",
+        "sunday"
+      ],
+      "type": "string"
+    },
+    "Edit": {
+      "description": "One change to a schedule. As JSON, `op` names the edit.",
+      "oneOf": [
+        {
+          "additionalProperties": false,
+          "description": "Change an activity's duration. On work not started, remaining follows\noriginal unless given. On work in progress, each changes only if given.",
+          "properties": {
+            "activity": {
+              "description": "The Activity ID.",
+              "type": "string"
+            },
+            "op": {
+              "const": "set_duration",
+              "type": "string"
+            },
+            "original": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/Span"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Original duration, such as `15d` or `120h`."
+            },
+            "remaining": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/Span"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Remaining duration, such as `15d` or `120h`."
+            }
+          },
+          "required": [
+            "op",
+            "activity"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "Set a constraint, primary unless `secondary` is set.",
+          "properties": {
+            "activity": {
+              "description": "The Activity ID.",
+              "type": "string"
+            },
+            "constraint": {
+              "$ref": "#/$defs/ConstraintKind",
+              "description": "The kind of constraint."
+            },
+            "date": {
+              "description": "The date, as `YYYY-MM-DD HH:MM`. As late as possible takes none.",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "op": {
+              "const": "set_constraint",
+              "type": "string"
+            },
+            "secondary": {
+              "default": false,
+              "description": "Set the secondary constraint.",
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "op",
+            "activity",
+            "constraint"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "Remove a constraint, primary unless `secondary` is set.",
+          "properties": {
+            "activity": {
+              "description": "The Activity ID.",
+              "type": "string"
+            },
+            "op": {
+              "const": "clear_constraint",
+              "type": "string"
+            },
+            "secondary": {
+              "default": false,
+              "description": "Clear the secondary constraint.",
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "op",
+            "activity"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "Move an activity to another calendar.",
+          "properties": {
+            "activity": {
+              "description": "The Activity ID.",
+              "type": "string"
+            },
+            "calendar": {
+              "description": "The calendar's name or ID.",
+              "type": "string"
+            },
+            "op": {
+              "const": "set_calendar",
+              "type": "string"
+            }
+          },
+          "required": [
+            "op",
+            "activity",
+            "calendar"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "Rename an activity.",
+          "properties": {
+            "activity": {
+              "description": "The Activity ID.",
+              "type": "string"
+            },
+            "name": {
+              "description": "The new name.",
+              "type": "string"
+            },
+            "op": {
+              "const": "set_name",
+              "type": "string"
+            }
+          },
+          "required": [
+            "op",
+            "activity",
+            "name"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "Change an activity's type. Only work not started can change, and level\nof effort and WBS summary activities can't change here. A milestone's\ndurations become zero, so turning one into a task needs a duration.",
+          "properties": {
+            "activity": {
+              "description": "The Activity ID.",
+              "type": "string"
+            },
+            "activity_type": {
+              "$ref": "#/$defs/Kind",
+              "description": "The new type."
+            },
+            "duration": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/Span"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The duration, when a milestone becomes a task."
+            },
+            "op": {
+              "const": "set_type",
+              "type": "string"
+            }
+          },
+          "required": [
+            "op",
+            "activity",
+            "activity_type"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "Set or clear an expected finish.",
+          "properties": {
+            "activity": {
+              "description": "The Activity ID.",
+              "type": "string"
+            },
+            "date": {
+              "description": "The date, as `YYYY-MM-DD HH:MM`. None clears it.",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "op": {
+              "const": "set_expected_finish",
+              "type": "string"
+            }
+          },
+          "required": [
+            "op",
+            "activity"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "Record progress: an actual start starts work, and an actual finish\nfinishes it. Actuals can't be after the data date.",
+          "properties": {
+            "activity": {
+              "description": "The Activity ID.",
+              "type": "string"
+            },
+            "actual_finish": {
+              "description": "Actual finish, as `YYYY-MM-DD HH:MM`.",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "actual_start": {
+              "description": "Actual start, as `YYYY-MM-DD HH:MM`.",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "op": {
+              "const": "set_progress",
+              "type": "string"
+            },
+            "percent": {
+              "description": "Physical percent complete, 0 to 100. On started, unfinished work\nmeasured by duration percent, given without `remaining`, it sets\nremaining duration too (TF-023).",
+              "format": "double",
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "remaining": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/Span"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Remaining duration, such as `5d`."
+            }
+          },
+          "required": [
+            "op",
+            "activity"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "Take away recorded progress, so work is not started again.",
+          "properties": {
+            "activity": {
+              "description": "The Activity ID.",
+              "type": "string"
+            },
+            "op": {
+              "const": "clear_progress",
+              "type": "string"
+            }
+          },
+          "required": [
+            "op",
+            "activity"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "Suspend an activity in progress: work stopped on the suspend date and\nits remaining work restarts on the resume date (TF-020).",
+          "properties": {
+            "activity": {
+              "description": "The Activity ID.",
+              "type": "string"
+            },
+            "op": {
+              "const": "set_suspend",
+              "type": "string"
+            },
+            "resume": {
+              "description": "When remaining work restarts, as `YYYY-MM-DD HH:MM`; after the suspend date.",
+              "type": "string"
+            },
+            "suspend": {
+              "description": "When work stopped, as `YYYY-MM-DD HH:MM`; on or after the actual start.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "op",
+            "activity",
+            "suspend",
+            "resume"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "Take away an activity's suspend and resume dates.",
+          "properties": {
+            "activity": {
+              "description": "The Activity ID.",
+              "type": "string"
+            },
+            "op": {
+              "const": "clear_suspend",
+              "type": "string"
+            }
+          },
+          "required": [
+            "op",
+            "activity"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "Add a WBS node under another.",
+          "properties": {
+            "code": {
+              "description": "The new node's code.",
+              "type": "string"
+            },
+            "name": {
+              "description": "Its name.",
+              "type": "string"
+            },
+            "op": {
+              "const": "add_wbs",
+              "type": "string"
+            },
+            "parent": {
+              "description": "The parent node's code or ID.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "op",
+            "code",
+            "name",
+            "parent"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "Rename a WBS node. Give a new code, a new name or both.",
+          "properties": {
+            "code": {
+              "description": "The new code.",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "name": {
+              "description": "The new name.",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "op": {
+              "const": "rename_wbs",
+              "type": "string"
+            },
+            "wbs": {
+              "description": "The node's code or ID.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "op",
+            "wbs"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "Move a WBS node under another.",
+          "properties": {
+            "op": {
+              "const": "move_wbs",
+              "type": "string"
+            },
+            "parent": {
+              "description": "The new parent's code or ID.",
+              "type": "string"
+            },
+            "wbs": {
+              "description": "The node's code or ID.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "op",
+            "wbs",
+            "parent"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "Move an activity to another WBS node.",
+          "properties": {
+            "activity": {
+              "description": "The Activity ID.",
+              "type": "string"
+            },
+            "op": {
+              "const": "set_wbs",
+              "type": "string"
+            },
+            "wbs": {
+              "description": "The node's code or ID.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "op",
+            "activity",
+            "wbs"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "Add a resource to the file's resource dictionary.",
+          "properties": {
+            "calendar": {
+              "description": "Its calendar, a global or resource calendar. Default is the default\nglobal calendar.",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "max_units_per_hour": {
+              "description": "Its limit: the most units per hour it can work, so 2 is two people\nat once. Default is none.",
+              "format": "double",
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "name": {
+              "description": "Its name.",
+              "type": "string"
+            },
+            "op": {
+              "const": "add_resource",
+              "type": "string"
+            },
+            "resource": {
+              "description": "Its short name, the Resource ID.",
+              "type": "string"
+            },
+            "resource_type": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/ResourceKind"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Its type. Default is labor."
+            },
+            "units_per_hour": {
+              "description": "Units per hour a new assignment starts with. Default is 1, a full\nday's work each day for labor.",
+              "format": "double",
+              "type": [
+                "number",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "op",
+            "resource",
+            "name"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "Set or clear a resource's limit, the most units per hour it can work.\nWithout `from`, every rate the resource has takes it, and a resource\nwith no rate gets one, with no prices, from the project's start. With `from`,\na rate starts that day with the prices in force then; a rate starting\nthat day already takes the limit instead. With no rate starting\nbefore that day, a rate from the project's start keeps what held\nbefore (TF-001).",
+          "properties": {
+            "from": {
+              "description": "The day the limit starts, as `YYYY-MM-DD`.",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "max_units_per_hour": {
+              "description": "Units per hour, so 2 is two people at once; null clears it.",
+              "format": "double",
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "op": {
+              "const": "set_resource_limit",
+              "type": "string"
+            },
+            "resource": {
+              "description": "The resource's short name or name.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "op",
+            "resource",
+            "max_units_per_hour"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "Put a resource on an activity. Without units, it takes the resource's\ndefault units per hour over the activity's durations.",
+          "properties": {
+            "activity": {
+              "description": "The Activity ID.",
+              "type": "string"
+            },
+            "op": {
+              "const": "assign_resource",
+              "type": "string"
+            },
+            "resource": {
+              "description": "The resource's short name or name.",
+              "type": "string"
+            },
+            "units": {
+              "description": "Units, in hours for labor and nonlabor and the resource's unit for\nmaterial.",
+              "format": "double",
+              "type": [
+                "number",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "op",
+            "activity",
+            "resource"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "Set an assignment's actual or remaining units. Its remaining units per\nhour and a cost linked to its units follow. On an activity measured by\nunits percent, the percent follows (docs/rules/TF-004-units-percent-complete.md).",
+          "properties": {
+            "activity": {
+              "description": "The Activity ID.",
+              "type": "string"
+            },
+            "actual_units": {
+              "description": "Actual units, regular time: hours for labor and nonlabor, the\nresource's unit for material.",
+              "format": "double",
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "op": {
+              "const": "set_assignment_units",
+              "type": "string"
+            },
+            "remaining_units": {
+              "description": "Remaining units.",
+              "format": "double",
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "resource": {
+              "description": "The resource's short name or name.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "op",
+            "activity",
+            "resource"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "Add a role to the file's role dictionary.",
+          "properties": {
+            "max_units_per_hour": {
+              "description": "Its limit: the most units per hour of it the work can use, so 2\nis two people at once. Default is none.",
+              "format": "double",
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "name": {
+              "description": "Its name.",
+              "type": "string"
+            },
+            "op": {
+              "const": "add_role",
+              "type": "string"
+            },
+            "parent": {
+              "description": "The role it sits under, by short name or name. Default is none.",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "role": {
+              "description": "Its short name, the Role ID.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "op",
+            "role",
+            "name"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "Set or clear a role's limit, the most units per hour of it the work\ncan use, as `set_resource_limit` does for a resource (TF-001).",
+          "properties": {
+            "from": {
+              "description": "The day the limit starts, as `YYYY-MM-DD`.",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "max_units_per_hour": {
+              "description": "Units per hour, so 2 is two people at once; null clears it.",
+              "format": "double",
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "op": {
+              "const": "set_role_limit",
+              "type": "string"
+            },
+            "role": {
+              "description": "The role's short name or name.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "op",
+            "role",
+            "max_units_per_hour"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "Put a role on an activity with no resource yet, so the\nwork is staffed by kind before anyone is named.",
+          "properties": {
+            "activity": {
+              "description": "The Activity ID.",
+              "type": "string"
+            },
+            "op": {
+              "const": "assign_role",
+              "type": "string"
+            },
+            "role": {
+              "description": "The role's short name or name.",
+              "type": "string"
+            },
+            "units": {
+              "description": "Units, in hours. Without them the assignment has none yet.",
+              "format": "double",
+              "type": [
+                "number",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "op",
+            "activity",
+            "role"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "Take a role with no resource off an activity.",
+          "properties": {
+            "activity": {
+              "description": "The Activity ID.",
+              "type": "string"
+            },
+            "op": {
+              "const": "unassign_role",
+              "type": "string"
+            },
+            "role": {
+              "description": "The role's short name or name.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "op",
+            "activity",
+            "role"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "Add an expense to an activity: one unit at the budgeted cost, all of\nit still to spend.",
+          "properties": {
+            "account": {
+              "description": "Its cost account, by short name or name. Default is none.",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "accrual": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/ExpenseAccrual"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "When its cost falls over the activity. Default is uniform."
+            },
+            "activity": {
+              "description": "The Activity ID.",
+              "type": "string"
+            },
+            "category": {
+              "description": "Its expense category, by name. Default is none.",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "cost": {
+              "description": "Its budgeted cost, negative for a credit.",
+              "format": "double",
+              "type": "number"
+            },
+            "expense": {
+              "description": "The expense item, unique on the activity, ignoring case and spaces\nat the ends.",
+              "type": "string"
+            },
+            "op": {
+              "const": "add_expense",
+              "type": "string"
+            }
+          },
+          "required": [
+            "op",
+            "activity",
+            "expense",
+            "cost"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "Change an expense's costs or accrual. Those left out stay as they are,\nbut a new budget on an expense with nothing spent moves its remaining\ncost too.",
+          "properties": {
+            "accrual": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/ExpenseAccrual"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "When its cost falls over the activity."
+            },
+            "activity": {
+              "description": "The Activity ID.",
+              "type": "string"
+            },
+            "actual_cost": {
+              "description": "Its actual cost.",
+              "format": "double",
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "budgeted_cost": {
+              "description": "Its budgeted cost.",
+              "format": "double",
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "expense": {
+              "description": "The expense item.",
+              "type": "string"
+            },
+            "op": {
+              "const": "set_expense",
+              "type": "string"
+            },
+            "remaining_cost": {
+              "description": "Its remaining cost.",
+              "format": "double",
+              "type": [
+                "number",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "op",
+            "activity",
+            "expense"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "Remove an expense from an activity.",
+          "properties": {
+            "activity": {
+              "description": "The Activity ID.",
+              "type": "string"
+            },
+            "expense": {
+              "description": "The expense item.",
+              "type": "string"
+            },
+            "op": {
+              "const": "delete_expense",
+              "type": "string"
+            }
+          },
+          "required": [
+            "op",
+            "activity",
+            "expense"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "Book the costs of a resource's assignment, a role's assignment with\nno resource, or an expense on an activity to a cost account, or to\nnone. Give one of `resource`, `role` or `expense`.",
+          "properties": {
+            "account": {
+              "description": "The cost account, by its path (short names from the top of the\ntree down, joined by dots, as `SITE.PERMIT`), or by short name or\nname where one account has it. Without one, the costs are booked to\nnone.",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "activity": {
+              "description": "The Activity ID.",
+              "type": "string"
+            },
+            "expense": {
+              "description": "The expense item.",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "op": {
+              "const": "set_cost_account",
+              "type": "string"
+            },
+            "resource": {
+              "description": "The resource whose assignment it is, by short name or name.",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "role": {
+              "description": "The role of an assignment with no resource, by short name or name.",
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "op",
+            "activity"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "Take a resource off an activity.",
+          "properties": {
+            "activity": {
+              "description": "The Activity ID.",
+              "type": "string"
+            },
+            "op": {
+              "const": "unassign_resource",
+              "type": "string"
+            },
+            "resource": {
+              "description": "The resource's short name or name.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "op",
+            "activity",
+            "resource"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "Spread a resource's units on an activity by a resource curve, or\nevenly over its work without one. Clears any typed spread.",
+          "properties": {
+            "activity": {
+              "description": "The Activity ID.",
+              "type": "string"
+            },
+            "curve": {
+              "description": "The curve's name, one of the file's. Without it, units spread\nevenly.",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "op": {
+              "const": "set_curve",
+              "type": "string"
+            },
+            "resource": {
+              "description": "The resource's short name or name.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "op",
+            "activity",
+            "resource"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "Type a resource's remaining units on an activity for each period, in\nplace of a curve. The periods follow one another from `start`, must\ncover the remaining work between the activity's remaining dates, and\nmust add up to the remaining units.",
+          "properties": {
+            "activity": {
+              "description": "The Activity ID.",
+              "type": "string"
+            },
+            "op": {
+              "const": "set_spread",
+              "type": "string"
+            },
+            "period": {
+              "$ref": "#/$defs/SpreadPeriod",
+              "description": "Days, weeks or calendar months."
+            },
+            "resource": {
+              "description": "The resource's short name or name.",
+              "type": "string"
+            },
+            "start": {
+              "description": "The first period's first day, as `YYYY-MM-DD`; a month's is the\nfirst of the month.",
+              "type": "string"
+            },
+            "units": {
+              "description": "The units in each period, in order: hours for labor and nonlabor.",
+              "items": {
+                "format": "double",
+                "type": "number"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "op",
+            "activity",
+            "resource",
+            "period",
+            "start",
+            "units"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "Give an activity a code value, replacing any it holds of that type.",
+          "properties": {
+            "activity": {
+              "description": "The Activity ID.",
+              "type": "string"
+            },
+            "code_type": {
+              "description": "The code type's name.",
+              "type": "string"
+            },
+            "op": {
+              "const": "set_code",
+              "type": "string"
+            },
+            "value": {
+              "description": "The value, or its description.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "op",
+            "activity",
+            "code_type",
+            "value"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "Take a code off an activity.",
+          "properties": {
+            "activity": {
+              "description": "The Activity ID.",
+              "type": "string"
+            },
+            "code_type": {
+              "description": "The code type's name.",
+              "type": "string"
+            },
+            "op": {
+              "const": "clear_code",
+              "type": "string"
+            }
+          },
+          "required": [
+            "op",
+            "activity",
+            "code_type"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "Add an activity code type.",
+          "properties": {
+            "max_length": {
+              "description": "The longest value it holds, in characters. Default is 12, the\nlength most code types in real files have.",
+              "format": "uint32",
+              "minimum": 0,
+              "type": [
+                "integer",
+                "null"
+              ]
+            },
+            "name": {
+              "description": "Its name.",
+              "type": "string"
+            },
+            "op": {
+              "const": "add_code_type",
+              "type": "string"
+            },
+            "scope": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/Scope"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Where it applies. Default is this project only."
+            }
+          },
+          "required": [
+            "op",
+            "name"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "Add a value to a code type.",
+          "properties": {
+            "code_type": {
+              "description": "The code type's name.",
+              "type": "string"
+            },
+            "description": {
+              "description": "What it means. Default is the value.",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "op": {
+              "const": "add_code_value",
+              "type": "string"
+            },
+            "value": {
+              "description": "The new value.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "op",
+            "code_type",
+            "value"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "Give an activity, WBS node, resource or assignment a user-defined\nfield value, checked against the field's data type. Name an activity,\na WBS node or a resource, or an activity and a resource for their\nassignment.",
+          "properties": {
+            "activity": {
+              "description": "The Activity ID, for an activity's or assignment's value.",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "field": {
+              "description": "The field's label or `udf_type_id`.",
+              "type": "string"
+            },
+            "op": {
+              "const": "set_udf",
+              "type": "string"
+            },
+            "resource": {
+              "description": "The resource's short name or name, for a resource's or\nassignment's value.",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "value": {
+              "description": "The value as text: `12.5`, `2026-03-02 08:00`, `UDF_G2` (or `2`)\nfor an indicator, or any text.",
+              "type": "string"
+            },
+            "wbs": {
+              "description": "The WBS code or `wbs_id`, for a WBS node's value.",
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "op",
+            "field",
+            "value"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "Take a user-defined field value off a record, named as for `set_udf`.",
+          "properties": {
+            "activity": {
+              "description": "The Activity ID.",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "field": {
+              "description": "The field's label or `udf_type_id`.",
+              "type": "string"
+            },
+            "op": {
+              "const": "clear_udf",
+              "type": "string"
+            },
+            "resource": {
+              "description": "The resource's short name or name.",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "wbs": {
+              "description": "The WBS code or `wbs_id`.",
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "op",
+            "field"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "Add a user-defined field. Fields belong to every project in the file.",
+          "properties": {
+            "data_type": {
+              "$ref": "#/$defs/UdfKind",
+              "description": "Its data type."
+            },
+            "field": {
+              "description": "Its label.",
+              "type": "string"
+            },
+            "for": {
+              "$ref": "#/$defs/UdfFor",
+              "description": "What it applies to."
+            },
+            "op": {
+              "const": "add_udf_type",
+              "type": "string"
+            }
+          },
+          "required": [
+            "op",
+            "field",
+            "for",
+            "data_type"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "Add a step to an activity. Where the project measures physical percent\nby steps, the activity's physical percent follows (TF-042).",
+          "properties": {
+            "activity": {
+              "description": "The Activity ID.",
+              "type": "string"
+            },
+            "op": {
+              "const": "add_step",
+              "type": "string"
+            },
+            "percent": {
+              "description": "Its percent complete, 0 to 100. Default is 0.",
+              "format": "double",
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "step": {
+              "description": "The step's name.",
+              "type": "string"
+            },
+            "weight": {
+              "description": "Its weight against the activity's other steps. Default is 1.",
+              "format": "double",
+              "type": [
+                "number",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "op",
+            "activity",
+            "step"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "Change a step's name, weight or percent complete; 100 marks it\ncomplete, and less marks it not.",
+          "properties": {
+            "activity": {
+              "description": "The Activity ID.",
+              "type": "string"
+            },
+            "name": {
+              "description": "A new name.",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "op": {
+              "const": "set_step",
+              "type": "string"
+            },
+            "percent": {
+              "description": "A new percent complete, 0 to 100.",
+              "format": "double",
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "step": {
+              "description": "The step's name or `proc_id`.",
+              "type": "string"
+            },
+            "weight": {
+              "description": "A new weight.",
+              "format": "double",
+              "type": [
+                "number",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "op",
+            "activity",
+            "step"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "Mark a step complete: 100 percent.",
+          "properties": {
+            "activity": {
+              "description": "The Activity ID.",
+              "type": "string"
+            },
+            "op": {
+              "const": "complete_step",
+              "type": "string"
+            },
+            "step": {
+              "description": "The step's name or `proc_id`.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "op",
+            "activity",
+            "step"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "Delete a step.",
+          "properties": {
+            "activity": {
+              "description": "The Activity ID.",
+              "type": "string"
+            },
+            "op": {
+              "const": "delete_step",
+              "type": "string"
+            },
+            "step": {
+              "description": "The step's name or `proc_id`.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "op",
+            "activity",
+            "step"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "Add a note to an activity or a WBS node, under a notebook topic. The\ntext becomes simple HTML, a paragraph a line, as P6 stores notes.",
+          "properties": {
+            "activity": {
+              "description": "The Activity ID, for a note on an activity.",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "op": {
+              "const": "add_note",
+              "type": "string"
+            },
+            "text": {
+              "description": "The note, as plain text.",
+              "type": "string"
+            },
+            "topic": {
+              "description": "The notebook topic's name or `memo_type_id`.",
+              "type": "string"
+            },
+            "wbs": {
+              "description": "The WBS code or `wbs_id`, for a note on a WBS node.",
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "op",
+            "topic",
+            "text"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "Replace an activity's or WBS node's note under a topic.",
+          "properties": {
+            "activity": {
+              "description": "The Activity ID, for a note on an activity.",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "op": {
+              "const": "set_note",
+              "type": "string"
+            },
+            "text": {
+              "description": "The note, as plain text.",
+              "type": "string"
+            },
+            "topic": {
+              "description": "The notebook topic's name or `memo_type_id`.",
+              "type": "string"
+            },
+            "wbs": {
+              "description": "The WBS code or `wbs_id`, for a note on a WBS node.",
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "op",
+            "topic",
+            "text"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "Delete an activity's or WBS node's note under a topic.",
+          "properties": {
+            "activity": {
+              "description": "The Activity ID, for a note on an activity.",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "op": {
+              "const": "delete_note",
+              "type": "string"
+            },
+            "topic": {
+              "description": "The notebook topic's name or `memo_type_id`.",
+              "type": "string"
+            },
+            "wbs": {
+              "description": "The WBS code or `wbs_id`, for a note on a WBS node.",
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "op",
+            "topic"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "Add a node to the OBS, the structure of who is responsible for work.\nThe OBS belongs to every project in the file.",
+          "properties": {
+            "description": {
+              "description": "What it is. Default is none.",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "obs": {
+              "description": "Its name.",
+              "type": "string"
+            },
+            "op": {
+              "const": "add_obs",
+              "type": "string"
+            },
+            "parent": {
+              "description": "The node it sits under, by name or `obs_id`. Default is the top.",
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "op",
+            "obs"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "Make an OBS node a WBS node's responsible manager.",
+          "properties": {
+            "obs": {
+              "description": "The OBS node's name or `obs_id`.",
+              "type": "string"
+            },
+            "op": {
+              "const": "set_wbs_obs",
+              "type": "string"
+            },
+            "wbs": {
+              "description": "The WBS node's code or `wbs_id`.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "op",
+            "wbs",
+            "obs"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "Give the project a project code value, replacing any it holds of that\ntype.",
+          "properties": {
+            "code_type": {
+              "description": "The project code type's name.",
+              "type": "string"
+            },
+            "op": {
+              "const": "set_project_code",
+              "type": "string"
+            },
+            "value": {
+              "description": "The value, or its description.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "op",
+            "code_type",
+            "value"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "Take a project code off the project.",
+          "properties": {
+            "code_type": {
+              "description": "The project code type's name.",
+              "type": "string"
+            },
+            "op": {
+              "const": "clear_project_code",
+              "type": "string"
+            }
+          },
+          "required": [
+            "op",
+            "code_type"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "Add a project code type. Project codes belong to every project in the\nfile.",
+          "properties": {
+            "max_length": {
+              "description": "The longest value it holds, in characters. Default is 20, the\nlength most project code types in real files have.",
+              "format": "uint32",
+              "minimum": 0,
+              "type": [
+                "integer",
+                "null"
+              ]
+            },
+            "name": {
+              "description": "Its name.",
+              "type": "string"
+            },
+            "op": {
+              "const": "add_project_code_type",
+              "type": "string"
+            }
+          },
+          "required": [
+            "op",
+            "name"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "Add a value to a project code type.",
+          "properties": {
+            "code_type": {
+              "description": "The project code type's name.",
+              "type": "string"
+            },
+            "description": {
+              "description": "What it means. Default is the value.",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "op": {
+              "const": "add_project_code_value",
+              "type": "string"
+            },
+            "value": {
+              "description": "The new value.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "op",
+            "code_type",
+            "value"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "Add a project calendar, copying another's working time.",
+          "properties": {
+            "copy_of": {
+              "description": "The calendar to copy. Default is the project's.",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "name": {
+              "description": "The new calendar's name.",
+              "type": "string"
+            },
+            "op": {
+              "const": "add_calendar",
+              "type": "string"
+            }
+          },
+          "required": [
+            "op",
+            "name"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "Make a date a holiday, or give it its own shifts.",
+          "properties": {
+            "calendar": {
+              "description": "The calendar's name or ID.",
+              "type": "string"
+            },
+            "date": {
+              "description": "The date, as `YYYY-MM-DD`.",
+              "type": "string"
+            },
+            "op": {
+              "const": "add_calendar_exception",
+              "type": "string"
+            },
+            "shifts": {
+              "default": [],
+              "description": "Shifts such as `08:00-12:00`. None makes the date a non-work day.",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "op",
+            "calendar",
+            "date"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "Put a date back to the normal week.",
+          "properties": {
+            "calendar": {
+              "description": "The calendar's name or ID.",
+              "type": "string"
+            },
+            "date": {
+              "description": "The date, as `YYYY-MM-DD`.",
+              "type": "string"
+            },
+            "op": {
+              "const": "remove_calendar_exception",
+              "type": "string"
+            }
+          },
+          "required": [
+            "op",
+            "calendar",
+            "date"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "Change one day of the work week.",
+          "properties": {
+            "calendar": {
+              "description": "The calendar's name or ID.",
+              "type": "string"
+            },
+            "day": {
+              "$ref": "#/$defs/Day",
+              "description": "The day of the week."
+            },
+            "op": {
+              "const": "set_work_week",
+              "type": "string"
+            },
+            "shifts": {
+              "default": [],
+              "description": "Shifts such as `08:00-12:00`. None makes the day non-work.",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "op",
+            "calendar",
+            "day"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "Set how many hours a day is on a calendar, for spans given in days\n(P6 `day_hr_cnt`). Changing the work week leaves this alone\n(TF-033).",
+          "properties": {
+            "calendar": {
+              "description": "The calendar's name or ID.",
+              "type": "string"
+            },
+            "hours": {
+              "description": "Hours in a day, such as `8` or `7.5`, in whole minutes.",
+              "format": "double",
+              "type": "number"
+            },
+            "op": {
+              "const": "set_hours_per_day",
+              "type": "string"
+            }
+          },
+          "required": [
+            "op",
+            "calendar",
+            "hours"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "Set a calendar's hours in a week, month or year (P6 `week_hr_cnt`,\n`month_hr_cnt` and `year_hr_cnt`): what a span in those units means\non it.",
+          "properties": {
+            "calendar": {
+              "description": "The calendar's name or ID.",
+              "type": "string"
+            },
+            "hours": {
+              "description": "Hours in it, such as `40` or `172`, in whole minutes.",
+              "format": "double",
+              "type": "number"
+            },
+            "op": {
+              "const": "set_hours_per_period",
+              "type": "string"
+            },
+            "period": {
+              "$ref": "#/$defs/Period",
+              "description": "Which period."
+            }
+          },
+          "required": [
+            "op",
+            "calendar",
+            "period",
+            "hours"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "Add an activity. Work needs a duration, and a milestone has none.",
+          "properties": {
+            "activity_type": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/Kind"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Its type. Default is task."
+            },
+            "calendar": {
+              "description": "Its calendar. Default is the project's.",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "code": {
+              "description": "The new Activity ID.",
+              "type": "string"
+            },
+            "duration": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/Span"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Its duration, such as `5d` or `40h`."
+            },
+            "name": {
+              "description": "Its name.",
+              "type": "string"
+            },
+            "op": {
+              "const": "add_activity",
+              "type": "string"
+            },
+            "wbs": {
+              "description": "Its WBS, by the code `query` shows.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "op",
+            "code",
+            "name",
+            "wbs"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "Delete an activity, with its links and assignments.",
+          "properties": {
+            "activity": {
+              "description": "The Activity ID.",
+              "type": "string"
+            },
+            "op": {
+              "const": "delete_activity",
+              "type": "string"
+            }
+          },
+          "required": [
+            "op",
+            "activity"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "Add a relationship.",
+          "properties": {
+            "lag": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/Span"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Lag, such as `5d` or `-8h`. Default is none."
+            },
+            "link_type": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/LinkType"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The relationship type. Default is finish to start."
+            },
+            "op": {
+              "const": "add_link",
+              "type": "string"
+            },
+            "predecessor": {
+              "description": "The predecessor's Activity ID.",
+              "type": "string"
+            },
+            "successor": {
+              "description": "The successor's Activity ID.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "op",
+            "predecessor",
+            "successor"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "Remove a relationship. `link_type` is needed only if two activities have\nmore than one.",
+          "properties": {
+            "link_type": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/LinkType"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Which relationship, if there are several."
+            },
+            "op": {
+              "const": "remove_link",
+              "type": "string"
+            },
+            "predecessor": {
+              "description": "The predecessor's Activity ID.",
+              "type": "string"
+            },
+            "successor": {
+              "description": "The successor's Activity ID.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "op",
+            "predecessor",
+            "successor"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "description": "Change a relationship's type or lag. `link_type` says which relationship\nif two activities have more than one.",
+          "properties": {
+            "lag": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/Span"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The new lag."
+            },
+            "link_type": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/LinkType"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Which relationship, if there are several."
+            },
+            "new_type": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/LinkType"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The new type."
+            },
+            "op": {
+              "const": "change_link",
+              "type": "string"
+            },
+            "predecessor": {
+              "description": "The predecessor's Activity ID.",
+              "type": "string"
+            },
+            "successor": {
+              "description": "The successor's Activity ID.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "op",
+            "predecessor",
+            "successor"
+          ],
+          "type": "object"
+        }
+      ]
+    },
+    "ExpenseAccrual": {
+      "description": "When an expense's cost falls over its activity.",
+      "oneOf": [
+        {
+          "const": "start",
+          "description": "All at the activity's start. P6 `CL_Start`.",
+          "type": "string"
+        },
+        {
+          "const": "end",
+          "description": "All at its finish. P6 `CL_End`.",
+          "type": "string"
+        },
+        {
+          "const": "uniform",
+          "description": "Spread evenly over it. P6 `CL_Uniform`.",
+          "type": "string"
+        }
+      ]
+    },
+    "Kind": {
+      "description": "The activity types an edit can give, as `query` names them.",
+      "enum": [
+        "task",
+        "resource",
+        "start-milestone",
+        "finish-milestone"
+      ],
+      "type": "string"
+    },
+    "LinkType": {
+      "description": "Relationship types.",
+      "oneOf": [
+        {
+          "const": "FS",
+          "description": "Finish to start.",
+          "type": "string"
+        },
+        {
+          "const": "SS",
+          "description": "Start to start.",
+          "type": "string"
+        },
+        {
+          "const": "FF",
+          "description": "Finish to finish.",
+          "type": "string"
+        },
+        {
+          "const": "SF",
+          "description": "Start to finish.",
+          "type": "string"
+        }
+      ]
+    },
+    "NameKind": {
+      "description": "What a resolved name is.",
+      "oneOf": [
+        {
+          "const": "activity",
+          "description": "An Activity ID; the source ID is `TASK.task_id`.",
+          "type": "string"
+        },
+        {
+          "const": "wbs",
+          "description": "A WBS code; the source ID is `PROJWBS.wbs_id`.",
+          "type": "string"
+        },
+        {
+          "const": "calendar",
+          "description": "A calendar name; the source ID is `CALENDAR.clndr_id`.",
+          "type": "string"
+        },
+        {
+          "const": "resource",
+          "description": "A resource short name or name; the source ID is `RSRC.rsrc_id`.",
+          "type": "string"
+        },
+        {
+          "const": "role",
+          "description": "A role short name or name; the source ID is `ROLES.role_id`.",
+          "type": "string"
+        }
+      ]
+    },
+    "Period": {
+      "description": "A period longer than a day, whose hours a calendar holds.",
+      "oneOf": [
+        {
+          "const": "week",
+          "description": "A week: `CALENDAR.week_hr_cnt`.",
+          "type": "string"
+        },
+        {
+          "const": "month",
+          "description": "A month: `CALENDAR.month_hr_cnt`.",
+          "type": "string"
+        },
+        {
+          "const": "year",
+          "description": "A year: `CALENDAR.year_hr_cnt`.",
+          "type": "string"
+        }
+      ]
+    },
+    "Resolved": {
+      "additionalProperties": false,
+      "description": "A name an edit used, and what it meant when the edit was recorded.",
+      "properties": {
+        "id": {
+          "description": "Its source ID in that project's file.",
+          "format": "uint64",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "kind": {
+          "$ref": "#/$defs/NameKind",
+          "description": "What the name is."
+        },
+        "name": {
+          "description": "The name as the edits give it, without any `PROJECT:` prefix.",
+          "type": "string"
+        },
+        "project": {
+          "description": "The project it was found in (`proj_id`).",
+          "format": "uint64",
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "kind",
+        "name",
+        "project",
+        "id"
+      ],
+      "type": "object"
+    },
+    "ResourceKind": {
+      "description": "Resource types.",
+      "oneOf": [
+        {
+          "const": "labor",
+          "description": "People. P6 `RT_Labor`.",
+          "type": "string"
+        },
+        {
+          "const": "nonlabor",
+          "description": "Equipment. P6 `RT_Equip`.",
+          "type": "string"
+        },
+        {
+          "const": "material",
+          "description": "Material. P6 `RT_Mat`.",
+          "type": "string"
+        }
+      ]
+    },
+    "Scope": {
+      "description": "Where a code type applies.",
+      "oneOf": [
+        {
+          "const": "project",
+          "description": "One project. P6 `AS_Project`.",
+          "type": "string"
+        },
+        {
+          "const": "global",
+          "description": "Every project. P6 `AS_Global`.",
+          "type": "string"
+        }
+      ]
+    },
+    "Span": {
+      "description": "A span such as 15d, 120h, 2w, 1m or 1y. Days, weeks, months (m) and years use the calendar's hours in each.",
+      "pattern": "^-?[0-9]*\\.?[0-9]{0,3}[hHdDwWmMyY]$",
+      "type": "string"
+    },
+    "SpreadPeriod": {
+      "description": "The periods typed units are given for.",
+      "oneOf": [
+        {
+          "const": "day",
+          "description": "Calendar days.",
+          "type": "string"
+        },
+        {
+          "const": "week",
+          "description": "Seven days, from the first period's first day.",
+          "type": "string"
+        },
+        {
+          "const": "month",
+          "description": "Calendar months, from the first of a month.",
+          "type": "string"
+        }
+      ]
+    },
+    "UdfFor": {
+      "description": "What a user-defined field applies to.",
+      "oneOf": [
+        {
+          "const": "activity",
+          "description": "Activities (`TASK`).",
+          "type": "string"
+        },
+        {
+          "const": "wbs",
+          "description": "WBS nodes (`PROJWBS`).",
+          "type": "string"
+        },
+        {
+          "const": "resource",
+          "description": "Resources (`RSRC`).",
+          "type": "string"
+        },
+        {
+          "const": "assignment",
+          "description": "Resource assignments (`TASKRSRC`).",
+          "type": "string"
+        }
+      ]
+    },
+    "UdfKind": {
+      "description": "A user-defined field's data type, as a new field takes it.",
+      "oneOf": [
+        {
+          "const": "text",
+          "description": "Free text.",
+          "type": "string"
+        },
+        {
+          "const": "number",
+          "description": "A number with two decimals.",
+          "type": "string"
+        },
+        {
+          "const": "integer",
+          "description": "A whole number.",
+          "type": "string"
+        },
+        {
+          "const": "cost",
+          "description": "A cost.",
+          "type": "string"
+        },
+        {
+          "const": "start_date",
+          "description": "A start date.",
+          "type": "string"
+        },
+        {
+          "const": "finish_date",
+          "description": "A finish date.",
+          "type": "string"
+        },
+        {
+          "const": "indicator",
+          "description": "An indicator: `UDF_G0` to `UDF_G4`.",
+          "type": "string"
+        }
+      ]
+    }
+  },
+  "$id": "totalfloat.command/1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "One edit request: its edits and its own settings, so it can be saved,\nreviewed and replayed.",
+  "properties": {
+    "edits": {
+      "description": "The edits, applied in order.",
+      "items": {
+        "$ref": "#/$defs/Edit"
+      },
+      "type": "array"
+    },
+    "options": {
+      "$ref": "#/$defs/CommandOptions",
+      "description": "The request's settings."
+    },
+    "resolved": {
+      "description": "In history, what each name the edits used meant when they were\nrecorded, by source ID, so a replay on another branch finds a renamed\nactivity. `--edits` ignores it.",
+      "items": {
+        "$ref": "#/$defs/Resolved"
+      },
+      "type": "array"
+    },
+    "schema": {
+      "const": "totalfloat.command/1",
+      "description": "Always `totalfloat.command/1`.",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema",
+    "edits"
+  ],
+  "title": "totalfloat.command/1",
+  "type": "object"
+}

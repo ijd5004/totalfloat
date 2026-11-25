@@ -1,0 +1,48 @@
+schema = 1
+description = "FF with positive 60-minute lag; lag calendar project"
+data_date = "2026-01-12 08:00"
+export_date = "2026-01-01"
+seed = 1016
+
+[options]
+float_type = "finish"
+lag_calendar = "project"
+out_of_sequence = "retained_logic"
+
+[[calendars]]
+id = 300
+name = "Synthetic project six-day"
+weekdays = [1, 2, 3, 4, 5, 6]
+intervals = ["06:00-12:00"]
+
+[[calendars]]
+id = 100
+name = "Synthetic weekdays"
+weekdays = [1, 2, 3, 4, 5]
+intervals = ["08:00-12:00", "13:00-17:00"]
+
+[[calendars]]
+id = 200
+name = "Synthetic seven-day sixteen-hour"
+weekdays = [0, 1, 2, 3, 4, 5, 6]
+intervals = ["08:00-24:00"]
+
+[[activities]]
+id = 1
+name = "Synthetic activity 1"
+calendar = 100
+kind = "task"
+duration = 480
+
+[[activities]]
+id = 2
+name = "Synthetic activity 2"
+calendar = 200
+kind = "task"
+duration = 480
+
+[[relationships]]
+predecessor = 1
+successor = 2
+kind = "ff"
+lag = 60

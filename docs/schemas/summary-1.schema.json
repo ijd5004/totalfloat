@@ -1,0 +1,704 @@
+{
+  "$defs": {
+    "Calendar": {
+      "properties": {
+        "id": {
+          "format": "uint64",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "kind": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "project": {
+          "format": "uint64",
+          "minimum": 0,
+          "type": [
+            "integer",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "kind",
+        "project"
+      ],
+      "type": "object"
+    },
+    "CliError": {
+      "description": "A command failure an agent can act on.",
+      "properties": {
+        "code": {
+          "description": "Stable, machine-readable code, e.g. `file-not-readable`.",
+          "type": "string"
+        },
+        "hint": {
+          "description": "What to try next.",
+          "type": "string"
+        },
+        "message": {
+          "description": "What went wrong.",
+          "type": "string"
+        },
+        "problems": {
+          "description": "Each problem, when one failure has several, such as the refused edits\nof a batch.",
+          "items": {
+            "$ref": "#/$defs/Problem"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "code",
+        "message",
+        "hint"
+      ],
+      "type": "object"
+    },
+    "CodeType": {
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "values": {
+          "items": {
+            "$ref": "#/$defs/CodeValue"
+          },
+          "type": "array"
+        },
+        "values_total": {
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "name",
+        "values_total",
+        "values"
+      ],
+      "type": "object"
+    },
+    "CodeValue": {
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "value",
+        "description"
+      ],
+      "type": "object"
+    },
+    "Diagnostics": {
+      "properties": {
+        "mapping": {
+          "additionalProperties": {
+            "format": "uint",
+            "minimum": 0,
+            "type": "integer"
+          },
+          "description": "Model mapping findings by kind.",
+          "type": "object"
+        },
+        "mapping_details": {
+          "description": "What those findings are, most frequent first, up to [`MAX_NAMED`].",
+          "items": {
+            "$ref": "#/$defs/Named"
+          },
+          "type": "array"
+        },
+        "mapping_unnamed": {
+          "description": "Findings not in `mapping_details`: past its limit, or past the 1,000\nthe mapper keeps details for. `mapping` still counts them.",
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "omitted_rows": {
+          "description": "Raw rows left out of the model (strict conversion, TF-012).",
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "reader": {
+          "additionalProperties": {
+            "format": "uint",
+            "minimum": 0,
+            "type": "integer"
+          },
+          "description": "Raw reader findings by kind.",
+          "type": "object"
+        }
+      },
+      "required": [
+        "reader",
+        "mapping",
+        "mapping_details",
+        "mapping_unnamed",
+        "omitted_rows"
+      ],
+      "type": "object"
+    },
+    "Expenses": {
+      "description": "The project's expenses: how many, and their costs added up.",
+      "properties": {
+        "actual_cost": {
+          "format": "double",
+          "type": "number"
+        },
+        "budgeted_cost": {
+          "format": "double",
+          "type": "number"
+        },
+        "count": {
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "remaining_cost": {
+          "format": "double",
+          "type": "number"
+        }
+      },
+      "required": [
+        "count",
+        "budgeted_cost",
+        "actual_cost",
+        "remaining_cost"
+      ],
+      "type": "object"
+    },
+    "Export": {
+      "properties": {
+        "date": {
+          "description": "Export date from the `ERMHDR` line.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "version": {
+          "description": "P6 version from the `ERMHDR` line.",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "version",
+        "date"
+      ],
+      "type": "object"
+    },
+    "Named": {
+      "properties": {
+        "count": {
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "field": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "field",
+        "message",
+        "count"
+      ],
+      "type": "object"
+    },
+    "Options": {
+      "properties": {
+        "critical": {
+          "type": "string"
+        },
+        "float_type": {
+          "type": "string"
+        },
+        "lag_calendar": {
+          "type": "string"
+        },
+        "make_open_ended_critical": {
+          "type": "boolean"
+        },
+        "multiple_float_paths": {
+          "type": "boolean"
+        },
+        "out_of_sequence": {
+          "type": "string"
+        },
+        "ss_lag_from_early_start": {
+          "type": "boolean"
+        },
+        "use_expected_finish": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "out_of_sequence",
+        "lag_calendar",
+        "float_type",
+        "critical",
+        "make_open_ended_critical",
+        "ss_lag_from_early_start",
+        "use_expected_finish",
+        "multiple_float_paths"
+      ],
+      "type": "object"
+    },
+    "Problem": {
+      "description": "One of several problems behind an error.",
+      "properties": {
+        "code": {
+          "description": "Stable code, such as `no-such-activity`.",
+          "type": "string"
+        },
+        "column": {
+          "description": "The column it came from, from 1, for a schedule text file.",
+          "format": "uint",
+          "minimum": 0,
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "depends_on": {
+          "description": "The refused edit this one needed, by its place in the batch.",
+          "format": "uint",
+          "minimum": 0,
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "edit": {
+          "description": "The edit's place in the batch, counting from 1, if it got that far.",
+          "format": "uint",
+          "minimum": 0,
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "hint": {
+          "description": "What to do about it.",
+          "type": "string"
+        },
+        "line": {
+          "description": "The line it came from, from 1, for a schedule text file.",
+          "format": "uint",
+          "minimum": 0,
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "message": {
+          "description": "What's wrong.",
+          "type": "string"
+        },
+        "source": {
+          "description": "Where it came from: a flag and its text, `edit 3` for an item of a\nlist, or `line 4` for a table row.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source",
+        "code",
+        "message",
+        "hint"
+      ],
+      "type": "object"
+    },
+    "Project": {
+      "properties": {
+        "activities": {
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "codes": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "The project's project codes: each type's name and the value it holds.",
+          "type": "object"
+        },
+        "data_date": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "expenses": {
+          "$ref": "#/$defs/Expenses"
+        },
+        "finish": {
+          "description": "`PROJECT.scd_end_date`, as stored in the file.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "id": {
+          "format": "uint64",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "must_finish_by": {
+          "description": "`PROJECT.plan_end_date`.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "options": {
+          "$ref": "#/$defs/Options"
+        },
+        "relationships": {
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "short_name": {
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/$defs/StatusCounts"
+        },
+        "wbs_nodes": {
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "short_name",
+        "name",
+        "data_date",
+        "must_finish_by",
+        "finish",
+        "activities",
+        "status",
+        "relationships",
+        "wbs_nodes",
+        "expenses",
+        "codes",
+        "options"
+      ],
+      "type": "object"
+    },
+    "Report": {
+      "description": "`totalfloat.inspect/1`.",
+      "properties": {
+        "activity_code_types_total": {
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "activity_codes": {
+          "description": "Code types, up to [`MAX_LISTED`].",
+          "items": {
+            "$ref": "#/$defs/CodeType"
+          },
+          "type": "array"
+        },
+        "activity_udfs": {
+          "description": "Activity user-defined fields, up to [`MAX_LISTED`], by label.",
+          "items": {
+            "$ref": "#/$defs/Udf"
+          },
+          "type": "array"
+        },
+        "activity_udfs_total": {
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "bytes": {
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "calendars": {
+          "items": {
+            "$ref": "#/$defs/Calendar"
+          },
+          "type": "array"
+        },
+        "cost_accounts": {
+          "items": {
+            "$ref": "#/$defs/Resource"
+          },
+          "type": "array"
+        },
+        "cost_accounts_total": {
+          "description": "Cost accounts in the file, up to [`MAX_LISTED`], each by its path in\n`short_name` (`totalfloat_edit::cost_account_path`), which edits take.",
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "diagnostics": {
+          "$ref": "#/$defs/Diagnostics"
+        },
+        "encoding": {
+          "type": "string"
+        },
+        "export": {
+          "$ref": "#/$defs/Export"
+        },
+        "file": {
+          "type": "string"
+        },
+        "line_ending": {
+          "type": "string"
+        },
+        "project_code_types_total": {
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "project_codes": {
+          "description": "Project code types, up to [`MAX_LISTED`].",
+          "items": {
+            "$ref": "#/$defs/CodeType"
+          },
+          "type": "array"
+        },
+        "projects": {
+          "items": {
+            "$ref": "#/$defs/Project"
+          },
+          "type": "array"
+        },
+        "resources": {
+          "items": {
+            "$ref": "#/$defs/Resource"
+          },
+          "type": "array"
+        },
+        "resources_total": {
+          "description": "Resources in the file, up to [`MAX_LISTED`].",
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "roles": {
+          "items": {
+            "$ref": "#/$defs/Resource"
+          },
+          "type": "array"
+        },
+        "roles_total": {
+          "description": "Roles in the file, up to [`MAX_LISTED`], by short name as `resources`.",
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "schema": {
+          "const": "totalfloat.inspect/1",
+          "type": "string"
+        },
+        "tables": {
+          "items": {
+            "$ref": "#/$defs/Table"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "schema",
+        "file",
+        "bytes",
+        "encoding",
+        "line_ending",
+        "export",
+        "projects",
+        "tables",
+        "calendars",
+        "activity_code_types_total",
+        "activity_codes",
+        "project_code_types_total",
+        "project_codes",
+        "activity_udfs_total",
+        "activity_udfs",
+        "resources_total",
+        "resources",
+        "roles_total",
+        "roles",
+        "cost_accounts_total",
+        "cost_accounts",
+        "diagnostics"
+      ],
+      "type": "object"
+    },
+    "Resource": {
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "short_name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "short_name",
+        "name"
+      ],
+      "type": "object"
+    },
+    "StatusCounts": {
+      "properties": {
+        "completed": {
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "in_progress": {
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "not_started": {
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "not_started",
+        "in_progress",
+        "completed"
+      ],
+      "type": "object"
+    },
+    "Table": {
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "rows": {
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "name",
+        "rows"
+      ],
+      "type": "object"
+    },
+    "Udf": {
+      "description": "A user-defined field.",
+      "properties": {
+        "data_type": {
+          "description": "`text`, `start-date`, `finish-date`, `cost`, `number`, `integer`,\n`indicator`, `code`, or another `UDFTYPE.logical_data_type` as written.",
+          "type": "string"
+        },
+        "label": {
+          "description": "XER: `UDFTYPE.udf_type_label`.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "label",
+        "data_type"
+      ],
+      "type": "object"
+    }
+  },
+  "$id": "totalfloat.summary/1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "`totalfloat.summary/1`, `GET /api/1/summary`: what's served, and\n`inspect`'s report on it.",
+  "properties": {
+    "branch": {
+      "description": "The branch shown, on a store; null for a file, a baseline or a\nchangeset.",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "calculated": {
+      "description": "Whether the schedule could be calculated.",
+      "type": "boolean"
+    },
+    "calculation_refused": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/CliError"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Why it couldn't be, when it couldn't."
+    },
+    "head": {
+      "description": "The changeset shown, on a store.",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "inspect": {
+      "$ref": "#/$defs/Report",
+      "description": "`inspect --json`'s report."
+    },
+    "location": {
+      "description": "The file or store served, as given.",
+      "type": "string"
+    },
+    "portfolio": {
+      "description": "The portfolio file served, when `serve` was given one; its schedules\nare shown read-only, one at a time.",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "schema": {
+      "const": "totalfloat.summary/1",
+      "type": "string"
+    },
+    "writable": {
+      "description": "Whether edits can be made: a branch of a store.",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "schema",
+    "location",
+    "branch",
+    "head",
+    "writable",
+    "calculated",
+    "inspect"
+  ],
+  "title": "totalfloat.summary/1",
+  "type": "object"
+}

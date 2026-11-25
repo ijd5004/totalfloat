@@ -1,0 +1,24 @@
+---
+source: crates/cli/tests/history.rs
+expression: clean(stdout)
+---
+changeset 8b42e0c693091650633c9c3170ec6b11e6e0b68729dbb56ca1f6bd9d617ff1ce
+import by Pat (human) at 2026-11-02T09:00:00Z
+named main
+
+    As submitted
+
+commands: {
+  "import": {
+    "file": "plant.xer"
+  }
+}
+report: {
+  "projects": [
+    {
+      "activities": 2,
+      "code": "rel-fs-positive",
+      "id": 1
+    }
+  ]
+}

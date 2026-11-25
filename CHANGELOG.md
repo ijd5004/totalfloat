@@ -1,0 +1,58 @@
+# Changelog
+
+## v0.1.0
+
+The first release. TotalFloat is a single program that reads, schedules, checks, edits and writes Primavera P6 `.xer` files, as well as Microsoft Project XML files, from the command line or through an MCP server for AI agents. P6 doesn't need to be installed. Its calculation rules are its own, written down with their public sources. This release is for Linux (x86-64) and Windows (x86-64); a macOS build is coming soon.
+
+### What it does
+
+- **Reads and writes XER files losslessly.** A file read and written back is byte-identical, and an edit changes only the cells it touches.
+- **Schedules.** `schedule` calculates dates, float and the critical path of a file's projects, honouring the scheduling settings it holds:
+  - calendars;
+  - constraints, with unstarted work held at the data date when a mandatory date falls before it;
+  - the Retained Logic and Progress Override out-of-sequence modes;
+  - level-of-effort and WBS-summary activities, and resource-dependent ones on a single resource calendar;
+  - linked projects;
+  - multiple float paths, numbered by TotalFloat's own rule, which `schedule --float-paths` also asks for in one run.
+- **Explains dates.** For any date, it says which link, constraint or calendar set it.
+- **Edits and builds schedules.** You can:
+  - add, change and delete activities, links, constraints and assignments, and add resources;
+  - give a resource a limit in units per hour, from the command line, JSON, MCP, spreadsheets or schedule text;
+  - book assignment and expense costs to cost accounts;
+  - change many activities at once with expressions such as `remaining_duration=original_duration*0.5` or `constraint_date=early_start+5d`;
+  - record progress and recalculate at a new data date, where a units percent splits the units of each labor and nonlabor assignment;
+  - write timesheets of each team member's work for a period, and apply the hours and progress they fill in;
+  - export a sheet, change it in a spreadsheet, and read the changes back with `edit --from-sheet`;
+  - start a new schedule, or build one from a spreadsheet.
+- **Checks quality.** It runs the DCMA 14-point assessment plus further checks, including P6's stored thresholds. `check --html` writes a page to send on.
+- **Compares two updates.** It reports what changed, what moved and what's worth a look. `variance` also writes Markdown and an HTML page.
+- **Moves schedules to and from Microsoft Project XML.** Files written by other software import with their tasks, links, resources and assignments. Exports are checked against Microsoft's published schema and read back through MPXJ.
+- **Reports and portfolios.**
+  - Report templates, resource usage, and costs by cost account.
+  - Filters with "any of" groups, in `query`, MCP, saved filters and layouts.
+  - An EPS view of several projects.
+  - A Monte Carlo schedule risk analysis.
+- **Keeps history.** It records changes, branches, proposals and merges, and keeps schedules as text in git.
+- **Works with your agent.** `totalfloat mcp` serves the same reports to any MCP client. The core never calls a model and never phones home.
+- **A local browser app, as a preview.** `totalfloat serve` shows a schedule as a grid and Gantt chart, and the release binary has the app built in. It shows driving paths, explanations, a network view and risk, and it has:
+  - grouping by up to four levels, kept in layouts, and "any of" groups in the filter builder;
+  - a Usage panel showing a resource's units per week or month against its limit;
+  - a History panel that draws branches, merges, baselines and proposals as a graph, with a PROPOSAL tag that reads in the dark theme;
+  - editing of names, durations, calendars, constraints and actual dates in the grid, with a Changes panel listing every edit waiting and what they do together.
+
+  The [serve guide](docs/guide/serve.md) says who can reach the app and which keys do what. Activities and links are added from the command line or an agent; the app can't add them yet.
+
+### How far to trust it
+
+- **Confirm dates before you commit to them.** TotalFloat's dates can differ from the ones another scheduler stored in the same file; `schedule` lists where. The [limitations](docs/guide/limitations.md) say what isn't handled yet, and what TotalFloat refuses rather than guess.
+- **Its rules are written down.** Each calculation rule written so far is in [docs/rules](docs/rules/README.md), with the sources it rests on.
+- **Resource leveling isn't there yet.** Resources can have limits, and the Usage panel marks periods over them, but nothing levels.
+- **XER is the stable format.** TotalFloat's own files (history stores, `.tfs` schedule text, layouts and saved filters) and its JSON output may change before 1.0.
+- **Files pass XER Tools' integrity checks** ([record](docs/validation/xertools-2.2b.md)). Importing them into other tools hasn't been verified.
+- **[What TotalFloat supports](docs/guide/supported.md)** lists its features by area, with what each doesn't do yet.
+
+### Install
+
+Download the Linux (x86-64) or Windows (x86-64) archive from the release, check it against `SHA256SUMS`, and put `totalfloat` on your `PATH`. The Windows build needs no Visual C++ Redistributable. On macOS, build from source for now; the source build passes the tests on all three. See the [install guide](docs/guide/install.md).
+
+Oracle, Primavera and Primavera P6 are trademarks of Oracle and/or its affiliates. Microsoft and Microsoft Project are trademarks of the Microsoft group of companies. TotalFloat is an independent project and is not affiliated with or endorsed by Oracle or Microsoft.

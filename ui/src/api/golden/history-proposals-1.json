@@ -1,0 +1,19 @@
+{
+  "proposals": [
+    {
+      "author": "Pat",
+      "author_kind": "human",
+      "created": "2026-11-02T09:00:00Z",
+      "for_branch": "main",
+      "id": "0404040404040404040404040404040404040404040404040404040404040404",
+      "impact": "rel-fs-positive finish 2026-01-15 09:00 to 2026-01-15 17:00",
+      "name": "proposal/main/0404040404",
+      "parent": "0101010101010101010101010101010101010101010101010101010101010101",
+      "reason": "Crane late",
+      "short_id": "0404040404",
+      "who": "Pat"
+    }
+  ],
+  "schema": "totalfloat.history-proposals/1",
+  "store": "plant.tfdb"
+}

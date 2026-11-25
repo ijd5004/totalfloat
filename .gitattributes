@@ -1,0 +1,18 @@
+# Schedule files are compared byte for byte (ARCHITECTURE.md, Lossless round trips): never convert their
+# line endings or encoding on checkout.
+*.xer binary
+*.XER binary
+
+# Batch specs, hashes and generated instructions must match on every OS.
+fixtures/xer/batches/**/*.toml text eol=lf
+fixtures/xer/batches/**/*.md text eol=lf
+xtask/src/fixtures/batch-readme.md text eol=lf
+fixtures/xer/validation/**/*.md text eol=lf
+
+# Golden examples of the API's answers are compared byte for byte too.
+ui/src/api/golden/*.json text eol=lf
+
+# Published schemas and golden documents are compared byte for byte with what
+# the code writes.
+docs/schemas/*.json text eol=lf
+crates/edit/tests/golden/*.json text eol=lf

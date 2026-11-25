@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "totalfloat.history-branch/1",
+  "title": "totalfloat history branch --json",
+  "description": "A branch made, or deleted.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "branch", "deleted", "at"],
+  "properties": {
+    "schema": { "const": "totalfloat.history-branch/1" },
+    "branch": { "type": "string" },
+    "deleted": { "type": "boolean" },
+    "at": { "type": ["string", "null"], "description": "The changeset it starts at, by short ID; null when deleted." }
+  }
+}

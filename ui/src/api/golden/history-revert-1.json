@@ -1,0 +1,76 @@
+{
+  "impact": {
+    "from": "plant.tfdb@main",
+    "incomplete": [],
+    "projects": [
+      {
+        "added": [],
+        "became_critical": [],
+        "changed": [
+          {
+            "changes": [
+              {
+                "category": "duration",
+                "field": "original_duration",
+                "from": "40h",
+                "to": "32h"
+              },
+              {
+                "category": "duration",
+                "field": "remaining_duration",
+                "from": "40h",
+                "to": "32h"
+              }
+            ],
+            "code": "A2"
+          }
+        ],
+        "counts": {
+          "added": 0,
+          "became_critical": 0,
+          "changed": 1,
+          "deleted": 0,
+          "findings": 1,
+          "left_critical": 0,
+          "links_added": 0,
+          "links_changed": 0,
+          "links_deleted": 0,
+          "milestones_moved": 0
+        },
+        "deleted": [],
+        "findings": [
+          {
+            "detail": "remaining duration went from 40h to 32h with no progress",
+            "kind": "critical-duration-cut",
+            "subject": "A2"
+          }
+        ],
+        "left_critical": [],
+        "links_added": [],
+        "links_changed": [],
+        "links_deleted": [],
+        "milestones_moved": [],
+        "project": {
+          "code": "rel-fs-positive",
+          "finish_moved_hours": -8.0,
+          "from_data_date": "2026-01-12 08:00",
+          "from_finish": "2026-01-15 17:00",
+          "to_data_date": "2026-01-12 08:00",
+          "to_finish": "2026-01-15 09:00"
+        }
+      }
+    ],
+    "schema": "totalfloat.diff/1",
+    "to": "plant.tfdb@revert",
+    "unmatched_from": [],
+    "unmatched_to": []
+  },
+  "recorded": {
+    "branch": "main",
+    "id": "0505050505050505050505050505050505050505050505050505050505050505",
+    "short_id": "0505050505"
+  },
+  "replayed": [],
+  "reverted": "0404040404040404040404040404040404040404040404040404040404040404",
+  "schema": "totalfloat.history-revert/1"
+}

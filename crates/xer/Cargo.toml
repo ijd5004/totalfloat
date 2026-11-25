@@ -1,0 +1,22 @@
+[package]
+name = "totalfloat-xer"
+description = "Lossless Primavera P6 XER codec for TotalFloat"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+
+[dependencies]
+totalfloat-model.workspace = true
+encoding_rs.workspace = true
+sha2.workspace = true
+thiserror.workspace = true
+
+[dev-dependencies]
+proptest.workspace = true
+toml.workspace = true
+
+[lints]
+workspace = true

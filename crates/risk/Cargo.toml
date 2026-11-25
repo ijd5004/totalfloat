@@ -1,0 +1,17 @@
+[package]
+name = "totalfloat-risk"
+description = "Monte Carlo schedule risk for TotalFloat: three-point estimates sampled through the deterministic engine"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+
+[dependencies]
+totalfloat-model.workspace = true
+totalfloat-engine.workspace = true
+thiserror.workspace = true
+
+[lints]
+workspace = true

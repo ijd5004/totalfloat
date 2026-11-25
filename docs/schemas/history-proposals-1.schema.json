@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "totalfloat.history-proposals/1",
+  "title": "totalfloat history proposals --json",
+  "description": "Proposed changesets waiting for review, each with who made it and its headline impact.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "store",
+    "proposals"
+  ],
+  "$defs": {
+    "proposal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "id",
+        "short_id",
+        "author",
+        "author_kind",
+        "who",
+        "created",
+        "reason",
+        "for_branch",
+        "parent",
+        "impact"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Its ref, proposal/<branch>/<short id>."
+        },
+        "id": {
+          "type": "string"
+        },
+        "short_id": {
+          "type": "string"
+        },
+        "author": {
+          "type": "string"
+        },
+        "author_kind": {
+          "enum": [
+            "human",
+            "agent"
+          ]
+        },
+        "created": {
+          "type": "string"
+        },
+        "reason": {
+          "type": "string"
+        },
+        "for_branch": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The branch it was proposed for."
+        },
+        "parent": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The point it was proposed from."
+        },
+        "impact": {
+          "type": "string",
+          "description": "How each project's finish moved, from its stored report."
+        },
+        "who": {
+          "type": "string",
+          "description": "Who proposed it, marked (agent) for an agent."
+        }
+      }
+    }
+  },
+  "properties": {
+    "schema": {
+      "const": "totalfloat.history-proposals/1"
+    },
+    "store": {
+      "type": "string"
+    },
+    "proposals": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/proposal"
+      }
+    }
+  }
+}

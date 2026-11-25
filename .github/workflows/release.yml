@@ -1,0 +1,172 @@
+name: Release
+
+# A version tag builds every platform and publishes a GitHub release. A tag with
+# a hyphen, such as v0.1.0-rc.1, is a pre-release. See docs/RELEASING.md.
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: read
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+    name: build (${{ matrix.target }})
+    # Releases are built in the public repository only (docs/RELEASING.md).
+    if: github.repository == 'ijd5004/totalfloat'
+    strategy:
+      fail-fast: false
+      matrix:
+        # Linux and Windows. macOS (macos-latest, aarch64-apple-darwin) built
+        # and passed the smoke test below; add it back here to release it.
+        include:
+          - os: ubuntu-latest
+            target: x86_64-unknown-linux-gnu
+          - os: windows-latest
+            target: x86_64-pc-windows-msvc
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v7
+      # The web app compiles into the binary (ARCHITECTURE.md, Local app), so build it first.
+      # pnpm's version comes from ui/package.json's packageManager.
+      - uses: pnpm/action-setup@v6
+        with:
+          package_json_file: ui/package.json
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: ui/.node-version
+          cache: pnpm
+          cache-dependency-path: ui/pnpm-lock.yaml
+      - run: rustup toolchain install
+      - uses: Swatinem/rust-cache@v2
+      - run: cargo xtask ui
+      - run: cargo build --release --locked --package totalfloat-cli
+      - name: Package
+        shell: bash
+        run: |
+          stem="totalfloat-${GITHUB_REF_NAME}-${{ matrix.target }}"
+          mkdir -p "dist/$stem"
+          cp LICENSE README.md "dist/$stem/"
+          if [ "$RUNNER_OS" = "Windows" ]; then
+            cp target/release/totalfloat.exe "dist/$stem/"
+            (cd dist && 7z a "$stem.zip" "$stem" > /dev/null)
+          else
+            cp target/release/totalfloat "dist/$stem/"
+            tar -C dist -czf "dist/$stem.tar.gz" "$stem"
+          fi
+          rm -r "dist/$stem"
+      # Unpack the archive on its own OS and use it the way a user would.
+      - name: Smoke test the archive
+        shell: bash
+        run: |
+          set -euo pipefail
+          stem="totalfloat-${GITHUB_REF_NAME}-${{ matrix.target }}"
+          fixture="$PWD/fixtures/xer/anonymize-clean.expected.xer"
+          mkdir smoke && cd smoke
+          if [ "$RUNNER_OS" = "Windows" ]; then
+            7z x "../dist/$stem.zip" > /dev/null
+            tf="$PWD/$stem/totalfloat.exe"
+          else
+            tar -xzf "../dist/$stem.tar.gz"
+            tf="$PWD/$stem/totalfloat"
+          fi
+          if [ "$RUNNER_OS" = "Windows" ]; then
+            # A clean Windows has no Visual C++ Redistributable, so the exe
+            # must link the C runtime statically.
+            vswhere="/c/Program Files (x86)/Microsoft Visual Studio/Installer/vswhere.exe"
+            dumpbin=$("$vswhere" -latest -products '*' -find 'VC/Tools/MSVC/**/bin/Hostx64/x64/dumpbin.exe' | head -n 1 | tr -d '\r')
+            "$dumpbin" -nologo -dependents "$tf" | tee imports.txt
+            grep -qi 'kernel32\.dll' imports.txt
+            if grep -Ei 'vcruntime140|msvcp140' imports.txt; then
+              echo "::error::totalfloat.exe needs the Visual C++ Redistributable"
+              exit 1
+            fi
+          fi
+          "$tf" --version | tee version.txt
+          # A pre-release tag's binary reports the version without its suffix.
+          version="${GITHUB_REF_NAME#v}"
+          grep -qx "totalfloat ${version%%-*}" version.txt
+          "$tf" inspect "$fixture"
+          "$tf" schedule "$fixture" -o scheduled.xer
+          "$tf" inspect scheduled.xer > /dev/null
+          "$tf" new --code SMOKE --name Smoke --data-date "2026-01-05 08:00" -o new.xer
+          "$tf" schedule new.xer
+          printf '%s\n' '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-06-18","capabilities":{},"clientInfo":{"name":"smoke","version":"0"}}}' \
+            | "$tf" mcp | tee mcp.txt
+          grep -q '"serverInfo"' mcp.txt
+          # serve prints a sign-in link; follow it and check the app is built in.
+          "$tf" serve "$fixture" --port 8471 > serve.txt 2>&1 &
+          server=$!
+          for _ in $(seq 60); do grep -q token= serve.txt && break; sleep 1; done
+          link=$(grep -o 'http://127.0.0.1:8471/?token=[0-9a-f]*' serve.txt)
+          curl -fsSL -c jar -b jar "$link" > page.html
+          kill "$server" || true
+          grep -q '<div id="root">' page.html
+      - uses: actions/upload-artifact@v7
+        with:
+          name: ${{ matrix.target }}
+          path: dist/*
+          if-no-files-found: error
+
+  sbom:
+    name: sbom
+    if: github.repository == 'ijd5004/totalfloat'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - run: rustup toolchain install
+      - run: cargo install cargo-cyclonedx --version 0.5.9 --locked
+      - run: cargo cyclonedx --format json --manifest-path crates/cli/Cargo.toml
+      - name: Name the SBOM
+        run: |
+          mkdir dist
+          cp crates/cli/totalfloat-cli.cdx.json "dist/totalfloat-${GITHUB_REF_NAME}.cdx.json"
+      - uses: actions/upload-artifact@v7
+        with:
+          name: sbom
+          path: dist/*
+          if-no-files-found: error
+
+  release:
+    name: release
+    needs: [build, sbom]
+    runs-on: ubuntu-latest
+    permissions:
+      # Creates the release.
+      contents: write
+      # Signs attestations, which GitHub offers only on public repositories here.
+      id-token: write
+      attestations: write
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          path: dist
+          merge-multiple: true
+      - name: Checksums
+        working-directory: dist
+        run: sha256sum * > SHA256SUMS
+      - name: Attest build provenance
+        if: ${{ !github.event.repository.private }}
+        uses: actions/attest-build-provenance@v4
+        with:
+          subject-path: dist/*
+      - name: Attest the SBOM
+        if: ${{ !github.event.repository.private }}
+        uses: actions/attest-sbom@v4
+        with:
+          subject-path: dist/*.tar.gz
+          sbom-path: dist/totalfloat-${{ github.ref_name }}.cdx.json
+      - name: Note skipped attestations
+        if: ${{ github.event.repository.private }}
+        run: echo "::notice::Attestations skipped because the repository is private."
+      - name: Publish
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          flags=(--generate-notes --verify-tag)
+          case "$GITHUB_REF_NAME" in *-*) flags+=(--prerelease) ;; esac
+          gh release create "$GITHUB_REF_NAME" dist/* --repo "$REPO" "${flags[@]}"

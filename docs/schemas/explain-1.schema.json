@@ -1,0 +1,261 @@
+{
+  "$defs": {
+    "ActivityReport": {
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "id": {
+          "format": "uint64",
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "code"
+      ],
+      "type": "object"
+    },
+    "Cause": {
+      "description": "What set a date: `kind` names it (`relationship`, `constraint`,\n`duration`, `data-date`, `actual`, ...), and the fields that apply to that\nkind are given.",
+      "properties": {
+        "as_late_as_possible": {
+          "description": "An as-late-as-possible constraint pushed the date as late as `kind` allowed.",
+          "type": "boolean"
+        },
+        "constraint": {
+          "description": "For a constraint: its kind and date.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "date": {
+          "description": "For a constraint or an external date: the date it gave.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "from": {
+          "description": "For a relationship: the activity at its other end (`task_id`) and which of its dates drove this.",
+          "format": "uint64",
+          "minimum": 0,
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "from_field": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "from_role": {
+          "description": "For a relationship: whether the activity at its other end is its\n`predecessor`, as for early dates, or its `successor`, as for late\ndates and dates pushed as late as possible.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "kind": {
+          "type": "string"
+        },
+        "lag_days": {
+          "description": "The lag in days of the calendar the project measures lags on, when\nthat calendar's day is known.",
+          "format": "double",
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "lag_hours": {
+          "format": "double",
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "link": {
+          "description": "For a relationship: `FS`, `SS`, `FF` or `SF`, and the lag applied, in working hours.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "moved_to_working_time": {
+          "description": "The time it gave wasn't working time, so the date moved to the next.",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "kind"
+      ],
+      "type": "object"
+    },
+    "Chain": {
+      "properties": {
+        "date": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "field": {
+          "description": "The date this chain explains.",
+          "type": "string"
+        },
+        "origin": {
+          "description": "What started the chain, such as `data-date`. Null for a chain that\nleaves this project.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "steps": {
+          "items": {
+            "$ref": "#/$defs/Step"
+          },
+          "type": "array"
+        },
+        "total_steps": {
+          "description": "Steps in the whole chain, which can be more than `steps` holds.",
+          "format": "uint",
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "field",
+        "date",
+        "origin",
+        "total_steps",
+        "steps"
+      ],
+      "type": "object"
+    },
+    "Step": {
+      "properties": {
+        "activity": {
+          "format": "uint64",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "cause": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Cause"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "What set this date, for an app to put in its own words; `text` says\nthe same for a person reading the report."
+        },
+        "code": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "date": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "field": {
+          "description": "Which of the activity's dates this step is, such as `early_finish`.",
+          "type": "string"
+        },
+        "hours_per_day": {
+          "description": "The working hours in a day of the activity's calendar, for putting\nspans and lags in days. Absent for an activity outside the schedule.",
+          "format": "double",
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "relationship": {
+          "description": "The relationship that drove this date (`TASKPRED.task_pred_id`), when\none did.",
+          "format": "uint64",
+          "minimum": 0,
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "text": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "activity",
+        "code",
+        "field",
+        "date",
+        "text"
+      ],
+      "type": "object"
+    }
+  },
+  "$id": "totalfloat.explain/1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "`totalfloat.explain/1`.",
+  "properties": {
+    "activity": {
+      "$ref": "#/$defs/ActivityReport"
+    },
+    "chains": {
+      "description": "One chain, or for total float one for each date it compares.",
+      "items": {
+        "$ref": "#/$defs/Chain"
+      },
+      "type": "array"
+    },
+    "field": {
+      "type": "string"
+    },
+    "file": {
+      "type": "string"
+    },
+    "project": {
+      "format": "uint64",
+      "minimum": 0,
+      "type": "integer"
+    },
+    "schema": {
+      "const": "totalfloat.explain/1",
+      "type": "string"
+    },
+    "total_float_hours": {
+      "description": "Calculated total float, for `total_float`.",
+      "format": "double",
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "true_total_float_hours": {
+      "description": "True float where a calendar gap makes it differ from `total_float_hours`\n(TF-032).",
+      "format": "double",
+      "type": [
+        "number",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "schema",
+    "file",
+    "project",
+    "activity",
+    "field",
+    "total_float_hours",
+    "chains"
+  ],
+  "title": "totalfloat.explain/1",
+  "type": "object"
+}

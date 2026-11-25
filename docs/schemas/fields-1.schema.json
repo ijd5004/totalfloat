@@ -1,0 +1,88 @@
+{
+  "$defs": {
+    "CodeValue": {
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "value",
+        "description"
+      ],
+      "type": "object"
+    },
+    "FieldCodes": {
+      "description": "An activity code type and every value it has.",
+      "properties": {
+        "name": {
+          "description": "XER: `ACTVTYPE.actv_code_type`.",
+          "type": "string"
+        },
+        "values": {
+          "description": "In the code type's sequence.",
+          "items": {
+            "$ref": "#/$defs/CodeValue"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "name",
+        "values"
+      ],
+      "type": "object"
+    },
+    "Udf": {
+      "description": "A user-defined field.",
+      "properties": {
+        "data_type": {
+          "description": "`text`, `start-date`, `finish-date`, `cost`, `number`, `integer`,\n`indicator`, `code`, or another `UDFTYPE.logical_data_type` as written.",
+          "type": "string"
+        },
+        "label": {
+          "description": "XER: `UDFTYPE.udf_type_label`.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "label",
+        "data_type"
+      ],
+      "type": "object"
+    }
+  },
+  "$id": "totalfloat.fields/1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "`GET /api/1/fields`: every activity code type with all its values in\nsequence, and every activity user-defined field, with no cap, for the\napp's filter builder and Group menu. `inspect` lists at most\n[`MAX_LISTED`] of each.",
+  "properties": {
+    "activity_codes": {
+      "description": "The activity code types, as `inspect` orders them, each with every\nvalue in its sequence.",
+      "items": {
+        "$ref": "#/$defs/FieldCodes"
+      },
+      "type": "array"
+    },
+    "activity_udfs": {
+      "description": "The activity user-defined fields, by label.",
+      "items": {
+        "$ref": "#/$defs/Udf"
+      },
+      "type": "array"
+    },
+    "schema": {
+      "const": "totalfloat.fields/1",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema",
+    "activity_codes",
+    "activity_udfs"
+  ],
+  "title": "totalfloat.fields/1",
+  "type": "object"
+}

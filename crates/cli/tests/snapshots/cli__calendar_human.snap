@@ -1,0 +1,19 @@
+---
+source: crates/cli/tests/cli.rs
+expression: stdout
+---
+Calendar Synthetic five-day workweek (100, global)
+  hours per day: 8
+week:
+  monday                   8h  08:00-12:00, 13:00-17:00
+  tuesday                  8h  08:00-12:00, 13:00-17:00
+  wednesday                8h  08:00-12:00, 13:00-17:00
+  thursday                 8h  08:00-12:00, 13:00-17:00
+  friday                   8h  08:00-12:00, 13:00-17:00
+  saturday                 0h  no work
+  sunday                   0h  no work
+exceptions (0):
+days:
+  2026-01-02 fri           8h  08:00-12:00, 13:00-17:00
+  2026-01-03 sat           0h  no work
+  2026-01-04 sun           0h  no work

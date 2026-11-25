@@ -1,0 +1,38 @@
+---
+source: crates/cli/tests/cli.rs
+expression: clean(&stdout)
+---
+# Variance: <dir>/now.xer against <dir>/base.xer
+
+Variances are the baseline less the current date, in working hours, so negative is late.
+
+## rel-fs-positive
+
+Data date 2026-01-12 08:00 · baseline <dir>/base.xer, data date 2026-01-12 08:00
+
+| Date | Current | Baseline | Variance |
+| --- | --- | --- | --- |
+| Project finish | 2026-01-20 17:00 | 2026-01-13 17:00 | -36h |
+
+### Changes
+
+| Change | Count |
+| --- | --- |
+| Activities added | 1 |
+| Activities deleted | 0 |
+| Relationships changed | 1 |
+| Durations changed | 1 |
+| Constraints changed | 0 |
+| Became critical | 0 |
+| Left critical | 0 |
+
+### Largest slips (2)
+
+| Activity ID | Activity name | Current | Baseline | Variance |
+| --- | --- | --- | --- | --- |
+| A2 | Synthetic activity 2 | 2026-01-20 17:00 | 2026-01-13 17:00 | -112h |
+| A1 | Synthetic activity 1 | 2026-01-19 17:00 | 2026-01-12 17:00 | -40h |
+
+### Largest float erosion
+
+None listed.

@@ -1,0 +1,33 @@
+---
+source: crates/cli/tests/report.rs
+expression: stdout
+---
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Look-ahead: work starting in the next 21 days</title>
+<style>body{font-family:system-ui,sans-serif;margin:2rem;color:#1d2433}table{border-collapse:collapse;margin:0.5rem 0 1.5rem}th,td{border:1px solid #c9ced8;padding:0.25rem 0.6rem;text-align:left}th{background:#eef1f5}p{color:#4b5465}</style>
+</head>
+<body>
+<h1>Look-ahead: work starting in the next 21 days</h1>
+<p>plan.xer · data date 2026-03-02 08:00 · 5 activities</p>
+<h2>WBS path: PLANT.CIV (4)</h2>
+<table>
+<thead><tr><th>Activity ID</th><th>Activity name</th><th>Status</th><th>Early start</th><th>Early finish</th><th>Total float hours</th></tr></thead>
+<tbody>
+<tr><td>A1010</td><td>Excavate</td><td>not-started</td><td>2026-03-02 08:00</td><td>2026-03-06 17:00</td><td>0.0</td></tr>
+<tr><td>A1040</td><td>Survey</td><td>not-started</td><td>2026-03-02 08:00</td><td>2026-03-03 17:00</td><td>208.0</td></tr>
+<tr><td>A1020</td><td>Pour foundations</td><td>not-started</td><td>2026-03-09 08:00</td><td>2026-03-20 17:00</td><td>0.0</td></tr>
+<tr><td>A1030</td><td>Cure, then strip | forms</td><td>not-started</td><td>2026-03-23 08:00</td><td>2026-03-31 17:00</td><td>0.0</td></tr>
+</tbody>
+</table>
+<h2>WBS path: PLANT.MEC (1)</h2>
+<table>
+<thead><tr><th>Activity ID</th><th>Activity name</th><th>Status</th><th>Early start</th><th>Early finish</th><th>Total float hours</th></tr></thead>
+<tbody>
+<tr><td>A2010</td><td>Order pumps</td><td>not-started</td><td>2026-03-02 08:00</td><td>2026-03-04 17:00</td><td>152.0</td></tr>
+</tbody>
+</table>
+</body>
+</html>

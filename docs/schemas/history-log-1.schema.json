@@ -1,0 +1,116 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "totalfloat.history-log/1",
+  "title": "totalfloat history log --json",
+  "description": "A branch's changesets, newest first, through first parents; or with --all every changeset in the store, newest first, proposals and rejected ones included.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "store",
+    "branch",
+    "head",
+    "changesets"
+  ],
+  "$defs": {
+    "entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "short_id",
+        "parent",
+        "kind",
+        "state",
+        "author",
+        "author_kind",
+        "message",
+        "created",
+        "summary"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "short_id": {
+          "type": "string"
+        },
+        "parent": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "second_parent": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "A merge's second parent: the head of the branch merged in. Null for every other changeset."
+        },
+        "kind": {
+          "enum": [
+            "import",
+            "edit",
+            "revert",
+            "merge"
+          ]
+        },
+        "state": {
+          "enum": [
+            "accepted",
+            "proposed",
+            "rejected"
+          ]
+        },
+        "author": {
+          "type": "string"
+        },
+        "author_kind": {
+          "enum": [
+            "human",
+            "agent"
+          ]
+        },
+        "message": {
+          "type": "string"
+        },
+        "created": {
+          "type": "string"
+        },
+        "summary": {
+          "type": "string",
+          "description": "One line for what it did, from its commands, in plain words: its title when it has no message."
+        }
+      }
+    }
+  },
+  "properties": {
+    "schema": {
+      "const": "totalfloat.history-log/1"
+    },
+    "store": {
+      "type": "string"
+    },
+    "branch": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "The branch whose line this is; null with --all."
+    },
+    "head": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "That branch's head; null with --all."
+    },
+    "changesets": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/entry"
+      }
+    }
+  }
+}

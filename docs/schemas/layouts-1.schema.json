@@ -1,0 +1,66 @@
+{
+  "$defs": {
+    "Deleted": {
+      "description": "`DELETE /api/1/layouts/{name}`: the layout is gone.",
+      "properties": {
+        "deleted": {
+          "const": true,
+          "type": "boolean"
+        },
+        "schema": {
+          "const": "totalfloat.layouts/1",
+          "type": "string"
+        }
+      },
+      "required": [
+        "schema",
+        "deleted"
+      ],
+      "type": "object"
+    },
+    "Listing": {
+      "description": "`GET /api/1/layouts`: the layouts saved, by name.",
+      "properties": {
+        "layouts": {
+          "items": {
+            "$ref": "#/$defs/Named"
+          },
+          "type": "array"
+        },
+        "schema": {
+          "const": "totalfloat.layouts/1",
+          "type": "string"
+        }
+      },
+      "required": [
+        "schema",
+        "layouts"
+      ],
+      "type": "object"
+    },
+    "Named": {
+      "properties": {
+        "name": {
+          "description": "The file's name in the layouts folder, without `.json`.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "type": "object"
+    }
+  },
+  "$id": "totalfloat.layouts/1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "anyOf": [
+    {
+      "$ref": "#/$defs/Listing"
+    },
+    {
+      "$ref": "#/$defs/Deleted"
+    }
+  ],
+  "description": "`totalfloat.layouts/1`: the folder listed, or a layout deleted.",
+  "title": "totalfloat.layouts/1"
+}

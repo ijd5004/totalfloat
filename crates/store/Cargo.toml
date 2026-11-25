@@ -1,0 +1,21 @@
+[package]
+name = "totalfloat-store"
+description = "History store for TotalFloat: changesets, refs and file snapshots in one SQLite file"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+
+[dependencies]
+flate2.workspace = true
+rusqlite.workspace = true
+sha2.workspace = true
+thiserror.workspace = true
+
+[dev-dependencies]
+tempfile.workspace = true
+
+[lints]
+workspace = true

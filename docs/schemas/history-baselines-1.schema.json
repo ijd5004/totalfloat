@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "totalfloat.history-baselines/1",
+  "title": "totalfloat history baselines --json",
+  "description": "A store's baselines: named points that never move.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "store", "baselines"],
+  "$defs": {
+    "baseline": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "at", "short_id", "created", "author", "point"],
+      "properties": {
+        "name": { "type": "string" },
+        "at": { "type": "string", "description": "The changeset it names." },
+        "short_id": { "type": "string" },
+        "created": { "type": "string", "description": "When that changeset was recorded." },
+        "author": { "type": "string" },
+        "point": { "type": "string", "description": "That changeset's reason, or a summary of its commands." }
+      }
+    }
+  },
+  "properties": {
+    "schema": { "const": "totalfloat.history-baselines/1" },
+    "store": { "type": "string" },
+    "baselines": { "type": "array", "items": { "$ref": "#/$defs/baseline" } }
+  }
+}

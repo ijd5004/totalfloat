@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "totalfloat.history-review/1",
+  "title": "totalfloat history accept --json, and history reject --json",
+  "description": "A decision on a proposal. Who decided, when and why is kept with the proposal (see reviews in totalfloat.changeset/1).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "proposal", "state", "branch", "replayed", "recorded"],
+  "properties": {
+    "schema": { "const": "totalfloat.history-review/1" },
+    "proposal": { "type": "string" },
+    "state": { "enum": ["accepted", "rejected"] },
+    "branch": { "type": ["string", "null"] },
+    "replayed": { "type": "boolean", "description": "True if the branch had moved on, so the proposal was replayed on its head as a new changeset." },
+    "recorded": { "type": ["string", "null"], "description": "The changeset now on the branch: the proposal itself, the replayed one, or null." }
+  }
+}

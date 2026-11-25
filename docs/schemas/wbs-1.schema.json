@@ -1,0 +1,87 @@
+{
+  "$defs": {
+    "Node": {
+      "description": "A WBS node and the nodes under it.",
+      "properties": {
+        "children": {
+          "description": "In `seq_num` order, then by code.",
+          "items": {
+            "$ref": "#/$defs/Node"
+          },
+          "type": "array"
+        },
+        "code": {
+          "description": "`PROJWBS.wbs_short_name`.",
+          "type": "string"
+        },
+        "id": {
+          "description": "`PROJWBS.wbs_id`.",
+          "format": "uint64",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "name": {
+          "description": "`PROJWBS.wbs_name`.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "code",
+        "name",
+        "children"
+      ],
+      "type": "object"
+    },
+    "ProjectWbs": {
+      "description": "One project's WBS.",
+      "properties": {
+        "code": {
+          "description": "`PROJECT.proj_short_name`.",
+          "type": "string"
+        },
+        "nodes": {
+          "description": "The top nodes, usually the project's own.",
+          "items": {
+            "$ref": "#/$defs/Node"
+          },
+          "type": "array"
+        },
+        "project": {
+          "description": "`PROJECT.proj_id`.",
+          "format": "uint64",
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "project",
+        "code",
+        "nodes"
+      ],
+      "type": "object"
+    }
+  },
+  "$id": "totalfloat.wbs/1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "`totalfloat.wbs/1`, `GET /api/1/wbs`: each project's WBS tree.",
+  "properties": {
+    "projects": {
+      "description": "In the order the file lists the projects.",
+      "items": {
+        "$ref": "#/$defs/ProjectWbs"
+      },
+      "type": "array"
+    },
+    "schema": {
+      "const": "totalfloat.wbs/1",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema",
+    "projects"
+  ],
+  "title": "totalfloat.wbs/1",
+  "type": "object"
+}

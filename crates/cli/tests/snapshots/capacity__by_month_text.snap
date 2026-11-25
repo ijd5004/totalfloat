@@ -1,0 +1,7 @@
+---
+source: crates/cli/tests/capacity.rs
+expression: stdout
+---
+Resources, by month:
+  CREW Synthetic labor: 320 hours over 4 assignments, over in 1 period; most in the one starting 2026-01-01: 320 against 176 (SYN1 in a.xer 160, SYN1 in b.xer 160)
+    2026-01-01         320         176  over

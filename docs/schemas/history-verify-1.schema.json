@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "totalfloat.history-verify/1",
+  "title": "totalfloat history verify --json",
+  "description": "A store checked: damage found, and with --replay where replaying each recorded edit today gives a different file from the one recorded.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "store", "damage", "replay"],
+  "properties": {
+    "schema": { "const": "totalfloat.history-verify/1" },
+    "store": { "type": "string" },
+    "damage": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["subject", "problem"],
+        "properties": {
+          "subject": { "type": "string", "description": "A changeset ID, file hash or ref name." },
+          "problem": { "type": "string" }
+        }
+      }
+    },
+    "replay": {
+      "type": ["object", "null"],
+      "description": "Null without --replay, or when damage stopped it.",
+      "additionalProperties": false,
+      "required": ["checked", "differing"],
+      "properties": {
+        "checked": { "type": "integer", "minimum": 0 },
+        "differing": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "short_id", "tool_version", "summary"],
+            "properties": {
+              "id": { "type": "string" },
+              "short_id": { "type": "string" },
+              "tool_version": { "type": "string", "description": "The TotalFloat version that recorded it." },
+              "summary": { "type": "string" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

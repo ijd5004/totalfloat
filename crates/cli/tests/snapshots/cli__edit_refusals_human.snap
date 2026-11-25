@@ -1,0 +1,16 @@
+---
+source: crates/cli/tests/cli.rs
+expression: stderr
+---
+error[edits-refused]: 5 of 5 edits were refused, so nothing was changed
+  --duration A1=soon: soon isn't a valid span
+    hint: use the form 15d, 120h, 2w, 1m or 1y, with - for a lead
+  --add B1;New;NOWBS;2d: no WBS node has the code NOWBS
+    hint: `query --columns code,wbs` shows WBS codes
+  --duration A9=2d: no project holds A9
+    hint: did you mean A1 or A2? use Activity IDs from `query`; a link to another project names it PROJECT:CODE
+  --name A3=x: no project holds A3
+    hint: did you mean A1 or A2? use Activity IDs from `query`; a link to another project names it PROJECT:CODE
+  --link A1>B1: no activity has the ID B1
+    needs --add B1;New;NOWBS;2d, which was refused
+  hint: correct them and run again; each has its own hint

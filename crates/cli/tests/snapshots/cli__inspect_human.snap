@@ -1,0 +1,53 @@
+---
+source: crates/cli/tests/cli.rs
+expression: stdout
+---
+../../fixtures/xer/model-mapping.xer (4523 bytes, windows-1252, LF)
+XER version 23.12, exported 2026-01-01
+
+projects (2):
+  1 SYN1 "Synthetic Project One": data date 2026-01-05 08:00; 2 activities, 3 relationships, 2 WBS nodes
+    status: 1 not started, 1 in progress, 0 completed
+    finish 2026-01-30 17:00
+    must finish by 2026-02-01 17:00
+    options: retained-logic; lag calendar predecessor; finish float; critical total-float<=1.5h; multiple float paths
+  2 SYN2 "Synthetic Project Two": data date 2026-01-05 08:00; 1 activities, 1 relationships, 1 WBS nodes
+    status: 1 not started, 0 in progress, 0 completed
+    finish 2026-01-29 17:00
+    options: progress-override; lag calendar successor; finish float; critical longest-path; multiple float paths
+
+tables (13):
+  CALENDAR              1
+  PROJECT               2
+  SCHEDOPTIONS          2
+  PROJWBS               3
+  TASK                  3
+  TASKPRED              3
+  RSRC                  3
+  TASKRSRC              2
+  ACTVTYPE              2
+  ACTVCODE              3
+  TASKACTV              2
+  UDFTYPE               5
+  UDFVALUE              5
+
+calendars (1):
+  10 Synthetic workweek (global)
+
+activity codes (2):
+  Synthetic global codes: A, CHILD
+  Synthetic local codes: B
+
+activity fields (1):
+  Synthetic task number (number)
+
+resources (3):
+  GROUP Synthetic parent resource
+  R1 Synthetic labor
+  R2 Synthetic material
+
+diagnostics:
+  reader: none
+  mapping: UnconfirmedOption 2
+    UnconfirmedOption sched_outer_depend_type: external relationship option is not confirmed; model default retained (TF-008) (2)
+  rows left out of the model: 0

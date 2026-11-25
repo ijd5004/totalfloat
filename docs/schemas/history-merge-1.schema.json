@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "totalfloat.history-merge/1",
+  "title": "totalfloat history merge --json",
+  "description": "Another branch's edits brought onto the checked-out branch. Conflicts refuse the merge with a totalfloat.error/1 document listing each.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "branch", "from", "base", "fast_forward", "replayed", "recorded", "impact"],
+  "properties": {
+    "schema": { "const": "totalfloat.history-merge/1" },
+    "branch": { "type": "string", "description": "The checked-out branch merged into." },
+    "from": { "type": "string", "description": "The branch merged in." },
+    "base": { "type": "string", "description": "The latest changeset both share." },
+    "fast_forward": { "type": "boolean", "description": "True if the branch only moved forward to the other's head, recording nothing new." },
+    "replayed": { "type": "array", "items": { "type": "string" }, "description": "The other branch's changesets replayed, oldest first." },
+    "recorded": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "required": ["id", "short_id", "branch"],
+      "properties": {
+        "id": { "type": "string" },
+        "short_id": { "type": "string" },
+        "branch": { "type": "string" }
+      }
+    },
+    "impact": { "type": ["object", "null"], "description": "A totalfloat.diff/1 report from the branch head to the merged file, or null." }
+  }
+}

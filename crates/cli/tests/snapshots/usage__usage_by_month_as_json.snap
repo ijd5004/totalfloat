@@ -1,0 +1,37 @@
+---
+source: crates/cli/tests/usage.rs
+expression: stdout
+---
+{
+  "schema": "totalfloat.usage/1",
+  "file": "../../fixtures/xer/usage.xer",
+  "resource": {
+    "short_name": "CREW",
+    "name": "Synthetic labor"
+  },
+  "by": "month",
+  "unit": "hours",
+  "limits": [
+    {
+      "from": null,
+      "units_per_hour": 1.0
+    }
+  ],
+  "periods": [
+    {
+      "start": "2026-01-01",
+      "actual": 16.0,
+      "remaining": 144.0,
+      "total": 160.0,
+      "limit": 176.0,
+      "over": false
+    }
+  ],
+  "totals": {
+    "actual": 16.0,
+    "remaining": 144.0,
+    "total": 160.0
+  },
+  "assignments": 2,
+  "not_spread": []
+}

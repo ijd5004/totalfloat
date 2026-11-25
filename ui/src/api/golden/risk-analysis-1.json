@@ -1,0 +1,132 @@
+{
+  "criticality": [
+    {
+      "code": "A1",
+      "name": "Synthetic activity 1",
+      "value": 1.0
+    },
+    {
+      "code": "A2",
+      "name": "Synthetic activity 2",
+      "value": 1.0
+    }
+  ],
+  "criticality_total": 2,
+  "cumulative": [
+    {
+      "date": "2026-01-14",
+      "probability": 0.14
+    },
+    {
+      "date": "2026-01-15",
+      "probability": 1.0
+    }
+  ],
+  "deterministic_finish": "2026-01-15 09:00",
+  "deterministic_probability": 0.25,
+  "earliest_finish": "2026-01-14 22:16",
+  "file": "plant.tfdb",
+  "iterations": 200,
+  "latest_finish": "2026-01-15 17:39",
+  "mean_finish": "2026-01-15 09:51",
+  "milestones": [],
+  "percentiles": [
+    {
+      "finish": "2026-01-14 23:10",
+      "p": 5
+    },
+    {
+      "finish": "2026-01-14 23:38",
+      "p": 10
+    },
+    {
+      "finish": "2026-01-15 08:25",
+      "p": 15
+    },
+    {
+      "finish": "2026-01-15 08:44",
+      "p": 20
+    },
+    {
+      "finish": "2026-01-15 08:59",
+      "p": 25
+    },
+    {
+      "finish": "2026-01-15 09:22",
+      "p": 30
+    },
+    {
+      "finish": "2026-01-15 09:34",
+      "p": 35
+    },
+    {
+      "finish": "2026-01-15 09:50",
+      "p": 40
+    },
+    {
+      "finish": "2026-01-15 10:07",
+      "p": 45
+    },
+    {
+      "finish": "2026-01-15 10:35",
+      "p": 50
+    },
+    {
+      "finish": "2026-01-15 11:21",
+      "p": 55
+    },
+    {
+      "finish": "2026-01-15 11:46",
+      "p": 60
+    },
+    {
+      "finish": "2026-01-15 12:04",
+      "p": 65
+    },
+    {
+      "finish": "2026-01-15 12:28",
+      "p": 70
+    },
+    {
+      "finish": "2026-01-15 12:49",
+      "p": 75
+    },
+    {
+      "finish": "2026-01-15 13:08",
+      "p": 80
+    },
+    {
+      "finish": "2026-01-15 13:40",
+      "p": 85
+    },
+    {
+      "finish": "2026-01-15 14:14",
+      "p": 90
+    },
+    {
+      "finish": "2026-01-15 15:13",
+      "p": 95
+    }
+  ],
+  "project": "rel-fs-positive",
+  "project_id": 1,
+  "risks": [],
+  "sampled_activities": 2,
+  "schema": "totalfloat.risk-analysis/1",
+  "seed": 1,
+  "sensitivity": [
+    {
+      "code": "A2",
+      "name": "Synthetic activity 2",
+      "value": 0.9709
+    },
+    {
+      "code": "A1",
+      "name": "Synthetic activity 1",
+      "value": 0.1962
+    }
+  ],
+  "set_by_expected_finish": [],
+  "standard_deviation_days": 0.1954,
+  "target": null
+}

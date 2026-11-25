@@ -1,0 +1,28 @@
+name: Calculation difference
+description: TotalFloat calculates something differently from the results stored in a schedule file, or a rule needs writing.
+labels: ["type:research", "area:engine"]
+body:
+  - type: textarea
+    id: observed
+    attributes:
+      label: What differs
+      description: Which fields differ, and roughly how many activities. If it comes from a real file you can share, see CONTRIBUTING.md, "Donating schedules".
+    validations:
+      required: true
+  - type: textarea
+    id: options
+    attributes:
+      label: Schedule options and activity properties involved
+      description: e.g. retained logic, lag calendar, activity type, constraint types, progress state.
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: A synthetic fixture, activity IDs in a corpus file or a file you can share, or public sources (docs/rules/README.md). Don't attach confidential files here.
+    validations:
+      required: true
+  - type: textarea
+    id: hypothesis
+    attributes:
+      label: Proposed rule
+      description: What rule should TotalFloat apply, and which public source or design reason supports it?

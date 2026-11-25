@@ -1,0 +1,5 @@
+---
+source: crates/cli/tests/cli.rs
+expression: stdout
+---
+A1 early finish 2026-01-13 17:00: expected finish

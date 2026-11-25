@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "totalfloat.fmt/1",
+  "title": "totalfloat fmt --json",
+  "description": "Schedule text files rewritten in the canonical layout, or with check, the ones that would be. A file that can't be read gives totalfloat.error/1 with code text-not-readable and each problem.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "check", "changed"],
+  "properties": {
+    "schema": { "const": "totalfloat.fmt/1" },
+    "check": { "type": "boolean", "description": "Whether this was --check, which changes nothing." },
+    "changed": { "type": "array", "items": { "type": "string" }, "description": "The files rewritten, or with check, the ones that would change." }
+  }
+}

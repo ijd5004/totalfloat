@@ -1,0 +1,28 @@
+[package]
+name = "xtask"
+description = "TotalFloat developer tooling (`cargo xtask …`)"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+publish = false
+
+[dependencies]
+clap.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+sha2.workspace = true
+toml.workspace = true
+totalfloat-model.workspace = true
+totalfloat-engine.workspace = true
+totalfloat-interop.workspace = true
+totalfloat-xer.workspace = true
+
+[dev-dependencies]
+totalfloat-calendar.workspace = true
+tempfile.workspace = true
+
+[lints]
+workspace = true

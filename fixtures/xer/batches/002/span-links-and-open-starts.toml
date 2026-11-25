@@ -1,0 +1,76 @@
+schema = 1
+seed = 2003
+export_date = "2026-01-01"
+data_date = "2026-01-12 08:00"
+description = "Level of effort with no start link, a level of effort linked to another, and spans under a late deadline (TF-027); no stored results"
+
+[[calendars]]
+id = 220
+name = "Authored five-day week"
+weekdays = [1, 2, 3, 4, 5]
+intervals = ["08:00-12:00", "13:00-17:00"]
+
+[[activities]]
+id = 1
+name = "Authored first work"
+calendar = 220
+kind = "task"
+duration = 2400
+
+[[activities]]
+id = 2
+name = "Authored second work"
+calendar = 220
+kind = "task"
+duration = 2400
+
+[[activities]]
+id = 3
+name = "Authored level of effort with only a finish link"
+calendar = 220
+kind = "loe"
+duration = 960
+
+[[activities]]
+id = 4
+name = "Authored level of effort across both"
+calendar = 220
+kind = "loe"
+duration = 4800
+
+[[activities]]
+id = 5
+name = "Authored level of effort following another"
+calendar = 220
+kind = "loe"
+duration = 960
+
+[[relationships]]
+predecessor = 1
+successor = 2
+kind = "fs"
+lag = 0
+
+[[relationships]]
+predecessor = 3
+successor = 1
+kind = "ff"
+lag = 0
+
+[[relationships]]
+predecessor = 1
+successor = 4
+kind = "ss"
+lag = 0
+
+[[relationships]]
+predecessor = 4
+successor = 2
+kind = "ff"
+lag = 0
+
+[[relationships]]
+predecessor = 4
+successor = 5
+kind = "fs"
+lag = 0

@@ -1,0 +1,6 @@
+---
+source: crates/cli/tests/cli.rs
+expression: stdout
+---
+B1 early start 2026-02-27 16:00: SS with -1h lag on the successor calendar from activity 101 (outside this project) actual start
+activity 101 (outside this project) actual start no date: not recorded here

@@ -1,0 +1,52 @@
+---
+source: crates/cli/tests/schedule_log.rs
+expression: log
+---
+TotalFloat scheduling log
+File: progressed.xer
+
+Project PLANT (1): New Plant
+
+Settings
+  Data date: 2026-03-06 08:00
+  Out-of-sequence progress: retained logic
+  Calendar for lags: the predecessor's
+  Total float: finish float
+  Critical: total float of 0h or less
+  Open-ended activities critical: no
+  Start-to-start lag counted from: the predecessor's early start
+  Expected finish dates used: yes
+  Relationships to other projects: counted
+  Float from each project's own finish: yes
+  Planned dates set to the forecast: no
+  Multiple float paths: no
+
+Statistics
+  Activities: 5 (not started 3, in progress 2, completed 0)
+  Milestones: 1
+  Level of effort and WBS summary activities: 0
+  Relationships: 3 (to or from other projects: 0)
+  Activities with constraints: 1
+
+Problems
+  Unfinished activities without predecessors (2):
+    A1010  Excavate
+    A1040  Survey
+  Unfinished activities without successors (2):
+    A1040  Survey
+    M100  Civil complete
+  Out-of-sequence progress (1):
+    A1010 FS A1020: A1020 has progress before A1010 allows it
+  Actual dates after the data date: none
+  Constraints (1):
+    A1030: primary finish-on-or-before 2026-03-16 17:00
+  Unfinished activities with negative float (3):
+    A1010: total float -104h
+    A1020: total float -104h
+    A1030: total float -104h
+  External dates from other projects: none
+
+Results
+  Start: 2026-03-02 08:00
+  Finish: 2026-04-02 17:00 (before this run: 2026-04-02 17:00)
+  Critical activities: 4

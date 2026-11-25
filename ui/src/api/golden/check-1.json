@@ -1,0 +1,201 @@
+{
+  "failed": 3,
+  "file": "plant.tfdb",
+  "projects": [
+    {
+      "checks": [
+        {
+          "id": "dcma-01-logic",
+          "listed": [
+            "A1",
+            "A2"
+          ],
+          "measure": "100.0%, limit 5%",
+          "name": "Logic",
+          "offenders": 2,
+          "outcome": "fail",
+          "population": 2
+        },
+        {
+          "id": "dcma-02-leads",
+          "listed": [],
+          "measure": "0.0%, limit 0%",
+          "name": "Leads",
+          "offenders": 0,
+          "outcome": "pass",
+          "population": 1
+        },
+        {
+          "id": "dcma-03-lags",
+          "listed": [
+            "A1 to A2"
+          ],
+          "measure": "100.0%, limit 5%",
+          "name": "Lags",
+          "offenders": 1,
+          "outcome": "fail",
+          "population": 1
+        },
+        {
+          "id": "dcma-04-relationship-types",
+          "listed": [],
+          "measure": "0.0%, limit 10%",
+          "name": "Relationship types",
+          "offenders": 0,
+          "outcome": "pass",
+          "population": 1
+        },
+        {
+          "id": "dcma-05-hard-constraints",
+          "listed": [],
+          "measure": "0.0%, limit 5%",
+          "name": "Hard constraints",
+          "offenders": 0,
+          "outcome": "pass",
+          "population": 2
+        },
+        {
+          "id": "dcma-06-high-float",
+          "listed": [],
+          "measure": "0.0%, limit 5%",
+          "name": "High float",
+          "offenders": 0,
+          "outcome": "pass",
+          "population": 2
+        },
+        {
+          "id": "dcma-07-negative-float",
+          "listed": [],
+          "measure": "0.0%, limit 0%",
+          "name": "Negative float",
+          "offenders": 0,
+          "outcome": "pass",
+          "population": 2
+        },
+        {
+          "id": "dcma-08-high-duration",
+          "listed": [],
+          "measure": "0.0%, limit 5%",
+          "name": "High duration",
+          "offenders": 0,
+          "outcome": "pass",
+          "population": 2
+        },
+        {
+          "id": "dcma-09-invalid-dates",
+          "listed": [],
+          "measure": "0.0%, limit 0%",
+          "name": "Invalid dates",
+          "offenders": 0,
+          "outcome": "pass",
+          "population": 2
+        },
+        {
+          "id": "dcma-10-resources",
+          "listed": [
+            "A1",
+            "A2"
+          ],
+          "measure": "100.0%, limit 0%",
+          "name": "Resources",
+          "offenders": 2,
+          "outcome": "fail",
+          "population": 2
+        },
+        {
+          "id": "dcma-11-missed-tasks",
+          "listed": [],
+          "measure": "the file holds no baseline",
+          "name": "Missed tasks",
+          "offenders": 0,
+          "outcome": "not-applicable",
+          "population": 0
+        },
+        {
+          "id": "dcma-12-critical-path-test",
+          "listed": [],
+          "measure": "A1 delayed 600 days: finish 2026-01-15 09:00 to 2028-05-04 09:00",
+          "name": "Critical path test",
+          "offenders": 0,
+          "outcome": "pass",
+          "population": 1
+        },
+        {
+          "id": "dcma-13-cpli",
+          "listed": [],
+          "measure": "the project has no required finish date",
+          "name": "Critical path length index",
+          "offenders": 0,
+          "outcome": "not-applicable",
+          "population": 0
+        },
+        {
+          "id": "dcma-14-bei",
+          "listed": [],
+          "measure": "the file holds no baseline",
+          "name": "Baseline execution index",
+          "offenders": 0,
+          "outcome": "not-applicable",
+          "population": 0
+        },
+        {
+          "id": "open-ends",
+          "listed": [],
+          "measure": "0.0%, limit 0%",
+          "name": "Open ends",
+          "offenders": 0,
+          "outcome": "pass",
+          "population": 2
+        },
+        {
+          "id": "out-of-sequence",
+          "listed": [],
+          "measure": "0.0%, limit 0%",
+          "name": "Out-of-sequence progress",
+          "offenders": 0,
+          "outcome": "pass",
+          "population": 1
+        },
+        {
+          "id": "constraints-overriding-logic",
+          "listed": [],
+          "measure": "0.0%, limit 0%",
+          "name": "Constraints overriding logic",
+          "offenders": 0,
+          "outcome": "pass",
+          "population": 2
+        },
+        {
+          "id": "long-lags",
+          "listed": [],
+          "measure": "0.0%, limit 0%",
+          "name": "Long lags",
+          "offenders": 0,
+          "outcome": "pass",
+          "population": 1
+        },
+        {
+          "id": "start-to-finish",
+          "listed": [],
+          "measure": "0.0%, limit 0%",
+          "name": "Start-to-finish relationships",
+          "offenders": 0,
+          "outcome": "pass",
+          "population": 1
+        },
+        {
+          "id": "calendar-gap-float",
+          "listed": [],
+          "measure": "0.0%, limit 5%",
+          "name": "Float lost to a calendar gap",
+          "offenders": 0,
+          "outcome": "pass",
+          "population": 2
+        }
+      ],
+      "code": "rel-fs-positive",
+      "project": 1
+    }
+  ],
+  "schema": "totalfloat.check/1"
+}

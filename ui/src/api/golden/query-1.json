@@ -1,0 +1,25 @@
+{
+  "columns": [
+    "id",
+    "code",
+    "name"
+  ],
+  "file": "plant.tfdb",
+  "limit": 2,
+  "offset": 0,
+  "returned": 2,
+  "rows": [
+    {
+      "code": "A1",
+      "id": 1,
+      "name": "Synthetic activity 1"
+    },
+    {
+      "code": "A2",
+      "id": 2,
+      "name": "Synthetic activity 2"
+    }
+  ],
+  "schema": "totalfloat.query/1",
+  "total": 2
+}

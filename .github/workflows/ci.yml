@@ -1,0 +1,130 @@
+name: CI
+
+# Minutes are billed, so CI runs once per change. A PR run tests the PR merged
+# with the current main, so main gets no run of its own after each merge.
+# Instead `check` and `ui` run on main daily: that catches two PRs that pass
+# alone but fail together, and saves the build cache that PR runs restore.
+# Draft PRs skip CI until they're marked ready; run `just check` locally.
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+  schedule:
+    # Daily 13:23 UTC (off the hour; GitHub delays top-of-hour runs): `check`
+    # and `ui` on main. The `if:` conditions below match this exact string.
+    - cron: "23 13 * * *"
+    # Mondays 06:00 UTC: the jobs too costly for every change. The `if:`
+    # conditions below match this exact string.
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+env:
+  CARGO_TERM_COLOR: always
+  RUSTFLAGS: -D warnings
+
+jobs:
+  # One job, because each job is billed in whole minutes. fmt comes first since
+  # it's cheapest and needs no build.
+  check:
+    name: check
+    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'pull_request' && !github.event.pull_request.draft) || github.event.schedule == '23 13 * * *'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      # Installs the toolchain and components pinned in rust-toolchain.toml.
+      - run: rustup toolchain install
+      - run: cargo fmt --all -- --check
+      - uses: Swatinem/rust-cache@v2
+      - run: cargo clippy --workspace --all-targets --locked -- -D warnings
+      - run: cargo test --workspace --locked
+
+  # The web app in ui/ (ARCHITECTURE.md, Local app): type check, lint, tests, and the npm
+  # license check against deny.toml's allow-list. One job, ubuntu only, for
+  # the CI budget. The check job above builds without ui/dist/, as a
+  # Rust-only build does.
+  ui:
+    name: ui
+    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'pull_request' && !github.event.pull_request.draft) || github.event.schedule == '23 13 * * *'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      # pnpm's version comes from ui/package.json's packageManager.
+      - uses: pnpm/action-setup@v6
+        with:
+          package_json_file: ui/package.json
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: ui/.node-version
+          cache: pnpm
+          cache-dependency-path: ui/pnpm-lock.yaml
+      - run: rustup toolchain install
+      - uses: Swatinem/rust-cache@v2
+      - run: cargo xtask ui --check --licenses
+      # Build it too, which refuses inline script or style the CSP would block,
+      # and serve it from a binary with it compiled in.
+      - run: cargo xtask ui
+      - run: cargo test --locked -p totalfloat-cli --test serve the_page_is_the_built_app
+
+  # Windows and macOS minutes cost more than Linux minutes, so these run
+  # weekly and on demand.
+  test-other-os:
+    name: test (${{ matrix.os }})
+    if: github.event_name == 'workflow_dispatch' || github.event.schedule == '0 6 * * 1'
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v7
+      - run: rustup toolchain install
+      - uses: Swatinem/rust-cache@v2
+      - run: cargo test --workspace --locked
+        env:
+          # RUSTFLAGS replaces .cargo/config.toml's target rustflags, so repeat
+          # the static C runtime that Windows builds use.
+          RUSTFLAGS: ${{ runner.os == 'Windows' && '-D warnings -C target-feature=+crt-static' || '-D warnings' }}
+
+  bench:
+    name: bench (reports only)
+    # Reports timings in the log. Shared runners are too noisy to fail on.
+    if: github.event_name == 'workflow_dispatch' || github.event.schedule == '0 6 * * 1'
+    continue-on-error: true
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - run: rustup toolchain install
+      - uses: Swatinem/rust-cache@v2
+      - run: cargo bench --package totalfloat-engine --bench schedule --locked
+
+  # Short fuzz runs of the untrusted-input parsers, weekly and on
+  # demand only. Crash inputs are uploaded for reproduction.
+  fuzz:
+    name: fuzz (short)
+    if: github.event_name == 'workflow_dispatch' || github.event.schedule == '0 6 * * 1'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - run: rustup toolchain install nightly --profile minimal
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: fuzz
+      - run: cargo install cargo-fuzz --locked
+      - name: Run each target for 2 minutes
+        working-directory: fuzz
+        run: |
+          mkdir -p corpus/raw_reader corpus/typed_and_model corpus/calendar_data
+          cargo +nightly fuzz run raw_reader corpus/raw_reader ../fixtures/xer -- -max_total_time=120 -max_len=65536
+          cargo +nightly fuzz run typed_and_model corpus/typed_and_model ../fixtures/xer -- -max_total_time=120 -max_len=65536
+          cargo +nightly fuzz run calendar_data corpus/calendar_data seeds/calendar_data -- -max_total_time=120 -max_len=16384
+      - if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: fuzz-artifacts
+          path: fuzz/artifacts

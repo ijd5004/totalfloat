@@ -1,0 +1,7 @@
+---
+source: crates/cli/tests/cli.rs
+expression: stdout
+---
+project  code
+1        A1
+Showing 1-1 of 1

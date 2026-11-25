@@ -1,0 +1,57 @@
+{
+  "by": "week",
+  "file": "portfolio/plan.portfolio.toml",
+  "not_counted": [],
+  "resources": [
+    {
+      "assignments": 2,
+      "name": "Synthetic labor",
+      "not_spread": [],
+      "peak": {
+        "demand": 60.0,
+        "over_by": 20.0,
+        "projects": [
+          {
+            "demand": 60.0,
+            "file": "usage.xer",
+            "project": "SYN1"
+          }
+        ],
+        "start": "2026-01-12",
+        "supply": 40.0
+      },
+      "periods": [
+        {
+          "demand": 16.0,
+          "over": false,
+          "start": "2025-12-29",
+          "supply": 40.0
+        },
+        {
+          "demand": 24.0,
+          "over": false,
+          "start": "2026-01-05",
+          "supply": 40.0
+        },
+        {
+          "demand": 60.0,
+          "over": true,
+          "start": "2026-01-12",
+          "supply": 40.0
+        },
+        {
+          "demand": 60.0,
+          "over": true,
+          "start": "2026-01-19",
+          "supply": 40.0
+        }
+      ],
+      "periods_over": 2,
+      "short_name": "CREW",
+      "total_demand": 160.0,
+      "unit": "hours"
+    }
+  ],
+  "roles": [],
+  "schema": "totalfloat.portfolio-capacity/1"
+}

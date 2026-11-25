@@ -1,0 +1,64 @@
+ERMHDR	23.12	2026-01-01	Project	synthetic	Synthetic fixture	test	Project Management	USD
+%T	CALENDAR
+%F	clndr_id	clndr_name	clndr_type	proj_id	base_clndr_id	default_flag	day_hr_cnt	week_hr_cnt	month_hr_cnt	year_hr_cnt	clndr_data
+%R	10	Synthetic workweek	CA_Base			Y	8	40	160	1920	(0||CalendarData()((0||DaysOfWeek()((0||1()())(0||2()((0||0(s|08:00|f|12:00)())(0||1(s|13:00|f|17:00)())))(0||3()((0||0(s|08:00|f|12:00)())(0||1(s|13:00|f|17:00)())))(0||4()((0||0(s|08:00|f|12:00)())(0||1(s|13:00|f|17:00)())))(0||5()((0||0(s|08:00|f|12:00)())(0||1(s|13:00|f|17:00)())))(0||6()((0||0(s|08:00|f|12:00)())(0||1(s|13:00|f|17:00)())))(0||7()())))(0||Exceptions()())))
+%T	PROJECT
+%F	proj_id	proj_short_name	last_recalc_date	plan_start_date	plan_end_date	clndr_id	critical_path_type	critical_drtn_hr_cnt	scd_end_date
+%R	1	SYN1	2026-01-05 08:00	2026-01-01 08:00	2026-02-01 17:00	10	CT_TotFloat	1.5	2026-01-30 17:00
+%R	2	SYN2	2026-01-05 08:00	2026-01-02 08:00		10	CT_DrivPath		2026-01-29 17:00
+%T	SCHEDOPTIONS
+%F	schedoptions_id	proj_id	sched_retained_logic	sched_progress_override	sched_float_type	sched_calendar_on_relationship_lag	sched_open_critical_flag	sched_lag_early_start_flag	sched_use_expect_end_flag	sched_outer_depend_type	sched_use_project_end_date_for_float	sched_setplantoforecast	enable_multiple_longest_path_calc	use_total_float_multiple_longest_paths	limit_multiple_longest_path_calc	max_multiple_longest_path	key_activity_for_multiple_longest_paths
+%R	1	1	Y	N	FT_FF	rcal_Predecessor	N	Y	Y	SD_Both	Y	N	Y	Y	Y	3	102
+%R	2	2	N	Y	FT_FF	rcal_Successor	N	Y	Y	SD_Both	Y	N	Y	N	Y	3	201
+%T	PROJWBS
+%F	wbs_id	proj_id	parent_wbs_id	wbs_short_name	wbs_name	seq_num	proj_node_flag
+%R	11	1	9999	SYN1	Synthetic Project One	0	Y
+%R	12	1	11	WP	Synthetic Work Package	1	N
+%R	21	2	9999	SYN2	Synthetic Project Two	0	Y
+%T	TASK
+%F	task_id	proj_id	wbs_id	clndr_id	task_code	task_name	task_type	duration_type	complete_pct_type	status_code	target_drtn_hr_cnt	remain_drtn_hr_cnt	phys_complete_pct	target_start_date	target_end_date	act_start_date	act_end_date	suspend_date	resume_date	expect_end_date	cstr_type	cstr_date	cstr_type2	cstr_date2	external_early_start_date	external_late_end_date	early_start_date	early_end_date	late_start_date	late_end_date	restart_date	reend_date	rem_late_start_date	rem_late_end_date	total_float_hr_cnt	free_float_hr_cnt	driving_path_flag	float_path	float_path_order
+%R	101	1	12	10	A1	Synthetic active task	TT_Task	DT_FixedDUR2	CP_Phys	TK_Active	8.0000	4	50	2026-01-01 08:00	2026-01-02 17:00	2026-01-01 08:00				2026-01-10 17:00							2026-01-05 08:00	2026-01-10 17:00	2026-01-06 08:00	2026-01-11 17:00	2026-01-05 08:00	2026-01-10 17:00	2026-01-06 08:00	2026-01-11 17:00	-1.5	0.5	Y	1	1
+%R	102	1	12	10	M1	Synthetic finish milestone	TT_FinMile	DT_FixedDrtn	CP_Drtn	TK_NotStart	0	0									CS_MEOB	2026-02-01 17:00	CS_MSOA	2026-01-20 08:00													N		
+%R	201	2	21	10	B1	Synthetic resource task	TT_Rsrc	DT_FixedRate	CP_Units	TK_NotStart	12.25	12.25													2026-01-01 08:00	2026-02-01 17:00													
+%T	TASKPRED
+%F	task_pred_id	proj_id	task_id	pred_proj_id	pred_task_id	pred_type	lag_hr_cnt
+%R	1001	1	102	1	101	PR_FS	0.5
+%R	1002	2	201	1	101	PR_SS	-1
+%R	1003	1	102	99	999	PR_FF	0
+%T	RSRC
+%F	rsrc_id	rsrc_short_name	rsrc_name	rsrc_type	clndr_id	parent_rsrc_id
+%R	500	GROUP	Synthetic parent resource	RT_Equip		
+%R	501	R1	Synthetic labor	RT_Labor	10	500
+%R	502	R2	Synthetic material	RT_Mat	10	
+%T	TASKRSRC
+%F	taskrsrc_id	proj_id	task_id	rsrc_id
+%R	801	1	101	501
+%R	802	2	201	502
+%T	ACTVTYPE
+%F	actv_code_type_id	actv_code_type	actv_code_type_scope	proj_id	actv_short_len	seq_num
+%R	701	Synthetic global codes	AS_Global		10	1
+%R	702	Synthetic local codes	AS_Project	2	10	1
+%T	ACTVCODE
+%F	actv_code_id	actv_code_type_id	parent_actv_code_id	short_name	actv_code_name	seq_num
+%R	711	701		A	Synthetic value A	1
+%R	712	701	711	CHILD	Synthetic child	2
+%R	721	702		B	Synthetic value B	1
+%T	TASKACTV
+%F	proj_id	task_id	actv_code_type_id	actv_code_id
+%R	1	101	701	711
+%R	2	201	702	721
+%T	UDFTYPE
+%F	udf_type_id	table_name	udf_type_label	logical_data_type
+%R	901	PROJECT	Synthetic project note	FT_TEXT
+%R	902	TASK	Synthetic task number	FT_FLOAT_2_DECIMALS
+%R	903	PROJWBS	Synthetic WBS date	FT_START_DATE
+%R	904	RSRC	Synthetic resource cost	FT_MONEY
+%R	905	TASKRSRC	Synthetic assignment note	FT_TEXT
+%T	UDFVALUE
+%F	udf_type_id	fk_id	proj_id	udf_text	udf_number	udf_date	udf_code_id
+%R	901	1	1	Synthetic note			
+%R	902	101	1		1.25		
+%R	903	12	1			2026-01-05 08:00	
+%R	904	501			2.5		
+%R	905	801	1	Synthetic assignment			
+%E

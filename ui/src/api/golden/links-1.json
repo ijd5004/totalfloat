@@ -1,0 +1,22 @@
+{
+  "count": 1,
+  "driving": [
+    true
+  ],
+  "id": [
+    1
+  ],
+  "lag_hours": [
+    1.0
+  ],
+  "predecessor": [
+    1
+  ],
+  "schema": "totalfloat.links/1",
+  "successor": [
+    2
+  ],
+  "type": [
+    "FS"
+  ]
+}

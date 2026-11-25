@@ -1,0 +1,30 @@
+{
+  "columns": [
+    {
+      "field": "code",
+      "width": 90
+    }
+  ],
+  "filters": {
+    "built": {
+      "code": "Phase=DESIGN",
+      "float_max": "40",
+      "start_from": "2026-01-05 00:00"
+    },
+    "quick": [],
+    "text": ""
+  },
+  "gantt": {
+    "lines": "all",
+    "today": false,
+    "zoom": {
+      "bottom": "day",
+      "px_per_day": 24.0,
+      "top": "month"
+    }
+  },
+  "group": "code:Phase",
+  "schema": "totalfloat.layout/1",
+  "sort": [],
+  "split": 0.5
+}

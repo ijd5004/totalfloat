@@ -1,0 +1,280 @@
+{
+  "$defs": {
+    "RowsSchema": {
+      "const": "totalfloat.rows/1"
+    }
+  },
+  "$id": "totalfloat.rows/1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "`totalfloat.rows/1`: every activity, with the fields the grid shows, one\narray per field so 50,000 rows stay compact. Entry `n` of each array is\nactivity `n`. Activities are in project order, then by `task_id`. Dates\nare `YYYY-MM-DD HH:MM`; spans and floats are working hours.",
+  "properties": {
+    "actual_finish": {
+      "description": "Actual finish.",
+      "items": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "type": "array"
+    },
+    "actual_start": {
+      "description": "Actual start.",
+      "items": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "type": "array"
+    },
+    "calendar": {
+      "description": "Calendar name.",
+      "items": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "type": "array"
+    },
+    "code": {
+      "description": "Activity ID, `TASK.task_code`.",
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "constraint": {
+      "description": "Primary constraint, such as `start-on-or-after`.",
+      "items": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "type": "array"
+    },
+    "constraint_date": {
+      "description": "Primary constraint date.",
+      "items": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "type": "array"
+    },
+    "count": {
+      "description": "How many activities: every array has this many entries.",
+      "format": "uint",
+      "minimum": 0,
+      "type": "integer"
+    },
+    "critical": {
+      "description": "Critical by the project's own definition.",
+      "items": {
+        "type": "boolean"
+      },
+      "type": "array"
+    },
+    "early_finish": {
+      "description": "Calculated early finish.",
+      "items": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "type": "array"
+    },
+    "early_start": {
+      "description": "Calculated early start.",
+      "items": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "type": "array"
+    },
+    "file": {
+      "description": "The location shown.",
+      "type": "string"
+    },
+    "free_float_hours": {
+      "description": "Free float, in hours.",
+      "items": {
+        "format": "double",
+        "type": [
+          "number",
+          "null"
+        ]
+      },
+      "type": "array"
+    },
+    "hours_per_day": {
+      "description": "Working hours in a day for the activity's durations given in days: its\ncalendar's stated hours, or the length of its working days when\nthey're all the same. Null where days can't be used, as for resource\ndependent work, so its spans and float are shown in hours.",
+      "items": {
+        "format": "double",
+        "type": [
+          "number",
+          "null"
+        ]
+      },
+      "type": "array"
+    },
+    "id": {
+      "description": "`TASK.task_id`.",
+      "items": {
+        "format": "uint64",
+        "minimum": 0,
+        "type": "integer"
+      },
+      "type": "array"
+    },
+    "late_finish": {
+      "description": "Calculated late finish.",
+      "items": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "type": "array"
+    },
+    "late_start": {
+      "description": "Calculated late start.",
+      "items": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "type": "array"
+    },
+    "name": {
+      "description": "`TASK.task_name`.",
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "original_duration_hours": {
+      "description": "Original duration, in hours.",
+      "items": {
+        "format": "double",
+        "type": "number"
+      },
+      "type": "array"
+    },
+    "project": {
+      "description": "`PROJECT.proj_id`.",
+      "items": {
+        "format": "uint64",
+        "minimum": 0,
+        "type": "integer"
+      },
+      "type": "array"
+    },
+    "remaining_duration_hours": {
+      "description": "Remaining duration, in hours.",
+      "items": {
+        "format": "double",
+        "type": "number"
+      },
+      "type": "array"
+    },
+    "schema": {
+      "$ref": "#/$defs/RowsSchema",
+      "description": "Always `totalfloat.rows/1`."
+    },
+    "secondary_constraint": {
+      "description": "Secondary constraint.",
+      "items": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "type": "array"
+    },
+    "secondary_constraint_date": {
+      "description": "Secondary constraint date.",
+      "items": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "type": "array"
+    },
+    "status": {
+      "description": "`not-started`, `in-progress` or `completed`.",
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "total_float_hours": {
+      "description": "Total float, in hours.",
+      "items": {
+        "format": "double",
+        "type": [
+          "number",
+          "null"
+        ]
+      },
+      "type": "array"
+    },
+    "type": {
+      "description": "`task`, `resource`, `loe`, `start-milestone`, `finish-milestone` or\n`wbs-summary`.",
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "wbs_path": {
+      "description": "WBS codes from the project's node down, joined with `.`: the WBS path.",
+      "items": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "schema",
+    "file",
+    "count",
+    "project",
+    "id",
+    "code",
+    "name",
+    "wbs_path",
+    "type",
+    "status",
+    "original_duration_hours",
+    "remaining_duration_hours",
+    "early_start",
+    "early_finish",
+    "late_start",
+    "late_finish",
+    "actual_start",
+    "actual_finish",
+    "total_float_hours",
+    "free_float_hours",
+    "critical",
+    "calendar",
+    "hours_per_day",
+    "constraint",
+    "constraint_date",
+    "secondary_constraint",
+    "secondary_constraint_date"
+  ],
+  "title": "totalfloat.rows/1",
+  "type": "object"
+}

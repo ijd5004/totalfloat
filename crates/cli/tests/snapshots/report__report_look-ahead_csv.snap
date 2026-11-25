@@ -1,0 +1,10 @@
+---
+source: crates/cli/tests/report.rs
+expression: stdout
+---
+wbs_path,code,name,status,early_start,early_finish,total_float_hours
+PLANT.CIV,A1010,Excavate,not-started,2026-03-02 08:00,2026-03-06 17:00,0.0
+PLANT.CIV,A1040,Survey,not-started,2026-03-02 08:00,2026-03-03 17:00,208.0
+PLANT.CIV,A1020,Pour foundations,not-started,2026-03-09 08:00,2026-03-20 17:00,0.0
+PLANT.CIV,A1030,"Cure, then strip | forms",not-started,2026-03-23 08:00,2026-03-31 17:00,0.0
+PLANT.MEC,A2010,Order pumps,not-started,2026-03-02 08:00,2026-03-04 17:00,152.0

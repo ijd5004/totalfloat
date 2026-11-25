@@ -1,0 +1,110 @@
+---
+source: crates/cli/tests/cli.rs
+expression: doc
+---
+{
+  "file": "../../fixtures/xer/fresh-writer.xer",
+  "output": null,
+  "projects": [
+    {
+      "activities": 2,
+      "activity_finish": null,
+      "changed_activities": 2,
+      "changed_dates_or_float": 2,
+      "changes": {
+        "activities": [
+          {
+            "code": "TF-001",
+            "fields": [
+              {
+                "field": "early_start",
+                "from": null,
+                "to": "2026-01-05 08:00"
+              },
+              {
+                "field": "early_finish",
+                "from": null,
+                "to": "2026-01-05 17:00"
+              },
+              {
+                "field": "late_start",
+                "from": null,
+                "to": "2026-01-05 08:00"
+              },
+              {
+                "field": "late_finish",
+                "from": null,
+                "to": "2026-01-05 17:00"
+              },
+              {
+                "field": "total_float",
+                "from": null,
+                "to": "0h"
+              }
+            ],
+            "name": "Synthetic work"
+          },
+          {
+            "code": "TF-002",
+            "fields": [
+              {
+                "field": "late_start",
+                "from": null,
+                "to": "2026-01-05 17:00"
+              },
+              {
+                "field": "late_finish",
+                "from": null,
+                "to": "2026-01-05 17:00"
+              },
+              {
+                "field": "total_float",
+                "from": null,
+                "to": "0h"
+              },
+              {
+                "field": "early_start",
+                "from": null,
+                "to": "2026-01-05 17:00"
+              },
+              {
+                "field": "early_finish",
+                "from": null,
+                "to": "2026-01-05 17:00"
+              }
+            ],
+            "name": "Synthetic finish milestone"
+          }
+        ],
+        "by_field": {
+          "early_finish": 2,
+          "early_start": 2,
+          "free_float": 2,
+          "late_finish": 2,
+          "late_start": 2,
+          "longest_path": 2,
+          "planned_finish": 2,
+          "planned_start": 2,
+          "remaining_early_finish": 2,
+          "remaining_early_start": 2,
+          "remaining_late_finish": 2,
+          "remaining_late_start": 2,
+          "total_float": 2
+        },
+        "starts_at": [
+          "TF-001",
+          "TF-002"
+        ],
+        "starts_at_total": 2
+      },
+      "code": "TF-FRESH",
+      "critical": 2,
+      "data_date": "2026-01-05 08:00",
+      "id": 1,
+      "previous_finish": null,
+      "scheduled_finish": "2026-01-05 17:00"
+    }
+  ],
+  "schema": "totalfloat.schedule/1",
+  "skipped_projects": 0
+}
